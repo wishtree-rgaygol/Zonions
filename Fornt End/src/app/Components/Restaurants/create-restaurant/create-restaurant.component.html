@@ -1,0 +1,111 @@
+
+            <h3 style="text-align: center;">Add Restaurant</h3>
+            <div class="container">
+                <!-- <form #Registerform="ngForm" (ngSubmit)="onSubmit()"> -->
+                    <form #Registerform="ngForm">
+                    
+                    <div class="form-group">
+
+                        <label for="restName"> Restaurant name<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Enter Restaurant name" name="restName"
+                            [(ngModel)]="restaurant.restName" required pattern="^[a-zA-Z ]*$" required #restName="ngModel"
+                            [class.is-invalid]="restName.invalid && restName.touched">
+                        <div *ngIf="restName.errors && restName.invalid && restName.touched">
+                            <small class="text-danger" *ngIf="restName.errors.required">Restaurant name is Required</small>
+                            <small class="text-danger" *ngIf="restName.errors.pattern">Enter valid Restaurant name</small>
+                        </div>
+                    </div>
+            
+
+                    <div class="form-group">
+                        <label for="address"> Restaurant Address<span style="color:red">*</span></label>
+                        <textarea class="form-control" name="Address" required #address="ngModel"
+                            [(ngModel)]="restaurant.address" placeholder="Enter Restaurant address"
+                            [class.is-invalid]="address.invalid && address.touched">
+                            <div *ngIf="address.errors && address.invalid && address.touched">
+                                <small class="text-danger" *ngIf="address.errors.required">Restaurant Address is Required</small>
+                            </div>       
+                        </textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="phoneNo"> Restaurant Phone Number<span style="color:red">*</span></label>
+                        <input type="number" class="form-control" placeholder="Enter Contact Details" name="phoneNo"
+                            [(ngModel)]="restaurant.phoneNo" required pattern="[789][0-9]{9}" required #phoneNo="ngModel"
+                            [class.is-invalid]="phoneNo.invalid && phoneNo.touched">
+                        <div *ngIf="phoneNo.errors && phoneNo.invalid && phoneNo.touched">
+                            <small class="text-danger" *ngIf="phoneNo.errors.required">Restaurant Number is Required</small>
+                            <small class="text-danger" *ngIf="phoneNo.errors.pattern">Enter valid number</small>
+                        </div>
+                    </div> 
+
+
+                    <div class="form-group">
+                        <label for="active"> Restaurant Status<span style="color:red">*</span></label>&nbsp; &nbsp;
+                        <label><input type=checkbox name=active  [(ngModel)]="restaurant.active"> Active</label>
+                    </div>
+
+                </form>
+            </div>
+
+
+
+
+
+
+        <div class="container row">
+            <div class="col-md-12">
+                <h5>Upload Menu</h5>
+            </div>
+        </div>
+        <br>
+        <div class="container row">
+            <div class="col-md-6">
+                <input type="file" (change)="onFileChanged($event)">
+
+            </div>
+            <div class="col-md-6">
+                <!-- <input type="button" (click)="onUpload()" value="upload"> -->
+                <button (click)="onUpload()" value="upload" class="btn btn-primary">Upload</button>
+            </div>
+        </div>
+        <hr />
+     
+        <div class="row" *ngIf=message>
+            <div class="col-xs-12">
+                <p class="alert alert-success">
+                    <strong>{{message}}</strong>
+                </p>
+            </div>
+        </div>
+        <div class="container">
+            <label for="openTime"> Opening Time of Restaurant<span style="color:red">*</span></label>
+            <ngb-timepicker [(ngModel)]="opentime"></ngb-timepicker>
+            <hr>   
+        </div>
+
+
+        <div class="container">
+        <label for="openTime"> Closing Time of Restaurant<span style="color:red">*</span></label>
+            <ngb-timepicker [(ngModel)]="closetime"></ngb-timepicker>
+            <hr>
+        </div>
+
+
+
+        <button [disabled]="Registerform.form.invalid" type="submit" (click)="onSubmit()" class="btn btn-info">Submit</button>
+
+        <div class="row" *ngIf="submitted">
+            <div class="col-xs-12">
+                <p class="alert alert-success">
+                    <strong>Submitted Successfully</strong>
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+

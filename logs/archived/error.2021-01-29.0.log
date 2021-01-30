@@ -1,0 +1,14 @@
+2021-01-29 15:57:54 [http-nio-8080-exec-2] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource
+2021-01-29 16:10:15 [http-nio-8080-exec-1] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource
+2021-01-29 16:11:52 [http-nio-8080-exec-3] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource
+2021-01-29 16:14:57 [http-nio-8080-exec-1] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource
+2021-01-29 16:15:25 [http-nio-8080-exec-3] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource
+2021-01-29 16:15:35 [http-nio-8080-exec-5] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource
+2021-01-29 16:16:00 [http-nio-8080-exec-7] ERROR c.m.R.security.jwt.AuthEntryPointJwt -
+				Unauthorized error: Full authentication is required to access this resource

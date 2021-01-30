@@ -1,0 +1,6 @@
+spring:
+  profiles: production
+server:
+  port: 8082
+application:
+  current-profile: production

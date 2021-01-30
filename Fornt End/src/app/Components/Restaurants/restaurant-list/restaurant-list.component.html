@@ -1,0 +1,34 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2 style="text-align: center;">Restaurant List</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Restaurant Name</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+         <ng-container *ngFor="let r of restaurants | async">        
+          <tr>
+            <td>{{r.restName}}</td>
+            <td>{{r.address}}</td>
+            <td>{{r.phoneNo}}</td>
+            <td> 
+            <button (click)="restaurantDetails(r.id)" class="btn btn-sm btn-info">
+              <i class="fa fa-search"></i>Details</button>
+            <button (click)="updateRestaurant(r.id)" class="btn btn-sm btn-warning">
+              <i class="fa fa-edit"></i>Edit</button>
+            <button (click)="deleteRestaurant(r.id)" class="btn btn-sm btn-danger">
+              <i class="fa fa-remove"></i>Delete</button>
+            </td>
+          </tr>
+        </ng-container>  
+        </tbody>
+      </table>
+    </div>
+  </div>
