@@ -1,0 +1,24 @@
+{
+    "home" : {
+        "title": "எனது உணவக பயன்பாட்டிற்கு வருக- Tamil version"
+    },
+    "Username":"பயனர்பெயர்",
+    "Password":"கடவுச்சொல்",
+    "Login":"உள்நுழைய",
+    "Email":"மின்னஞ்சல்",
+	"Select Role":"பாத்திரத்தைத் தேர்ந்தெடுக்கவும்",
+    "Sign Up":"பதிவுபெறுக",
+    "Please Select Role":"தயவுசெய்து பாத்திரத்தைத் தேர்ந்தெடுக்கவும்",
+    "Register":"பதிவு",
+    "Username is required":"பயனர்பெயர் தேவை",
+    "Username must be at least 3 characters":"பயனர்பெயர் குறைந்தது 3 எழுத்துகளாக இருக்க வேண்டும்",
+    "Email is required":"மின்னஞ்சல் தேவை",
+    "Email must be a valid email address":"மின்னஞ்சல் சரியான மின்னஞ்சல் முகவரியாக இருக்க வேண்டும்",
+    "Password is required":"கடவுச்சொல் தேவை",
+	"Password must be at least 6 characters":"கடவுச்சொல் குறைந்தது 6 எழுத்துகளாக இருக்க வேண்டும்",
+	"Signup failed":"கடவுச்சொல் குறைந்தது 6 எழுத்துகளாக இருக்க வேண்டும்",
+    "Your registration is successful":"உங்கள் பதிவு வெற்றிகரமாக உள்ளது",
+    "Login failed":"உள்நுழைவு தோல்வியுற்றது"
+
+    
+}

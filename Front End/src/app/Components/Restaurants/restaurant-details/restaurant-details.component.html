@@ -1,0 +1,51 @@
+<h2 style="text-align: center;">Restaurant Details</h2>
+<div>
+  <table class="table">
+    <tr>
+      <th>Restaurant Name</th>
+      <td>{{restaurant.restName}}</td>
+    </tr>
+
+    <tr>
+      <th>Address</th>
+      <td>{{restaurant.address}}</td>
+    </tr>
+
+    <tr>
+      <th>Contact Detail</th>
+      <td>{{restaurant.phoneNo}}</td>
+    </tr>
+
+    <tr>
+      <th>Opening Time</th>
+      <td>{{restaurant.openTime}}</td>
+    </tr>
+
+    <tr>
+      <th>Closing Time</th>
+      <td>{{restaurant.closeTime}}</td>
+    </tr>
+
+    <tr *ngIf="isActive">
+      <th>Status</th>
+      <td>OPEN</td>
+    </tr>
+
+    <tr *ngIf="!isActive">
+      <th>Status</th>
+      <td>CLOSED</td>
+    </tr>
+
+    <tr>
+      <th>Last Modified Time</th>
+      <td>{{restaurant.lastModifiedTime | slice:0:8}}</td>
+    </tr>
+    <tr>
+      <th>Restaurant Menu</th>
+      <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
+    </tr>
+  </table>
+
+  <br>
+  <br>
+  <button (click)="revert()" class="btn btn-primary">Back to Active Restaurants</button><br>

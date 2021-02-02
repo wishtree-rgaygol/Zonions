@@ -1,0 +1,23 @@
+{
+    "home" : {
+        "title": "Bienvenue dans mon application Restaurant -French version"
+    },
+    "Username":"Nom d'utilisateur",
+    "Password":"Mot de passe",
+    "Login":"S'identifier",
+    "Email":"Email",
+	"Select Role":"Sélectionnez un rôle",
+    "Sign Up":"Signer",
+    "Please Select Role":"Veuillez sélectionner un rôle",
+    "Register":"S'inscrire",
+    "Username is required":"Nom d'utilisateur est nécessaire",
+    "Username must be at least 3 characters":"Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "Email is required":"Le courriel est requis",
+    "Email must be a valid email address":"L'e-mail doit être une adresse e-mail valide",
+    "Password is required":"Mot de passe requis",
+	"Password must be at least 6 characters":"Le mot de passe doit être au moins de 6 caractères",
+	"Signup failed":"Inscription échouée",
+    "Your registration is successful":"Votre inscription est réussie",
+    "Login failed":"Échec de la connexion"
+
+}

@@ -1,0 +1,26 @@
+{
+	"home": {
+		"subheader": "",
+		"title": "मेरे रेस्तरां आवेदन में आपका स्वागत है- Hindi version",
+		"welcomeback": ""
+	},
+	"Username":"उपयोगकर्ता नाम",
+	"Username is required":"उपयोगकर्ता नाम आवश्यक है",
+	"Password":"कुंजिका",
+	"Login":"लॉग इन करें",
+	"Email":"ईमेल",
+	"Select Role":"भूमिका का चयन करें",
+	"Sign Up":"साइन अप करें",
+	"Please Select Role":"कृपया भूमिका का चयन करें",
+	"Register":"रजिस्टर करें",
+	"Username must be at least 3 characters":"उपयोगकर्ता नाम कम से कम 3 वर्ण का होना चाहिए",
+	"Email is required":"ईमेल जरुरी है",
+	"Email must be a valid email address":"ईमेल एक मान्य ईमेल पता होना चाहिए",
+	"Password is required":"पासवर्ड की आवश्यकता है",
+	"Password must be at least 6 characters":"पासवर्ड कम से कम 6 अंकों का होना चाहिए",
+	"Signup failed":"साइन अप करने में विफल रहा",
+	"Your registration is successful":"आपका पंजीकरण सफल है",
+	"Login failed":"लॉगिन विफल"
+
+
+}
