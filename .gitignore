@@ -11,6 +11,7 @@ target/
 /mvnw
 /mvnw.bat
 mvnw.cmd
+mvnw
 
 ### STS ###
 .apt_generated

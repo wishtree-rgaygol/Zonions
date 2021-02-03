@@ -8,8 +8,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './Components/footer/footer.component';
 import { HeaderComponent } from './Components/header/header.component';
-import { LoginComponent } from './Components/login/login.component';
-import { RegisterComponent } from './Components/register/register.component';
 import { CreateRestaurantComponent } from './Components/Restaurants/create-restaurant/create-restaurant.component';
 import { UpdateRestaurantComponent } from './Components/Restaurants/update-restaurant/update-restaurant.component';
 import { RestaurantDetailsComponent } from './Components/Restaurants/restaurant-details/restaurant-details.component';
@@ -23,14 +21,14 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { ErrorPage400Component } from './Error/error-page400/error-page400.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { environment } from 'src/environments/environment';
+import { EntryModule } from './Module/entry/entry.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     HeaderComponent,
-    LoginComponent,
-    RegisterComponent,
     CreateRestaurantComponent,
     UpdateRestaurantComponent,
     RestaurantDetailsComponent,
@@ -45,6 +43,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    EntryModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -53,7 +52,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         deps: [HttpClient]
       }
     }),
-    NgbModule, LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR})
+    NgbModule,
+    LoggerModule.forRoot(environment.logging) 
+    //LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR})
   ],
   providers: [AuthInterceptor],
   bootstrap: [AppComponent]
