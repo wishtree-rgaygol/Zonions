@@ -4,6 +4,14 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+
+##MVN
+.mvn
+/.mvn/
+/mvnw
+/mvnw.bat
+mvnw.cmd
+
 ### STS ###
 .apt_generated
 .classpath
@@ -40,10 +48,10 @@ build/
 *.log
 /*.log
 **/logs
-
-
-# BlueJ files
-*.ctxt
+logs
+logs/
+/log/
+*.log*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
