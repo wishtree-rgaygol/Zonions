@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
@@ -12,12 +13,16 @@ export class LoginComponent implements OnInit {
     username: null,
     password: null
   };
+  checked: boolean = true;
+  isType: boolean;
+  type: string = 'password';
+
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
   supportLanguages = ['en', 'fr', 'ta', 'hi'];
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private translateService: TranslateService) {
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private translateService: TranslateService ,private router:Router) {
 
     this.translateService.addLangs(this.supportLanguages);
     this.translateService.setDefaultLang('en');
@@ -63,8 +68,24 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
+  cookiesEnabled():void{
+    let isCookiesEnabled = (navigator.cookieEnabled) ? true :false;
+    if(typeof navigator.cookieEnabled ==='undefined' && !isCookiesEnabled)
+    {
+       document.cookie= 'myTestCookie';
+       isCookiesEnabled = (document.cookie.indexOf('myTestCookie')!== -1) ? true :false;
+    }
+     if(isCookiesEnabled)
+     {
+       this.forward();
+     }  
+  }
+  forward():void
+  {
+    this.router.navigate(['/cookies']);
+  }
   reloadPage(): void {
+    alert("You logged in successfully");
     window.location.reload();
   }
 }

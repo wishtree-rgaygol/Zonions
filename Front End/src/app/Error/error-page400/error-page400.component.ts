@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-page400',
@@ -10,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorPage400Component implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-
+  revert(): void{
+    this.router.navigate(['/login']);
+  }
 }

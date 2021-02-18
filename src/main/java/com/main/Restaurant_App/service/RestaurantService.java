@@ -2,104 +2,96 @@ package com.main.Restaurant_App.service;
 
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.main.Restaurant_App.exception.ResourceNotFoundException;
+import com.main.Restaurant_App.exception.NoDataFoundException;
+import com.main.Restaurant_App.exception.RestaurantNotFound;
 import com.main.Restaurant_App.model.Restaurant;
 import com.main.Restaurant_App.repository.RestaurantRepository;
 
 
 @Service
-public class RestaurantService {	
+public class RestaurantService {
 
-	@Autowired
-	private RestaurantRepository repo;
-	
-	LocalTime time=LocalTime.now();
-	String lastUpdatedTime=time.toString();
-	
-	public List<Restaurant> getAllRestaurants()
-	{
-		return repo.findAll();
-	}
-	
-	public ResponseEntity<Restaurant> getRestaurantById(int id) {
-		Restaurant tempRestObj = repo.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Restaurant is not found for this id :" + id));
-		return ResponseEntity.ok().body(tempRestObj);
-	}
+  private static Logger log = LoggerFactory.getLogger(RestaurantService.class);
 
-	public Restaurant fetchRestaurantByName(String restname)
-	{
-		return repo.findByRestname(restname);
-	}
+  @Autowired
+  private RestaurantRepository repository;
 
-	public Restaurant addRestaurant(Restaurant restaurant)
-	{
-		restaurant.setLastModifiedTime(lastUpdatedTime);
-		System.out.println(lastUpdatedTime);
-		return repo.save(restaurant);
-	}
-	
-	public ResponseEntity<Restaurant> updateRestaurantById(Restaurant restDetails, int id)
-	{
-		restDetails.setLastModifiedTime(lastUpdatedTime);
-		Restaurant restaurant = repo.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Restaurant is not found for this id :" + id));
-		restaurant.setId(restDetails.getId());
-		restaurant.setRestname(restDetails.getRestname());
-		restaurant.setAddress(restDetails.getAddress());
-		restaurant.setPhoneNo(restDetails.getPhoneNo());
-		restaurant.setOpenTime(restDetails.getOpenTime());
-		restaurant.setCloseTime(restDetails.getCloseTime());
-		restaurant.setActive(restDetails.isActive());
-		final Restaurant updatedRestaurant = repo.save(restaurant);
-		return ResponseEntity.ok().body(updatedRestaurant);
+  LocalTime time = LocalTime.now();
+  String lastUpdatedTime = time.toString();
 
-	}
-	
-	
-	public Map<String, Boolean> deleteRestaurantById(int id)
-	{
-		Restaurant restaurant = repo.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Restaurant is not found for this id :" + id));
-		repo.delete(restaurant);
-		Map<String, Boolean> deleteResponce = new HashMap<>();
-		deleteResponce.put("Restaurant deleted", Boolean.TRUE);
-		return deleteResponce;
-	}
-	
-	public String uploadImage(@RequestParam("file") MultipartFile file, int id) throws IOException {
-		System.out.println("Original Image Byte Size - " + file.getBytes().length);
-		Restaurant restaurant = repo.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Restaurant is not found for this id :" + id));
-		restaurant.setName(file.getOriginalFilename());
-		restaurant.setType(file.getContentType());
-		restaurant.setPicByte(file.getBytes());
-		System.out.println("Upload rest obj:" + restaurant.getName());
+  public List<Restaurant> getAllRestaurants() {
+    List<Restaurant> list = (List<Restaurant>) repository.findAll();
 
-		repo.save(restaurant);
-		return "Image Uploaded";
-	}
+    if (list.isEmpty()) {
 
-	public ResponseEntity<byte[]> getFile(String name, int restid) {
-		final Optional<Restaurant> retrievedImage = repo.findByNameAndId(name, restid);
-		if (retrievedImage.isPresent()) {
-			Restaurant img = retrievedImage.get();
-			return ResponseEntity.ok()
-					.header(HttpHeaders.CONTENT_DISPOSITION, "connected;filename=\"" + img.getName() + "\"")
-					.body(img.getPicByte());
-		}
-		return ResponseEntity.status(404).body(null);
-	}
+      throw new NoDataFoundException();
+    }
+    return list;
+  }
+
+  public Optional<Restaurant> getRestaurantById(int id) {
+    Optional<Restaurant> restaurant = repository.findById(id);
+    if (restaurant == null) {
+      throw new RestaurantNotFound(id);
+    }
+    return restaurant;
+  }
+
+  public Restaurant addRestaurant(Restaurant restaurant) {
+    Restaurant result = repository.save(restaurant);
+    log.info(lastUpdatedTime);
+    return result;
+  }
+
+
+  public void updateRestaurantById(Restaurant restaurant, int id) {
+    if (id == 0) {
+      throw new RestaurantNotFound(id);
+    }
+    restaurant.setLastModifiedTime(lastUpdatedTime);
+    restaurant.setId(id);
+    repository.save(restaurant);
+  }
+
+
+  public void deleteRestaurantById(int id) {
+    if (id == 0) {
+      throw new RestaurantNotFound(id);
+    }
+    repository.deleteById(id);
+  }
+
+  public String uploadImage(@RequestParam("file") MultipartFile file, int id) throws IOException {
+    System.out.println("Original Image Byte Size - " + file.getBytes().length);
+    Restaurant restaurant = repository.findById(id).orElseThrow(() -> new RestaurantNotFound(id));
+    restaurant.setName(file.getOriginalFilename());
+    restaurant.setType(file.getContentType());
+    restaurant.setPicByte(file.getBytes());
+    System.out.println("Upload rest obj:" + restaurant.getName());
+
+    repository.save(restaurant);
+    return "Image Uploaded";
+  }
+
+  public ResponseEntity<byte[]> getFile(String name, int id) {
+    final Optional<Restaurant> retrievedImage = repository.findByNameAndId(name, id);
+    if (retrievedImage.isPresent()) {
+      Restaurant img = retrievedImage.get();
+      return ResponseEntity.ok()
+          .header(HttpHeaders.CONTENT_DISPOSITION, "connected;filename=\"" + img.getName() + "\"")
+          .body(img.getPicByte());
+    }
+    return ResponseEntity.status(404).body(null);
+  }
+
 }

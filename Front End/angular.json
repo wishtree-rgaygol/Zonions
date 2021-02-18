@@ -25,9 +25,14 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+            
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,7 +96,7 @@
             }
           }
         },
-          "serve": {
+        "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "restaurant-security:build"
@@ -101,16 +106,16 @@
               "browserTarget": "restaurant-security:build:production"
             },
             "test": {
-              "browserTarget": "Front End:build:test"
+              "browserTarget": "restaurant-security:build:test"
             },
             "stage": {
-              "browserTarget": "Front End:build:stage"
+              "browserTarget": "restaurant-security:build:stage"
             },
             "qa": {
-              "browserTarget": "Front End:build:qa"
+              "browserTarget": "restaurant-security:build:qa"
             },
             "dev": {
-              "browserTarget": "Front End:build:dev"
+              "browserTarget": "restaurant-security:build:dev"
             }
           }
         },
@@ -165,7 +170,7 @@
       }
     }
   },
-  "defaultProject": "Front End",
+  "defaultProject": "restaurant-security",
   "cli": {
     "analytics": "4831fb4d-d68b-44d6-8c89-979bbea5bbe2"
   }

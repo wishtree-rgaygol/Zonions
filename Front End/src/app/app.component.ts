@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TokenStorageService } from './services/token-storage.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   title: 'ZONIONS';
 
   supportLanguages = ['en', 'fr', 'ta', 'hi'];
-  constructor(private tokenStorageService: TokenStorageService, private translateService: TranslateService) {
+  constructor(private tokenStorageService: TokenStorageService, private translateService: TranslateService ,private router: Router) {
 
     this.translateService.addLangs(this.supportLanguages);
     this.translateService.setDefaultLang('en');

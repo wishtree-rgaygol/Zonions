@@ -23,6 +23,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
 import { EntryModule } from './Module/entry/entry.module';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { BreadcrumbModule } from 'angular-crumbs';
+import { CookiesMessageComponent } from './Components/cookies-message/cookies-message.component';
+import { authInterceptorProviders } from './Auth/auth.interceptor';
+import { DataTablesModule } from 'angular-datatables';
+import { LoggingService } from './services/logging.service';
+import { InternalServerErrorComponent } from './Error/internal-server-error/internal-server-error.component';
 
 @NgModule({
   declarations: [
@@ -30,20 +37,25 @@ import { EntryModule } from './Module/entry/entry.module';
     FooterComponent,
     HeaderComponent,
     CreateRestaurantComponent,
+    InternalServerErrorComponent,
     UpdateRestaurantComponent,
     RestaurantDetailsComponent,
     RestaurantListComponent,
+    CookiesMessageComponent,
     HomeComponent,
     BoardUserComponent,
     BoardAdminComponent,
     ProfileComponent,
-    ErrorPage400Component
+    ErrorPage400Component,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxPaginationModule,
+    DataTablesModule,
     FormsModule,
     EntryModule,
+    BreadcrumbModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -56,7 +68,7 @@ import { EntryModule } from './Module/entry/entry.module';
     LoggerModule.forRoot(environment.logging) 
     //LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG, serverLogLevel: NgxLoggerLevel.ERROR})
   ],
-  providers: [AuthInterceptor],
+  providers: [authInterceptorProviders ,LoggingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

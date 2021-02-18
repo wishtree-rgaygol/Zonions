@@ -4,3 +4,21 @@ server:
   port: 8082
 application:
   current-profile: production
+
+#resilience4j.ratelimiter:
+#  instances:
+#    restaurantService:
+#      limitForPeriod: 2
+#      limitRefreshPeriod: 4s
+#      timeoutDuration: 0
+#      registerHealthIndicator: true
+#      eventConsumerBufferSize: 100
+#      
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+#  endpoint:
+#    health:
+#      show-details: always

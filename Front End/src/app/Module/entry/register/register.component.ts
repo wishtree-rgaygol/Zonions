@@ -19,6 +19,13 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  otp:string;
+  phoneSignIn=false;
+  windowRef:any;
+  disableOTPSendButton= true;
+  verificationCode: string;
+
+  user:any;
   supportLanguages = ['en', 'fr', 'ta', 'hi'];
   constructor(private authService: AuthService, private router: Router,private translateService: TranslateService) {
 
@@ -58,7 +65,10 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
-
+  togglePhoneSignIn()
+  {
+    this.phoneSignIn = !this.phoneSignIn;
+  }
 
 
 }

@@ -22,11 +22,12 @@ export class RestaurantDetailsComponent implements OnInit {
   message: string;
   imageName: any;
   isActive: boolean;
-  imagePath:any;
-  fileURL = 'http://localhost:8080/api/restaurants/get';
+  fileURL = 'http://localhost:8080/zonions/image/get';     /* <---URL comes from rest api to display the uploaded menu */
+  imagePath: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private restaurantService: RestaurantService, private httpClient: HttpClient, private logger: NGXLogger) { }
+              private restaurantService: RestaurantService, private httpClient: HttpClient,
+              private logger: NGXLogger) { }
 
   ngOnInit(): void {
     this.restaurant = new Restaurant();
@@ -35,20 +36,20 @@ export class RestaurantDetailsComponent implements OnInit {
 
     this.restaurantService.getRestaurant(this.id)
       .subscribe(data => {
-        this.logger.info(data);
+        this.logger.log(data);
         this.restaurant = data;
         this.imagePath = `${this.fileURL}/${this.restaurant.id}/${this.restaurant.name}`;
         if (this.restaurant.active === true) {
           this.isActive = true;
         }
-      }, error => this.logger.error(error));
+      }, error => {
+        if (error.status === 500) {
+          this.router.navigate(['/500']);
+        }
+      });
 
   }
-
-
-
   revert(): void {
     this.router.navigate(['/home']);
   }
-
 }

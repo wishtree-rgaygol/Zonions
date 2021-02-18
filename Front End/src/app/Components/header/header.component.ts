@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
-
+import { Breadcrumb, BreadcrumbService } from 'angular-crumbs';
+import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   title: 'ZONIONS';
   supportLanguages = ['en', 'fr', 'ta', 'hi'];
-  constructor(private tokenStorageService: TokenStorageService,private translateService: TranslateService) {
+  constructor(private tokenStorageService: TokenStorageService,private translateService: TranslateService, private titleService: Title, private breadcrumbService: BreadcrumbService,private router: Router) {
 
     this.translateService.addLangs(this.supportLanguages);
     this.translateService.setDefaultLang('en');
@@ -42,6 +44,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.breadcrumbService.breadcrumbChanged.subscribe( crumbs => {
+      this.titleService.setTitle(this.createTitle(crumbs));
+    })
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -62,8 +67,22 @@ export class HeaderComponent implements OnInit {
       this.username = user.username;
     }
   }
+  private createTitle(routesCollection: Breadcrumb[]) {
+    const title = 'Angular Demo';
+    const titles = routesCollection.filter((route) => route.displayName);
 
+    if (!titles.length) { return title; }
+
+    const routeTitle = this.titlesToString(titles);
+    return `${routeTitle} ${title}`;
+}
+private titlesToString(titles) {
+  return titles.reduce((prev, curr) => {
+      return `${curr.displayName} - ${prev}`;
+  }, '');
+}
   logout(): void {
+    alert("You logged out successfully");
     this.tokenStorageService.signOut();
     window.location.reload();
   }

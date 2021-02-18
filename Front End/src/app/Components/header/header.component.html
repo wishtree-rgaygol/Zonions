@@ -1,23 +1,8 @@
 <header>
   <!-- MAIN HEADER -->
   <div id="header">
-    <!-- container -->
     <div class="container">
-      <!-- row -->
-      <div class="row">
-        <!-- LOGO -->
-        <!-- <div class="col-md-3">
-          <div class="header-logo">
-            <a routerLink="/" class="logo">
-              <img src="../../../assets/ZonionsLogo.jpg" alt="">
-            </a>
-          </div>
-        </div> -->
-        <!-- /LOGO -->
-      </div>
-      <!-- row -->
     </div>
-    <!-- container -->
     <div id="app">
       <nav class="navbar navbar-expand navbar-dark bg-dark">
         <div class="col-md-3">
@@ -27,49 +12,63 @@
             </a>
           </div>
         </div>
-        <a href="#" class="navbar-brand" style="font-size: 50px;letter-spacing: 30px;">&nbsp;&nbsp;&nbsp;ZONIONS</a>
-       
-        <ul class="navbar-nav mr-auto" routerLinkActive="active">
-          <li class="nav-item" *ngIf="showHomeBoard">
-            <a href="/home" class="nav-link" routerLink="home">Active Restaurants </a>
-          </li>
-          <li class="nav-item" *ngIf="showCreateBoard">
-            <a href="/create" class="nav-link" routerLink="create">Add Restaurant</a>
-          </li>
-          <li class="nav-item" *ngIf="showListBoard">
-            <a href="/restaurants" class="nav-link" routerLink="restaurants">Restaurants</a> 
-          </li>
-          <li class="nav-item">
-            <a href="/user" class="nav-link" *ngIf="user" routerLink="user">User</a>
-          </li>
-        </ul>
-    
+        <a href="#" class="navbar-brand" style="font-size: 50px;letter-spacing: 30px;">ZONIONS</a>
+         
         <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
           <li class="nav-item" style="font-size: 24px;">
-            <a href="/register" class="nav-link" routerLink="register"><i class="fa fa-users">{{'Register' |translate}}</i></a>
+            <a href="/register" class="nav-link fa fa-user-plus" aria-hidden="true" routerLink="register">Register</a>
           </li>
           <li class="nav-item" style="font-size: 24px;">
-            <a href="/login" class="nav-link" routerLink="login"><i class="fa fa-sign-in" aria-hidden="true">{{'Login' |translate}}</i></a>
+            <a href="/login" class="nav-link" routerLink="login"><i class="fa fa-sign-in" aria-hidden="true">Login</i></a>
           </li>
         </ul>
-        <div style="color: bisque;">Select Language:
-          <select (change)="useLang($event.target.value)">
-            <option *ngFor="let item of supportLanguages" [value]="item">{{item}}</option>
-          </select></div>
+
         
         <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
           <li class="nav-item">
-            <a href="/profile" class="nav-link" routerLink="profile"><i class="fas fa-user-shield">{{ username }}</i></a>
+            <a href="/profile" class="nav-link fa fa-user-circle-o" aria-hidden="true" routerLink="profile" style="font-size: 25px;">{{ username }}</a>
           </li>
           <li class="nav-item">
-            <a href class="nav-link" (click)="logout()"><i class="fas fa-sign-out-alt">Logout</i></a>
+            <a href class="nav-link fa fa-sign-out" aria-hidden="true" (click)="logout()" style="font-size: 20px;">Logout</a>
           </li>
         </ul>
       </nav>
-      
-       <div class="container">
+      <nav>
+        <ol class="breadcrumb">
+             <li class=" breadcrumb-item" *ngIf="showHomeBoard" active>
+               <a href="/home" class="nav-link" routerLink="home">{{'Active Restaurants' |translate}}</a>
+             </li>
+             <li class=" breadcrumb-item" *ngIf="showCreateBoard">
+               <a href="/create" class="nav-link" routerLink="create">{{'Add Restaurant' |translate}}</a>
+             </li>
+             <li class=" breadcrumb-item" *ngIf="showListBoard">
+               <a href="/restaurants" class="nav-link" routerLink="restaurants">{{'Restaurants' |translate}}</a> 
+             </li>
+             <li class=" breadcrumb-item">
+               <a href="/user" class="nav-link" *ngIf="user" routerLink="user">{{'User'|translate}}</a>
+             </li>
+         </ol> 
+         
+         <div style="color: rgb(12, 10, 9);">Select Language
+           <select (change)="useLang($event.target.value)">
+             <option *ngFor="let item of supportLanguages" [value]="item">{{item}}</option>
+           </select></div>
+       </nav>
+      <breadcrumb #parent> 
+        <ol class="breadcrumb">
+          <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+            <li *ngIf="!route.terminal" class="breadcrumb-item">
+              <a href="" [routerLink]="[route.url]">{{ route.displayName }}</a>
+            </li>
+            <li *ngIf="route.terminal" class="breadcrumb-item active">{{ route.displayName }}</li>
+          </ng-template>
+        </ol>
+      </breadcrumb>
+      <h1 class="p-4">{{ title }}</h1>
+       <div class="container" ><!-- [ngStyle]="{backgroundImage:'url(./assets/rest1.jpg)'}" -->
         <router-outlet></router-outlet>
       </div> 
+      
     </div>
   
   </div>
