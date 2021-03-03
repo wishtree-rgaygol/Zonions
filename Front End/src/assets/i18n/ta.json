@@ -20,6 +20,7 @@
     "Your registration is successful":"உங்கள் பதிவு வெற்றிகரமாக உள்ளது",
     "Login failed":"உள்நுழைவு தோல்வியுற்றது",
     "Restaurant name": "உணவகத்தின் பெயர்",
+	"Restaurant Name":"உணவகத்தின் பெயர்",
 	"Enter Restaurant name": "உணவகத்தின் பெயரை உள்ளிடவும்",
 	"Restaurant name is Required": "Le nom du restaurant est obligatoire",
 	"Enter valid Restaurant name": "செல்லுபடியாகும் உணவக பெயரை உள்ளிடவும்",
@@ -53,7 +54,19 @@
 	"Upload Menu": "பதிவேற்ற மெனு",
 	"Choose only png , jpg , jpeg image types": "Png, jpg, jpeg பட வகைகளை மட்டும் தேர்வு செய்யவும்",
 	"user":"பயனர்",
-	"admin":"நிர்வாகம்"
+	"admin":"நிர்வாகம்",
+	"Active":"செயலில்",
+	"Copyright":"பதிப்புரிமை",
+	"All rights reserved By Zonions":"அனைத்து உரிமைகளும் மண்டலங்களால் பாதுகாக்கப்பட்டவை",
+	"Zonions Web App Interface For Restaurant Information":"உணவக தகவலுக்கான மண்டல வலை பயன்பாட்டு இடைமுகம்",
+	"Add Restaurant":"உணவகத்தைச் சேர்க்கவும்",
+	"Restaurants":"உணவகங்கள்",
+	"Select Language":"மொழியை தேர்ந்தெடுங்கள்",
+	"Restaurant Contact Number":"உணவக தொடர்பு எண்",
+	"Restaurant Open Time":"உணவகம் திறந்த நேரம்",
+	"Restaurant Close Time":"உணவகம் மூடு நேரம்",
+	"Modified Time":"மாற்றியமைக்கப்பட்ட நேரம்",
+	"View Details":"விபரங்களை பார்"
 
     
 }

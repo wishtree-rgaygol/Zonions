@@ -21,6 +21,7 @@
 	"Your registration is successful": "Your registration is successful",
 	"Login failed": "Login failed",
 	"Restaurant name": "Restaurant name",
+	"Restaurant Name":"Restaurant name",
 	"Enter Restaurant name": "Enter Restaurant name",
 	"Restaurant name is Required": "Restaurant name is Required",
 	"Enter valid Restaurant name": "Enter valid Restaurant name",
@@ -61,5 +62,10 @@
 	"Zonions Web App Interface For Restaurant Information":"Zonions Web App Interface For Restaurant Information",
 	"Add Restaurant":"Add Restaurant",
 	"Restaurants":"Restaurants",
-	"Select Language":"Select Language"
+	"Select Language":"Select Language",
+	"Restaurant Contact Number":"Restaurant Contact Number",
+	"Restaurant Open Time":"Restaurant Open Time",
+	"Restaurant Close Time":"Restaurant Close Time",
+	"Modified Time":"Modified Time",
+	"View Details":"View Details"
 }

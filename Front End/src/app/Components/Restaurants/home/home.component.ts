@@ -31,10 +31,14 @@ export class HomeComponent implements OnInit ,OnDestroy {
       this.translateService.use(browserlang);
     }
   }
+  useLang(lang: string) {
+    console.log('selected language ==> ', lang);
+    this.translateService.use(lang);
+  }
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType: 'simple_numbers',
+      pagingType: 'full_numbers',
       pageLength: 3
     };
     this.reloadData();

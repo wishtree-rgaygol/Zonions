@@ -1,9 +1,9 @@
 package com.main.Restaurant_App.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.main.Restaurant_App.model.Restaurant;
 import com.main.Restaurant_App.service.RestaurantService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 
 
 @RestController
@@ -43,74 +44,92 @@ public class RestaurantController {
    * }
    */
 
+  private static final String RESTAURANT_SERVICE = "restaurantService";
 
-  // @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")
-  @GetMapping("/restaurants")
-  @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-  public ResponseEntity<List<Restaurant>> getRestaurants() {
-    List<Restaurant> list = service.getAllRestaurants();
-    logger.info("Inside gettting all restaurants...!");
-    return ResponseEntity.of(Optional.of(list));
+  public ResponseEntity<String> rateLimiterFallback(Exception e) {
+    return new ResponseEntity<>("Many requests please try after some time..! ",
+        HttpStatus.TOO_MANY_REQUESTS);
+
   }
 
-  // @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")
-  @GetMapping("/restaurants/{id}")
-  @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-  public ResponseEntity<Optional<Restaurant>> getRestaurantById(
-      @Min(20) @PathVariable("id") int id) {
-    Optional<Restaurant> restaurant;
 
-    restaurant = service.getRestaurantById(id);
-    logger.info("Inside gettting restaurant by its Id...!");
-    return ResponseEntity.of(Optional.of(restaurant));
-  }
+  @Autowired
+  RestaurantService rservice;
 
   @PostMapping("/restaurants")
   @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<Restaurant> addRestaurant(@Valid @RequestBody Restaurant restaurant) {
-    logger.info("Inside gettting add restaurant...!");
-    Restaurant res = null;
-    try {
-      res = service.addRestaurant(restaurant);
-      return ResponseEntity.status(HttpStatus.CREATED).body(res);
-    } catch (Exception e) {
-      e.printStackTrace();
+  public Restaurant registerResto(@RequestBody Restaurant restoObj) throws Exception {
+    String tempRestname = restoObj.getRestname();
+    if (tempRestname != null && !"".equals(tempRestname)) {
+      Restaurant tempRestObj = rservice.fetchRestaurantByName(tempRestname);
+      if (tempRestObj != null) {
+        throw new Exception("Restaurant with " + tempRestname + " is already exist");
+      }
     }
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    Restaurant tempRestObj = null;
+    tempRestObj = rservice.registerResto(restoObj);
+    return tempRestObj;
   }
 
-
-  @PutMapping("/restaurants/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<Void> updateRestaurant(@RequestBody Restaurant restaurant,
-      @PathVariable int id) {
-    logger.info("Inside update restaurant...!");
-    service.updateRestaurantById(restaurant, id);
-    return ResponseEntity.status(HttpStatus.OK).build();
-
+  @PutMapping(value = "/upload/{restid}", consumes = "multipart/form-data")
+  // @PreAuthorize("hasRole('ADMIN')")
+  public String uplaodImage(@RequestParam MultipartFile file,
+      @PathVariable(value = "restid") int restid) throws Exception {
+    System.out.println("Upload Rest id :" + restid + "File name :" + file.getName()
+        + "Original file name" + file.getOriginalFilename());
+    return rservice.uploadImage(file, restid);
   }
 
-  @DeleteMapping("/restaurants/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<Void> deleteRestaurant(@PathVariable int id) {
-    logger.info("Inside delete restaurant...!");
-    service.deleteRestaurantById(id);
-    return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-
+  @GetMapping("/get/{restid}/{name}")
+  public ResponseEntity<byte[]> getFile(@PathVariable("restid") int restid,
+      @PathVariable("name") String name) throws IOException {
+    return rservice.getFile(name, restid);
   }
 
+  @GetMapping("/restaurants")
+  @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")
+  // @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+  public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+    List<Restaurant> resList = rservice.getAllRestaurant();
+    return ResponseEntity.of(Optional.of(resList));
+  }
 
-  @PostMapping(value = "/upload/{id}", consumes = "multipart/form-data")
-  public String uplaodImage(@RequestParam MultipartFile file, @PathVariable(value = "id") int id)
+  @GetMapping("/restaurants/{restid}")
+  @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")
+  // @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+  public ResponseEntity<Restaurant> getRestaurantById(@PathVariable(value = "restid") int restid)
       throws Exception {
-    logger.info("Upload Rest id :" + id + "File name :" + file.getName() + "Original file name"
-        + file.getOriginalFilename());
-    return service.uploadImage(file, id);
+    return rservice.getRestaurantById(restid);
   }
 
-  @GetMapping("/get/{id}/{name}")
-  public ResponseEntity<byte[]> getImage(@PathVariable("id") int id,
-      @PathVariable("name") String name) {
-    return service.getFile(name, id);
+  @PutMapping("/restaurants/{restid}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<Restaurant> updateRestaurant(@PathVariable(value = "restid") int restid,
+      @RequestBody Restaurant restDetails) throws Exception {
+    return rservice.updateRestaurant(restid, restDetails);
   }
+
+  @DeleteMapping("/restaurants/{restid}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public Map<String, Boolean> deleteRestaurant(@PathVariable(value = "restid") int restid)
+      throws Exception {
+    System.out.println("Delete Rest ID" + restid);
+    return rservice.deleteRestaurant(restid);
+  }
+
+  /*
+   * @PostMapping("/loginadmin") public Admin loginAdmin(@RequestBody Admin admin) throws Exception
+   * { String tempUsername = admin.getUsername(); String tempPassword = admin.getPassword();
+   * System.out.println(tempUsername + " " + tempPassword); Admin adminObj = null; if (tempUsername
+   * != null && tempPassword != null) { adminObj =
+   * aservice.fetchAdminByUsernameAndPassword(tempUsername, tempPassword); } if (adminObj == null) {
+   * throw new Exception("You are not Admin"); } return adminObj; }
+   * 
+   * @PostMapping("/registeradmin1") public Admin registerAdmin(@RequestBody Admin admin) { return
+   * aservice.registerAdmin(admin); }
+   */
+
+
 }
+
+

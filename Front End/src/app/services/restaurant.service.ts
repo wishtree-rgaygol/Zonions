@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class RestaurantService {
 
   private baseUrl = 'http://localhost:8080/zonions/restaurants';
-  private uploadUrl='http://localhost:8080/zonions/upload';
+  private uploadUrl='http://localhost:8080/zonions/restaurants/upload';
   constructor(private http: HttpClient) { }
 
   getRestaurant(id: number): Observable<any> {

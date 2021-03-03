@@ -1,8 +1,9 @@
 package com.main.Restaurant_App.service;
 
 import java.io.IOException;
-import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.main.Restaurant_App.exception.NoDataFoundException;
-import com.main.Restaurant_App.exception.RestaurantNotFound;
 import com.main.Restaurant_App.model.Restaurant;
 import com.main.Restaurant_App.repository.RestaurantRepository;
 
@@ -22,69 +21,78 @@ import com.main.Restaurant_App.repository.RestaurantRepository;
 public class RestaurantService {
 
   private static Logger log = LoggerFactory.getLogger(RestaurantService.class);
-
   @Autowired
-  private RestaurantRepository repository;
+  RestaurantRepository repo;
 
-  LocalTime time = LocalTime.now();
-  String lastUpdatedTime = time.toString();
-
-  public List<Restaurant> getAllRestaurants() {
-    List<Restaurant> list = (List<Restaurant>) repository.findAll();
-
-    if (list.isEmpty()) {
-
-      throw new NoDataFoundException();
-    }
-    return list;
+  // @Autowired
+  // ImageRepository irepo;
+  public RestaurantService() {
+    // TODO Auto-generated constructor stub
   }
 
-  public Optional<Restaurant> getRestaurantById(int id) {
-    Optional<Restaurant> restaurant = repository.findById(id);
-    if (restaurant == null) {
-      throw new RestaurantNotFound(id);
-    }
-    return restaurant;
+  public RestaurantService(RestaurantRepository repo) {
+    super();
+    this.repo = repo;
   }
 
-  public Restaurant addRestaurant(Restaurant restaurant) {
-    Restaurant result = repository.save(restaurant);
-    log.info(lastUpdatedTime);
-    return result;
+  public Restaurant registerResto(Restaurant resto) {
+    return repo.save(resto);
   }
 
-
-  public void updateRestaurantById(Restaurant restaurant, int id) {
-    if (id == 0) {
-      throw new RestaurantNotFound(id);
-    }
-    restaurant.setLastModifiedTime(lastUpdatedTime);
-    restaurant.setId(id);
-    repository.save(restaurant);
+  public Restaurant fetchRestaurantByName(String restname) {
+    return repo.findByRestname(restname);
   }
 
-
-  public void deleteRestaurantById(int id) {
-    if (id == 0) {
-      throw new RestaurantNotFound(id);
-    }
-    repository.deleteById(id);
+  public List<Restaurant> getAllRestaurant() {
+    return repo.findAll();
   }
 
-  public String uploadImage(@RequestParam("file") MultipartFile file, int id) throws IOException {
+  public ResponseEntity<Restaurant> getRestaurantById(int restid) throws Exception {
+    Restaurant tempRestObj = repo.findById(restid)
+        .orElseThrow(() -> new Exception("Restaurant is not found for this id :" + restid));
+    return ResponseEntity.ok().body(tempRestObj);
+  }
+
+  public ResponseEntity<Restaurant> updateRestaurant(int restid, Restaurant restDetails)
+      throws Exception {
+    Restaurant restaurant = repo.findById(restid)
+        .orElseThrow(() -> new Exception("Restaurant not found for this id ::" + restid));
+    restaurant.setRestid(restDetails.getRestid());
+    restaurant.setRestname(restDetails.getRestname());
+    restaurant.setRestaddress(restDetails.getRestaddress());
+    restaurant.setRestphone(restDetails.getRestphone());
+    restaurant.setOpenTime(restDetails.getOpenTime());
+    restaurant.setCloseTime(restDetails.getCloseTime());
+    restaurant.setLastModified(restDetails.getLastModified());
+    restaurant.setActive(restDetails.isActive());
+    final Restaurant updatedRestaurant = repo.save(restaurant);
+    return ResponseEntity.ok().body(updatedRestaurant);
+  }
+
+  public Map<String, Boolean> deleteRestaurant(int restid) throws Exception {
+    Restaurant restaurant = repo.findById(restid)
+        .orElseThrow(() -> new Exception("Restaurant not found for this id ::" + restid));
+    repo.delete(restaurant);
+    Map<String, Boolean> deleteResponce = new HashMap<>();
+    deleteResponce.put("Restaurant deleted", Boolean.TRUE);
+    return deleteResponce;
+  }
+
+  public String uploadImage(@RequestParam("file") MultipartFile file, int restid) throws Exception {
     System.out.println("Original Image Byte Size - " + file.getBytes().length);
-    Restaurant restaurant = repository.findById(id).orElseThrow(() -> new RestaurantNotFound(id));
+    Restaurant restaurant = repo.findById(restid)
+        .orElseThrow(() -> new Exception("Restaurant not found for this id ::" + restid));
     restaurant.setName(file.getOriginalFilename());
     restaurant.setType(file.getContentType());
     restaurant.setPicByte(file.getBytes());
     System.out.println("Upload rest obj:" + restaurant.getName());
 
-    repository.save(restaurant);
+    repo.save(restaurant);
     return "Image Uploaded";
   }
 
-  public ResponseEntity<byte[]> getFile(String name, int id) {
-    final Optional<Restaurant> retrievedImage = repository.findByNameAndId(name, id);
+  public ResponseEntity<byte[]> getFile(String name, int restid) throws IOException {
+    final Optional<Restaurant> retrievedImage = repo.findByNameAndRestid(name, restid);
     if (retrievedImage.isPresent()) {
       Restaurant img = retrievedImage.get();
       return ResponseEntity.ok()

@@ -22,6 +22,7 @@
 	"Your registration is successful":"आपका पंजीकरण सफल है",
 	"Login failed":"लॉगिन विफल",
 	"Restaurant name": "रेस्तरां का नाम",
+	"Restaurant Name":"रेस्तरां का नाम",
 	"Enter Restaurant name": "रेस्तरां का नाम दर्ज करें",
 	"Restaurant name is Required": "रेस्तरां का नाम आवश्यक है",
 	"Enter valid Restaurant name": "मान्य रेस्तरां नाम दर्ज करें",
@@ -55,7 +56,19 @@
 	"Upload Menu": "मेनू अपलोड करें",
 	"Choose only png , jpg , jpeg image types": "केवल png, jpg, jpeg छवि प्रकार चुनें",
 	"user":"उपयोगकर्ता",
-	"admin":"व्यवस्थापक"
+	"admin":"व्यवस्थापक",
+	"Active":"सक्रिय",
+	"Copyright":"कॉपीराइट",
+	"All rights reserved By Zonions":"Zonions द्वारा आरक्षित सभी अधिकार",
+	"Zonions Web App Interface For Restaurant Information":"रेस्टोरेंट जानकारी के लिए ज़ोनियन वेब ऐप इंटरफ़ेस",
+	"Add Restaurant":"रेस्तरां जोड़ें",
+	"Restaurants":"रेस्टोरेंट",
+	"Select Language":"भाषा चुने",
+    "Restaurant Contact Number":"रेस्तरां संपर्क नंबर",
+	"Restaurant Open Time":"भोजनालय खुला समय",
+	"Restaurant Close Time":"रेस्तरां बंद समय",
+	"Modified Time":"संशोधित समय",
+	"View Details":"विवरण देखें"
 
 
 }

@@ -4,6 +4,7 @@ import { NGXLogger } from 'ngx-logger';
 import { Observable, Subject } from 'rxjs';
 import { Restaurant } from 'src/app/Models/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -18,14 +19,31 @@ export class RestaurantListComponent implements OnInit {
   restaurants: Observable<Restaurant[]>;
   config: any;
   collection = [];
+  supportLanguages = ['en', 'fr', 'ta', 'hi'];
+
   constructor(private restaurantService: RestaurantService, private router: Router,
-              private logger: NGXLogger,private route: ActivatedRoute) {
+              private logger: NGXLogger,private route: ActivatedRoute, private translateService: TranslateService) {
                     //this.data=new Array<any>();
+                    this.translateService.addLangs(this.supportLanguages);
+                    this.translateService.setDefaultLang('en');
+                
+                    const browserlang = this.translateService.getBrowserLang();
+                
+                    console.log('Browser Language => ', browserlang);
+                
+                    if (this.supportLanguages.includes(browserlang)) {
+                      this.translateService.use(browserlang);
+                    }
+                  }
+                
+                  useLang(lang: string) {
+                    console.log('selected language ==> ', lang);
+                    this.translateService.use(lang);
                   }
       
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType: 'simple_numbers',
+      pagingType: 'full_numbers',
       pageLength: 3
     };
     this.reloadData();

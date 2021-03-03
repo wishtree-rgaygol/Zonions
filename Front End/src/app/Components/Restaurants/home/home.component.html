@@ -34,8 +34,8 @@
      <thead>
        <tr>
         <th>{{'Restaurant Name' | translate}}</th>
-        <th>Address</th>
-        <th>Contact Number</th>
+        <th>{{'Address' | translate}}</th>
+        <th>{{'Contact Number'| translate}}</th>
         <th>{{'Actions' | translate}}</th> 
        </tr>
      </thead>
@@ -46,7 +46,7 @@
           <td>{{r.address}}</td>
           <td>{{r.phoneNo}}</td>
           <td>
-              <button (click)="restaurantDetails(r.id)" class="btn btn-info" style="margin-left: 10px">View Details</button>
+              <button (click)="restaurantDetails(r.id)" class="btn btn-info" style="margin-left: 10px">{{'View Details' |translate}}</button>
           </td>
         </tr>
        </ng-container>

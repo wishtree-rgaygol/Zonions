@@ -20,6 +20,7 @@
     "Your registration is successful":"Votre inscription est réussie",
     "Login failed":"Échec de la connexion",
     "Restaurant name": "Nom du restaurant",
+	"Restaurant Name":"Nom du restaurant",
 	"Enter Restaurant name": "உணவகத்தின் பெயரை உள்ளிடவும்",
 	"Restaurant name is Required": "Le nom du restaurant est obligatoire    ",
 	"Enter valid Restaurant name": "Entrez un nom de restaurant valide",
@@ -53,6 +54,18 @@
 	"Upload Menu": "Télécharger le menu",
     "Choose only png , jpg , jpeg image types": "Choisissez uniquement les types d'images png, jpg, jpeg",
     "user":"utilisatrice",
-    "admin":"admin"
+    "admin":"admin",
+	"Active":"Active",
+	"Copyright":"droits d'auteur",
+	"All rights reserved By Zonions":"Tous droits réservés Par Zonions",
+	"Zonions Web App Interface For Restaurant Information":"Interface de l'application Web Zonions pour des informations sur les restaurants",
+	"Add Restaurant":"Ajouter un restaurant",
+	"Restaurants":"Restaurants",
+	"Select Language":"Choisir la langue",
+	"Restaurant Contact Number":"Numéro de contact du restaurant",
+	"Restaurant Open Time":"Heures d'ouverture du restaurant",
+	"Restaurant Close Time":"Heure de fermeture du restaurant",
+	"Modified Time":"Heure modifiée",
+	"View Details":"Voir les détails"
 
 }

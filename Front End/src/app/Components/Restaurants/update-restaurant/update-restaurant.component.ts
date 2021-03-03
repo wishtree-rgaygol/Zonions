@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { Restaurant } from 'src/app/Models/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-update-restaurant',
@@ -27,9 +28,27 @@ export class UpdateRestaurantComponent implements OnInit {
   closetime = {hour: 10, minute: 10};
   
    imagePath:any;
-   displayURL='http://localhost:8080/api/restaurants/get';
+   displayURL='http://localhost:8080/zonions/restaurants/get';
+   supportLanguages = ['en', 'fr', 'ta', 'hi'];
+
   constructor(private route: ActivatedRoute, private router: Router,
-              private restaurantService: RestaurantService, private httpClient: HttpClient,private logger:NGXLogger) { }
+              private restaurantService: RestaurantService, private httpClient: HttpClient,private logger:NGXLogger, private translateService: TranslateService) { 
+                this.translateService.addLangs(this.supportLanguages);
+                this.translateService.setDefaultLang('en');
+            
+                const browserlang = this.translateService.getBrowserLang();
+            
+                console.log('Browser Language => ', browserlang);
+            
+                if (this.supportLanguages.includes(browserlang)) {
+                  this.translateService.use(browserlang);
+                }
+              }
+            
+              useLang(lang: string) {
+                console.log('selected language ==> ', lang);
+                this.translateService.use(lang);
+              }
 
   ngOnInit(): void {
 

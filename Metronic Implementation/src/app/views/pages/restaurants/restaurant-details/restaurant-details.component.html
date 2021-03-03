@@ -1,0 +1,32 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Restaurant Details</h2>
+      <!----------------------------Here Display the Restaurant details on Homepage for all users ----------------------->
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <tr class="danger">
+            <th>Restaurant Name</th>
+            <th>Restaurant Address</th>
+            <th>Restaurant Contact Number</th>
+            <th>Restaurant Open Time</th>
+            <th>Restaurant Close Time</th>
+            <th>Restaurant Menu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>{{restaurant.restname}}</td>
+          <td>{{restaurant.restaddress}}</td>
+          <td>{{restaurant.restphone}}</td>
+          <td>{{restaurant.openTime}}</td>
+          <td>{{restaurant.closeTime}}</td>
+          <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  <button (click)="list()" class="btn btn-primary">Back to Restaurant List</button><br>
