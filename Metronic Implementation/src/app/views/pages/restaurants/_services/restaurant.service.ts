@@ -12,7 +12,7 @@ export class RestaurantService {
   private updateUrl = 'http://localhost:8080/zonions/restaurants';
   private deleteUrl = 'http://localhost:8080/zonions/restaurants';
   private uploadUrl = 'http://localhost:8080/zonions/upload';
-
+  private bookTableUrl='http://localhost:8080/zonions/bookTable';
  /*  private basedUrl = 'http://localhost:8080/restaurants'; */
   constructor(private http: HttpClient) { }
 
@@ -53,48 +53,8 @@ export class RestaurantService {
     );
     return this.http.request(req);
   }
-
- /*  private baseUrl = 'http://localhost:8080/zonions/restaurants'; */
- //private baseUrl = 'http://localhost:8080/registerresto';
-/*   private uploadUrl='http://localhost:8080/zonions/restaurants/upload';*/
-//private uploadUrl='http://localhost:8080/upload';
-
-/* constructor(private http: HttpClient) { }
-
-  getRestaurant(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  bookTable(bookTable: any): Observable<any> {
+    return this.http.post(this.bookTableUrl, bookTable);
   }
-
-  createRestaurant(restaurant: object): Observable<object> {
-    return this.http.post(`${this.baseUrl}`, restaurant);
-
-  }
-
-  updateRestaurant(id: number, value: any): Observable<object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
-  }
-
-  deleteRestaurant(id: number): Observable<any> {
-
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
-  }
-
-  getRestaurantsList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
-  }
- */  
-/* UploadFileFromService(file: any, id: number): any { 
-    let target: DataTransfer = <DataTransfer>(file.target);
-    let fileList: FileList = target.files;
-    let Selectedfile: File = fileList[0];
-    const formdata: FormData = new FormData();
-    formdata.append('file', Selectedfile, Selectedfile.name);
-    const req = new HttpRequest('PUT', `${this.uploadUrl}/${id}`, formdata, {
-      reportProgress: true,
-      responseType: 'text'
-    }
-    );
-    return this.http.request(req);
-  } */
   
 }

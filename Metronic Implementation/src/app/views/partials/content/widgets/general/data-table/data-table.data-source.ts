@@ -3,6 +3,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 // RxJS
 import { Observable, BehaviorSubject, of} from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
+import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_services/restaurant.service';
 // CRUD
 import { QueryParamsModel,  QueryResultsModel, HttpExtenstionsModel } from '../../../../../../core/_base/crud';
 import { DataTableService, DataTableItemModel } from '../../../../../../core/_base/layout';
@@ -30,7 +31,7 @@ export class DataTableDataSource implements DataSource<DataTableItemModel> {
 	 *
 	 * @param dataTableService: DataTableService
 	 */
-	constructor(private dataTableService: DataTableService) {
+	constructor(private restoService:RestaurantService) {
 		this.loading$ = this.loadingSubject.asObservable();
 		this.paginatorTotal$ = this.paginatorTotalSubject.asObservable();
 		this.paginatorTotal$.subscribe(res => this.hasItems = res > 0);
@@ -83,7 +84,7 @@ export class DataTableDataSource implements DataSource<DataTableItemModel> {
 
     loadItems(queryParams: QueryParamsModel) {
 		this.loadingSubject.next(true);
-		this.dataTableService.getAllItems().pipe(
+		this.restoService.getAllRestaurant().pipe(
 			tap(res => {
 				const result = this.baseFilter(res, queryParams);
 				this.entitySubject.next(result.items);

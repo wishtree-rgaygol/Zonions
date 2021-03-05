@@ -1,30 +1,4 @@
-<!-- <div class="panel panel-primary"> -->
-    <!------------------------Here Display the All Active Restaurants List to End User for getting the details -------------->
-   <!--  <div class="panel-heading">
-      <h2>Restaurant List</h2>
-    </div>
-    <div class="panel-body">
-      <table class="table">
-        <thead>
-          <tr class="danger">
-            <th style="font-size: 20px;"><u>Restaurant Name</u></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let rest of restaurants | async">
-            <tr *ngIf="rest.active==true">
-              <td style="font:bolder;font-size: 20px;">{{rest.restname}}</td>
-              <td>
-                <button (click)="restaurantDetails(rest.restid)" class="btn btn-info"
-                  style="margin-left: 400px">Restaurant
-                  Details</button> Show all Restaurants Details -->
-            <!--   </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </div>  -->
+
    <div class="panel-heading">
     <h2>Restaurant List</h2>
   </div>
@@ -44,10 +18,8 @@
           <td>{{r.restaddress}}</td>
           <td>{{r.restphone}}</td>
            <td>
-              <button (click)="restaurantDetails(r.restid)" class="btn btn-info" style="margin-left: 10px">More Details</button>
+              <button (click)="restaurantDetails(r.restid)" class="btn btn-dark" style="margin-left: 10px">More Details</button>
           </td> 
-          <!-- <td><a [routerLink]="['/restaurants/restDetails',r.restid]">
-            <button class="btn btn-info">More Details</button></a></td> -->
         </tr>
        </ng-container>
      </tbody>

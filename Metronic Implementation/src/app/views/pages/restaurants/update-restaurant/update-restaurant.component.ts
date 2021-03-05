@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Restaurant } from '../_helpers/restaurant';
 import { RestaurantService } from '../_services/restaurant.service';
 import * as moment from 'moment';
+import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'kt-update-restaurant',
   templateUrl: './update-restaurant.component.html',
@@ -18,7 +20,7 @@ export class UpdateRestaurantComponent implements OnInit {
   selectedFile: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private restaurantService: RestaurantService, private httpClient: HttpClient) { }
+    private restaurantService: RestaurantService, private httpClient: HttpClient,private dialog: MatDialog) { }
 
   UploadMenu() {
     console.log("In onUpload " + this.selectedFile + "selected rest id :" + this.restid);
@@ -51,6 +53,7 @@ export class UpdateRestaurantComponent implements OnInit {
       .subscribe(data => {
         this.restaurant = new Restaurant();
         this.restaurantList();
+        this.openAlertDialog();
       }, error => console.log(error));
   }
 
@@ -58,5 +61,11 @@ export class UpdateRestaurantComponent implements OnInit {
     this.router.navigate(['restaurants', 'restaurant']);
   }
 
-
+  openAlertDialog(): void {
+    const dialog: DialogConfig = {
+      title: 'Restaurant Updated Successfully',
+      close: 'OK'
+    };
+    this.dialog.open(AlertConfirmBoxComponent, { width: '287px', data: dialog });
+  }
 }

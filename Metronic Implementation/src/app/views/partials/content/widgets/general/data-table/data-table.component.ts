@@ -1,15 +1,20 @@
 // Angular
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 // RXJS
 import { tap } from 'rxjs/operators';
-import { merge } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 // Crud
 import { QueryParamsModel } from '../../../../../../core/_base/crud';
 // Layout
 import { DataTableItemModel, DataTableService } from '../../../../../../core/_base/layout';
 import { DataTableDataSource } from './data-table.data-source';
+import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_services/restaurant.service';
+import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_helpers/restaurant';
+import { Router } from '@angular/router';
+import { DeleteConfirmBoxComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/delete-confirm-box/delete-confirm-box.component';
+import { AlertConfirmBoxComponent, DialogConfig } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 
 @Component({
 	selector: 'kt-data-table',
@@ -19,7 +24,7 @@ import { DataTableDataSource } from './data-table.data-source';
 export class DataTableComponent implements OnInit {
 	// Public properties
 	dataSource: DataTableDataSource;
-	displayedColumns = ['id', 'cManufacture', 'cModel', 'cMileage', 'cColor', 'cPrice', 'cCondition', 'cStatus', 'actions' ];
+	displayedColumns = [ 'Restaurant Name', 'Open Time', 'Close Time', 'Last Updated', 'actions' ];
 	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 	@ViewChild(MatSort, {static: true}) sort: MatSort;
 	selection = new SelectionModel<DataTableItemModel>(true, []);
@@ -29,7 +34,8 @@ export class DataTableComponent implements OnInit {
 	 *
 	 * @param dataTableService: DataTableService
 	 */
-	constructor(private dataTableService: DataTableService) {}
+	restaurants: Observable<Restaurant[]>;
+	constructor(private restService: RestaurantService,private router: Router,private dialog: MatDialog) {}
 
 	/**
 	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
@@ -39,6 +45,7 @@ export class DataTableComponent implements OnInit {
 	 * On init
 	 */
 	ngOnInit() {
+		this.refreshRestaurants();
 		// If the user changes the sort order, reset back to the first page.
 		this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
@@ -46,6 +53,7 @@ export class DataTableComponent implements OnInit {
 		- when a pagination event occurs => this.paginator.page
 		- when a sort event occurs => this.sort.sortChange
 		**/
+		
 		merge(this.sort.sortChange, this.paginator.page)
 			.pipe(
 				tap(() => {
@@ -55,7 +63,7 @@ export class DataTableComponent implements OnInit {
 			.subscribe();
 
 		// Init DataSource
-		this.dataSource = new DataTableDataSource(this.dataTableService);
+		this.dataSource = new DataTableDataSource(this.restService);
 		// First load
 		this.loadItems(true);
 	}
@@ -76,7 +84,49 @@ export class DataTableComponent implements OnInit {
 		this.dataSource.loadItems(queryParams);
 		this.selection.clear();
 	}
-
+	deleteRestaurant(restid: number) {                      /* <---Method call from Display List Form to Delete Restaurant */
+		this.restService.deleteRestaurant(restid)
+		  .subscribe(
+			data => {
+			  this.refreshRestaurants();
+			  window.location.reload();
+			},
+			error => console.log(error));
+	  }
+	  removeRestaurant(restid: number) {
+		const confirmDialog = this.dialog.open(DeleteConfirmBoxComponent, {
+		  data: {
+			title: 'Confirm Remove Restaurant',
+			message: 'Are you sure, you want to remove an restaurant'
+		  }
+		});
+		confirmDialog.afterClosed().subscribe(result => {
+		  if (result === true) {
+			this.restService.deleteRestaurant(restid)
+			.subscribe(
+			  data => {
+				this.refreshRestaurants();
+				this.openAlertDialog();
+			  },
+			  error => console.log(error));
+		  }
+		});
+	  }
+	  openAlertDialog(): void {
+		const dialog: DialogConfig = {
+		  title: 'Restaurant Deleted Successfully',
+		  close: 'OK'
+		};
+		window.location.reload(); 
+		this.dialog.open(AlertConfirmBoxComponent, { width: '350px', data: dialog });
+	  }
+	  refreshRestaurants() {                                   /* <---Method to Diplay all the Restaurants list again to admin */
+		this.restaurants = this.restService.getAllRestaurant();
+		
+	  }
+	  updateRestaurant(restid: number) {                     /* <---Method call from Display List Form to Update Restaurant */
+		this.router.navigate(['restaurants', 'restUpdate', restid]);
+	  }
 	/* UI */
 
 	/**

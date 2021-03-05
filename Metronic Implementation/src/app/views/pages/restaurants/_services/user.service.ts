@@ -13,7 +13,7 @@ const httpOptions = {
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  private baseUrl = 'http://localhost:8080/api/user/';
+  private baseUrl = 'http://localhost:8080/api/auth/';
 
 
   getPublicContent(): Observable<any> {

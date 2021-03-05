@@ -78,6 +78,38 @@
                   "maximumError": "10mb"
                 }
               ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "stage": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           }
         },
@@ -89,6 +121,18 @@
           "configurations": {
             "production": {
               "browserTarget": "metronic:build:production"
+            },
+            "test": {
+              "browserTarget": "metronic:build:test"
+            },
+            "stage": {
+              "browserTarget": "metronic:build:stage"
+            },
+            "qa": {
+              "browserTarget": "metronic:build:qa"
+            },
+            "dev": {
+              "browserTarget": "metronic:build:dev"
             }
           }
         },

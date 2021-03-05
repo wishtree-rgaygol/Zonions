@@ -2,17 +2,6 @@
 <div class="container">
     <form #Updateform="ngForm" (ngSubmit)="updateRestaurant()">
 
-        <!------Just display in form but Can't Update Restaurant ID(Due to primary key constraints)------>
-       <!--  <div class="form-group">
-            <label for="restid">Restaurant id:</label>
-            <input type="number" class="form-control" placeholder="Enter Restaurant id" name="restID"
-                [(ngModel)]="restaurant.restid" required required #restoid="ngModel"
-                [class.is-invalid]="restoid.invalid && restoid.touched">
-            <div *ngIf="restoid.errors && restoid.invalid && restoid.touched">
-                <small class="text-danger" *ngIf="restoid.errors.required">Restaurant ID is Required field</small>
-            </div>
-        </div> -->
-
         <!----------------------------- Update Restaurant Name ----------------------------------------->
         <div>
             <label for="restname"><span style="color: red;">*</span>Restaurant name:</label>
@@ -51,36 +40,28 @@
                     Digit(7/8/9) Please Correct valid Restaurant Number</small>
             </div>
         </div>
-
-        <!---------------------------Update Restaurant Open Time --------------------------------------->
-        <div class="form-group">
-            <label for="openTime"><span style="color: red;">*</span>Timing for opening of Restaurant:</label>
-            <input type="time" id="appt" name="appt" min="9:00" max="18:00" [(ngModel)]="restaurant.openTime">
-            <hr>
-        </div>
+ <!---------------------------Update Restaurant Open Time --------------------------------------->
+ <div class="form-group">
+    <label for="openTime"><span style="color: red;">*</span>Timing for opening of Restaurant:</label>
+    <input type="time" name="appt" class="form-control" min="09:00" max="18:00" [(ngModel)]="restaurant.openTime">
+  </div>
 
         <!---------------------------Update Restaurant Close Time --------------------------------------->
         <div class="form-group">
             <label for="closeTime"><span style="color: red;">*</span>Timing for closing of Restaurant:</label>
-            <input type="time" id="appt" name="appt" min="9:00" max="18:00" [(ngModel)]="restaurant.closeTime">
-            <hr>
-        </div>
+            <input type="time" name="appt" class="form-control" min="09:00" max="18:00" [(ngModel)]="restaurant.closeTime" >
+          </div>
+       
 
-        <!--------------------------Update Restaurant Modified Time ------------------------------------>
-        <!-- <div class="form-group">
-            <label for="lastModified"><span style="color: red;">*</span>Last Modified Time:</label>
-            <input type="time" name="lastModified" [(ngModel)]="restaurant.lastModified">
-        </div>
- -->
+      
         <!-------------------------Update Restaurant Active Or InActive Status ------------------------>
         <div class="form-group">
             <label for="active"><span style="color: red;">*</span>Restaurant Status :-</label>
-            <label><input type=checkbox name=active [(ngModel)]="restaurant.active"> Active</label>
-        </div>
+            <input type="checkbox" name="active" class="form-control" min="09:00" max="18:00" [(ngModel)]="restaurant.active" >
+          </div>
+    
 
-        <!-------------------------Final Update Restaurant Button ------------------------------------->
-        <button [disabled]="Updateform.form.invalid" type="submit" class="btn btn-info">Update</button>
-    </form>
+     
 
     <!---------------------Form For Upload OR Update the Menu For Specified Restaurant ------------->
     <form (ngSubmit)="UploadMenu()">
@@ -109,8 +90,16 @@
                 <input type="submit" value="upload">
             </div>
         </div>
-
+         <br>
+         <br>
         <!---------------------------------Display the Uploaded Menu---------------------------------------->
         <div class="container row"><img [src]="imagePath" style="height: 200px; width: 200px;"></div>
     </form>
+    <br>
+    <br>
+    <div class="form-group">
+        <button [disabled]="Updateform.form.invalid" type="submit" class="btn btn-dark btn-block">Update</button>
+      </div>
+      
+</form>
 </div>

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,7 +17,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -139,6 +144,29 @@ public class AuthController {
     userRepository.save(user);
     dtoRepository.save(user1);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+  }
+
+  @GetMapping("/users")
+  public List<UserEntityDto> getAll() {
+    System.out.println(service.getAllUsers());
+    return service.getAllUsers();
+  }
+
+  @GetMapping("/users/{id}")
+  public ResponseEntity<UserEntityDto> getUserById(@PathVariable long id) {
+    return service.getUsertById(id);
+  }
+
+  @PutMapping("/users/{id}")
+  public UserEntityDto changeRole(@PathVariable long id, @RequestBody User regi) {
+    return service.changeRole(id, regi);
+  }
+
+  @DeleteMapping("/users/{id}")
+  public ResponseEntity<HttpStatus> deleteByUsername(@PathVariable long id) {
+
+    return service.deleteByUsername(id);
+
   }
 
 

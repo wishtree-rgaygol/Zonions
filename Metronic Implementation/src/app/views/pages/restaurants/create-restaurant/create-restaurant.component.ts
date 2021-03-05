@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { Restaurant } from '../_helpers/restaurant';
 import { RestaurantService } from '../_services/restaurant.service';
 
@@ -67,11 +69,12 @@ export class CreateRestaurantComponent implements OnInit {
     this.router.navigate(['/home']);
   }
  */
+titleAlert: string = 'This field is required';
 restaurant: Restaurant = new Restaurant();
 rest = Restaurant;
 submitted = false;
-constructor(private restaurantservice: RestaurantService,
-  private router: Router) { }
+constructor(private restaurantservice: RestaurantService,private dialog: MatDialog,
+  private router: Router,private snackBar: MatSnackBar) { }
 
 ngOnInit() {
 }
@@ -89,6 +92,7 @@ save() {
       console.log(data)
       this.restaurant = new Restaurant();
       this.refreshRestaurants();
+      this.openAlertDialog();
     },
       error => console.log(error));
 }
@@ -102,5 +106,21 @@ refreshRestaurants() {       /* <---Method to display the all restaurants again 
    this.router.navigate(['restaurants', 'restHome']);
 }
 
-
+/* openAlertDialog() {
+  const dialogRef = this.dialog.open(AlertConfirmBoxComponent,{
+    data:{
+      message: 'Data Saved Successfully',
+      buttonText: {
+        cancel: 'OK'
+      }
+    },
+  });
+} */
+openAlertDialog(): void {
+  const dialog: DialogConfig = {
+    title: 'Restaurant Saved Successfully',
+    close: 'OK'
+  };
+  this.dialog.open(AlertConfirmBoxComponent, { width: '287px', data: dialog });
+}
 }

@@ -17,6 +17,10 @@ import { UpdateRestaurantComponent } from './update-restaurant/update-restaurant
 
 import { UserDetailComponent } from './user-details/user-detail.component';
 import { DataTablesModule } from 'angular-datatables';
+import { BookTableComponent } from './BookTable/book-table.component';
+import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { DeleteConfirmBoxComponent } from './DialogBoxes/delete-confirm-box/delete-confirm-box.component';
+import { AlertConfirmBoxComponent } from './DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 
 
 
@@ -48,6 +52,10 @@ const routes: Routes = [
 			{
 				path: 'users',
 				component: UserDetailComponent
+			},
+			{
+				path: 'booktable',
+				component: BookTableComponent
 			}
 
 		]
@@ -66,7 +74,39 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		HttpClientModule,
 		PerfectScrollbarModule,
-		DataTablesModule
+		DataTablesModule,
+		MatDatepickerModule,
+		MatInputModule,
+		MatNativeDateModule,MatIconModule,MatButtonModule,MatCheckboxModule, MatToolbarModule, MatCardModule,MatFormFieldModule,MatListModule,MatRadioModule
+		, MatAutocompleteModule,
+		MatButtonModule,
+		MatButtonToggleModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatDatepickerModule,
+		MatDialogModule,
+		MatExpansionModule,
+		MatGridListModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
+		MatMenuModule,
+		MatNativeDateModule,
+		MatProgressBarModule,
+		MatProgressSpinnerModule,
+		MatRadioModule,
+		MatRippleModule,
+		MatSelectModule,
+		MatSidenavModule,
+		MatSliderModule,
+		MatSlideToggleModule,
+		MatSnackBarModule,
+		MatStepperModule,
+		MatTableModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
 	],
 	exports: [RouterModule],
 	declarations: [
@@ -76,10 +116,13 @@ const routes: Routes = [
 		RestaurantListComponent,
 		UpdateRestaurantComponent,
 		RestaurantDetailsComponent,
-		UserDetailComponent
-
+		UserDetailComponent,
+        BookTableComponent,
+        DeleteConfirmBoxComponent,
+        AlertConfirmBoxComponent
 	],
 	providers: [ ],
+	entryComponents: [AlertConfirmBoxComponent,DeleteConfirmBoxComponent],
 })
 export class RestaurantsModule {
 }
