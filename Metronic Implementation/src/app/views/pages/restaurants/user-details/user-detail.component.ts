@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { DeleteConfirmBoxComponent } from '../DialogBoxes/delete-confirm-box/delete-confirm-box.component';
 import { User } from '../_helpers/user';
@@ -42,7 +43,7 @@ export class UserDetailComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-  removeUser(id: number) {
+  /* removeUser(id: number) {
 		const confirmDialog = this.dialog.open(DeleteConfirmBoxComponent, {
 		  data: {
 			title: 'Confirm Remove User',
@@ -55,20 +56,49 @@ export class UserDetailComponent implements OnInit {
           (data) => {
             console.log(data);
             this.reloadUser();
-           /*  alert('Deleted Successfully'); */
            this.openAlertDialog();
           },
           (error) => console.log(error)
         );
 		  }
 		});
-	  }
-    openAlertDialog(): void {
+	  } */
+    removeUser(id: number){
+      Swal.fire({
+        title: 'Are you sure, you want to remove an User?',
+        text: 'This process is irreversible.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, go ahead.',
+        cancelButtonText: 'No, let me think'
+      }).then((result) => {
+        if (result.value) {
+          this.userService.deleteUser(id).subscribe(
+            (data) => {
+              console.log(data);
+              this.reloadUser();
+              this.openAlertDialog();
+            },
+            (error) => console.log(error)
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'User still in our database.)',
+          'error'
+        )
+        }
+      })
+      }
+   /*  openAlertDialog(): void {
       const dialog: DialogConfig = {
         title: 'User Deleted Successfully',
         close: 'OK'
       };
       this.dialog.open(AlertConfirmBoxComponent, { width: '287px', data: dialog });
+    } */
+    openAlertDialog(){
+      Swal.fire('User Deleted Successfully..!');
     }
   changeRole(id: number, ) {
     console.log('id in change status=', id);

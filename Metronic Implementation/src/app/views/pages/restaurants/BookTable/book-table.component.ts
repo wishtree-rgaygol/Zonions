@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { RestaurantService } from '../_services/restaurant.service';
 
 @Component({
@@ -27,7 +28,7 @@ export class BookTableComponent implements OnInit{
 
 
   bookSeat(fvalue: any): void {
-    console.log(this.bookingForm.value);
+   /*  console.log(this.bookingForm.value);
     this.data = fvalue;
     this.bookTableService.bookTable(this.bookingForm.value).subscribe(
       (res) => {
@@ -35,5 +36,10 @@ export class BookTableComponent implements OnInit{
         this.bookTableData = res;
 
       }, error => console.log(error));
-      }
+      } */
+      this.successNotification();
+    }
+    successNotification(){
+      Swal.fire('Hi', 'We have been initiate your request we will inform you once your seat is confirm.', 'success')
+    }
   }

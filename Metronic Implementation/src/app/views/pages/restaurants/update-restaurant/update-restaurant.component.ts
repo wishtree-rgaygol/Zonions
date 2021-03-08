@@ -6,6 +6,7 @@ import { RestaurantService } from '../_services/restaurant.service';
 import * as moment from 'moment';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { MatDialog } from '@angular/material';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'kt-update-restaurant',
   templateUrl: './update-restaurant.component.html',
@@ -61,11 +62,14 @@ export class UpdateRestaurantComponent implements OnInit {
     this.router.navigate(['restaurants', 'restaurant']);
   }
 
-  openAlertDialog(): void {
+  /* openAlertDialog(): void {
     const dialog: DialogConfig = {
       title: 'Restaurant Updated Successfully',
       close: 'OK'
     };
     this.dialog.open(AlertConfirmBoxComponent, { width: '287px', data: dialog });
+  } */
+  openAlertDialog(){
+    Swal.fire('Restaurant Updated Successfully..!');
   }
 }

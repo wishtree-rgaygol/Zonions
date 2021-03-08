@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { Restaurant } from '../_helpers/restaurant';
 import { RestaurantService } from '../_services/restaurant.service';
@@ -116,11 +117,14 @@ refreshRestaurants() {       /* <---Method to display the all restaurants again 
     },
   });
 } */
-openAlertDialog(): void {
+/* openAlertDialog(): void {
   const dialog: DialogConfig = {
     title: 'Restaurant Saved Successfully',
     close: 'OK'
   };
   this.dialog.open(AlertConfirmBoxComponent, { width: '287px', data: dialog });
+} */
+openAlertDialog(){
+  Swal.fire('Restaurant Created Successfully..!');
 }
 }

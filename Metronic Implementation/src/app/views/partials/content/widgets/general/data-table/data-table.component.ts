@@ -15,6 +15,7 @@ import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clon
 import { Router } from '@angular/router';
 import { DeleteConfirmBoxComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/delete-confirm-box/delete-confirm-box.component';
 import { AlertConfirmBoxComponent, DialogConfig } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/alert-confirm-box/alert-confirm-box.component';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'kt-data-table',
@@ -93,7 +94,7 @@ export class DataTableComponent implements OnInit {
 			},
 			error => console.log(error));
 	  }
-	  removeRestaurant(restid: number) {
+	  /* removeRestaurant(restid: number) {
 		const confirmDialog = this.dialog.open(DeleteConfirmBoxComponent, {
 		  data: {
 			title: 'Confirm Remove Restaurant',
@@ -111,14 +112,44 @@ export class DataTableComponent implements OnInit {
 			  error => console.log(error));
 		  }
 		});
+	  } */
+	  removeRestaurant(restid: number){
+		Swal.fire({
+		  title: 'Are you sure you want to delete restaurant?',
+		  text: 'This process is irreversible.',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, go ahead.',
+		  cancelButtonText: 'No, let me think'
+		}).then((result) => {
+		  if (result.value) {
+			this.restService.deleteRestaurant(restid)
+			.subscribe(
+			  data => {
+				this.refreshRestaurants();
+				this.openAlertDialog();
+			  },
+			  error => console.log(error));
+		  } else if (result.dismiss === Swal.DismissReason.cancel) {
+			Swal.fire(
+			  'Cancelled',
+			  'Restaurant still in our database.)',
+			  'error'
+			)
+		  }
+		})
 	  }
-	  openAlertDialog(): void {
+	 /*  openAlertDialog(): void {
 		const dialog: DialogConfig = {
 		  title: 'Restaurant Deleted Successfully',
 		  close: 'OK'
 		};
 		window.location.reload(); 
 		this.dialog.open(AlertConfirmBoxComponent, { width: '350px', data: dialog });
+	  } */
+	  openAlertDialog(){
+		Swal.fire('Restaurant Deleted Successfully..!');
+		/* window.location.reload();  */
 	  }
 	  refreshRestaurants() {                                   /* <---Method to Diplay all the Restaurants list again to admin */
 		this.restaurants = this.restService.getAllRestaurant();

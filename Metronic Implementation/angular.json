@@ -37,7 +37,8 @@
               "src/assets/plugins/flaticon/flaticon.css",
               "src/assets/plugins/flaticon2/flaticon.css",
               "src/assets/sass/style.angular.scss",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.js",
