@@ -21,6 +21,8 @@ import { BookTableComponent } from './BookTable/book-table.component';
 import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { DeleteConfirmBoxComponent } from './DialogBoxes/delete-confirm-box/delete-confirm-box.component';
 import { AlertConfirmBoxComponent } from './DialogBoxes/alert-confirm-box/alert-confirm-box.component';
+import { Title } from '@angular/platform-browser';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 
 
@@ -28,34 +30,42 @@ const routes: Routes = [
 	{
 		path: '',
 		component: RestaurantsComponent,
+		data : { breadcrumb: 'Restaurants'},
 		children: [
 			{
 				path: 'restHome',
-				component: HomeComponent
+				component: HomeComponent,
+				data : { breadcrumb: 'Active Restaurants'}
 			},
 			{
 				path: 'addRestaurant',
-				component: CreateRestaurantComponent
+				component: CreateRestaurantComponent,
+				data : {breadcrumb: 'Add Restaurant'}
             },
             {
                 path: 'restaurant',
-                component: RestaurantListComponent
+                component: RestaurantListComponent,
+				data : {breadcrumb: 'Restaurant List'}
 			},
 			{
 				path: 'restUpdate/:restid',
-				component: UpdateRestaurantComponent
+				component: UpdateRestaurantComponent,
+				data : {breadcrumb: 'Update Restaurant'}
 			},
 			{
 				path: 'restDetails/:restid',
-				component: RestaurantDetailsComponent
+				component: RestaurantDetailsComponent,
+				data : {breadcrumb: ''}
 			},
 			{
 				path: 'users',
-				component: UserDetailComponent
+				component: UserDetailComponent,
+				data : {breadcrumb: 'User details'}
 			},
 			{
 				path: 'booktable',
-				component: BookTableComponent
+				component: BookTableComponent,
+				data : {breadcrumb: 'Book Table'}
 			}
 
 		]
@@ -107,6 +117,7 @@ const routes: Routes = [
 		MatTabsModule,
 		MatToolbarModule,
 		MatTooltipModule,
+		
 	],
 	exports: [RouterModule],
 	declarations: [
@@ -119,9 +130,10 @@ const routes: Routes = [
 		UserDetailComponent,
         BookTableComponent,
         DeleteConfirmBoxComponent,
-        AlertConfirmBoxComponent
+        AlertConfirmBoxComponent,
+        BreadcrumbsComponent
 	],
-	providers: [ ],
+	providers: [ Title],
 	entryComponents: [AlertConfirmBoxComponent,DeleteConfirmBoxComponent],
 })
 export class RestaurantsModule {

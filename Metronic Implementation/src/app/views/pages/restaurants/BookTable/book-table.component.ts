@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { RestaurantService } from '../_services/restaurant.service';
 
@@ -11,7 +12,7 @@ import { RestaurantService } from '../_services/restaurant.service';
 export class BookTableComponent implements OnInit{
   data: any;
   bookTableData:any;
-  constructor(private bookTableService:RestaurantService)
+  constructor(private bookTableService:RestaurantService,private title:Title)
   {
 
   }
@@ -21,11 +22,12 @@ export class BookTableComponent implements OnInit{
     email: new FormControl('', [Validators.required, Validators.email]),
     noOfSeats:new FormControl('', [Validators.required])
   });
-  ngOnInit(): void {}
+  ngOnInit(): void {this.title.setTitle('Book Table');
+  }
   get form(): any {
     return this.bookingForm.controls;
   }
-
+ 
 
   bookSeat(fvalue: any): void {
    /*  console.log(this.bookingForm.value);

@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { MatDialog } from '@angular/material';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'kt-update-restaurant',
   templateUrl: './update-restaurant.component.html',
@@ -21,7 +22,7 @@ export class UpdateRestaurantComponent implements OnInit {
   selectedFile: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private restaurantService: RestaurantService, private httpClient: HttpClient,private dialog: MatDialog) { }
+    private restaurantService: RestaurantService, private httpClient: HttpClient,private dialog: MatDialog,private title:Title) { }
 
   UploadMenu() {
     console.log("In onUpload " + this.selectedFile + "selected rest id :" + this.restid);
@@ -38,6 +39,7 @@ export class UpdateRestaurantComponent implements OnInit {
     this.selectedFile = selectedFile;
   }
   ngOnInit() {
+    this.title.setTitle('Update Restaurant');
     this.restaurant = new Restaurant();
     this.restid = this.route.snapshot.params['restid'];
     this.restaurantService.getRestaurantById(this.restid)

@@ -21,6 +21,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
 import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
+import { Title } from '@angular/platform-browser';
 
 const routes: Routes = [
 	{
@@ -35,15 +36,18 @@ const routes: Routes = [
 			{
 				path: 'login',
 				component: LoginComponent,
-				data: {returnUrl: window.location.pathname}
+				data: {returnUrl: window.location.pathname,title: 'Signin'},
+				
 			},
 			{
 				path: 'register',
-				component: RegisterComponent
+				component: RegisterComponent,
+				data: { title: 'Signup' }
 			},
 			{
 				path: 'forgot-password',
 				component: ForgotPasswordComponent,
+				data: { title: 'Forgot Password' }
 			}
 		]
 	}
@@ -65,6 +69,7 @@ const routes: Routes = [
 		EffectsModule.forFeature([AuthEffects])
 	],
 	providers: [
+		Title,
 		InterceptService,
 		{
 			provide: HTTP_INTERCEPTORS,

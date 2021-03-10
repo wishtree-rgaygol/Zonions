@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable,Subject } from 'rxjs';
 import { Restaurant } from '../_helpers/restaurant';
@@ -14,9 +15,10 @@ export class HomeComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
   constructor(private restaurantService: RestaurantService,
-    private router: Router) { }
+    private router: Router,private title:Title) { }
 
   ngOnInit() {
+    this.title.setTitle('Active Restaurants');
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 3

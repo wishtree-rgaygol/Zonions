@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { NGXLogger } from 'ngx-logger';
 import Swal from 'sweetalert2';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { Restaurant } from '../_helpers/restaurant';
@@ -75,9 +77,10 @@ restaurant: Restaurant = new Restaurant();
 rest = Restaurant;
 submitted = false;
 constructor(private restaurantservice: RestaurantService,private dialog: MatDialog,
-  private router: Router,private snackBar: MatSnackBar) { }
+  private router: Router,private snackBar: MatSnackBar,private title:Title,private logger: NGXLogger) { }
 
 ngOnInit() {
+  this.title.setTitle('Create Restaurant');
 }
 
 newEmployee(): void {
@@ -87,23 +90,24 @@ newEmployee(): void {
 
 save() {  
   let now=moment();
-  this.restaurant.lastModified=now.format();                 /* <---Actual method for registration(Which call service method) to save Restaurant */
+  this.restaurant.lastModified=now.format();
   this.restaurantservice
     .createRestaurant(this.restaurant).subscribe(data => {
-      console.log(data)
+      console.log(data);
       this.restaurant = new Restaurant();
       this.refreshRestaurants();
-      this.openAlertDialog();
+      this.openAlertDialog(); 
     },
       error => console.log(error));
 }
 
-createRestaurant() {        /* <---Method call from Registration Form */
+createRestaurant() {
+  this.logger.info('In create restaurant methood logger');
   this.submitted = true;
   this.save();
 }
 
-refreshRestaurants() {       /* <---Method to display the all restaurants again after addition of new restaurant */
+refreshRestaurants() {
    this.router.navigate(['restaurants', 'restHome']);
 }
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Restaurant } from '../_helpers/restaurant';
@@ -18,9 +19,10 @@ export class RestaurantDetailsComponent implements OnInit {
   imagePath: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private restaurantService: RestaurantService, private httpClient: HttpClient) { }
+    private restaurantService: RestaurantService, private httpClient: HttpClient,private title:Title) { }
 
   ngOnInit() {
+    this.title.setTitle('Restaurant Details');
     this.restaurant = new Restaurant();
     this.restid = this.route.snapshot.params['restid'];
     this.restaurantService.getRestaurantById(this.restid)

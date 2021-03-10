@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 // Angular
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 // Layout
 import { LayoutConfigService, SplashScreenService, TranslationService } from './core/_base/layout';
 // language list
@@ -11,6 +11,8 @@ import { locale as esLang } from './core/_config/i18n/es';
 import { locale as jpLang } from './core/_config/i18n/jp';
 import { locale as deLang } from './core/_config/i18n/de';
 import { locale as frLang } from './core/_config/i18n/fr';
+import { Title } from '@angular/platform-browser';
+import { filter } from 'rxjs/operators';  
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -21,7 +23,7 @@ import { locale as frLang } from './core/_config/i18n/fr';
 })
 export class AppComponent implements OnInit, OnDestroy {
 	// Public properties
-	title = 'Metronic';
+	title = 'Zonions';
 	loader: boolean;
 	private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -34,9 +36,9 @@ export class AppComponent implements OnInit, OnDestroy {
 	 * @param splashScreenService: SplashScreenService
 	 */
 	constructor(private translationService: TranslationService,
-				         private router: Router,
+				         private router: Router,private activatedRoute: ActivatedRoute,
 				         private layoutConfigService: LayoutConfigService,
-				         private splashScreenService: SplashScreenService) {
+				         private splashScreenService: SplashScreenService,private titleService: Title) {
 
 		// register translations
 		this.translationService.loadTranslations(enLang, chLang, esLang, jpLang, deLang, frLang);
@@ -50,6 +52,14 @@ export class AppComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit(): void {
+		this.router.events.pipe(  
+			filter(event => event instanceof NavigationEnd),  
+		  ).subscribe(() => {  
+			const rt = this.getChild(this.activatedRoute);  
+			rt.data.subscribe(data => {  
+			  console.log(data);  
+			  this.titleService.setTitle(data.title)});  
+		  });
 		// enable/disable loader
 		this.loader = this.layoutConfigService.getConfig('loader.enabled');
 
@@ -69,7 +79,14 @@ export class AppComponent implements OnInit, OnDestroy {
 		});
 		this.unsubscribe.push(routerSubscription);
 	}
-
+	getChild(activatedRoute: ActivatedRoute) {  
+		if (activatedRoute.firstChild) {  
+		  return this.getChild(activatedRoute.firstChild);  
+		} else {  
+		  return activatedRoute;  
+		}  
+	  
+	  }  
 	/**
 	 * On Destroy
 	 */

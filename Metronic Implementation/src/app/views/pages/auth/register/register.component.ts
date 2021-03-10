@@ -89,8 +89,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			email: ['', Validators.compose([
 				Validators.required,
 				Validators.email,
-				Validators.minLength(3),
-				Validators.maxLength(20)
+  	            Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+			    
+
 			]),
 			],
 			// username: ['', Validators.compose([

@@ -1,5 +1,5 @@
 // Angular
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG, Title } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -61,6 +61,8 @@ import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
 import { DataTablesModule } from 'angular-datatables';
+import { BreadcrumbModule } from 'angular-crumbs';
+import { LoggerModule } from 'ngx-logger';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -92,7 +94,8 @@ export function hljsLanguages(): HighlightLanguage[] {
 	declarations: [AppComponent],
 	imports: [
 		BrowserAnimationsModule,
-		BrowserModule,
+		BrowserModule.withServerTransition({ appId: 'serverApp' }),
+		BreadcrumbModule,
 		AppRoutingModule,
 		HttpClientModule,
 		environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
@@ -112,10 +115,12 @@ export function hljsLanguages(): HighlightLanguage[] {
 		MatProgressSpinnerModule,
 		InlineSVGModule.forRoot(),
 		ThemeModule,
-		DataTablesModule
+		DataTablesModule,
+		LoggerModule.forRoot(environment.logging)
 	],
 	exports: [],
 	providers: [
+		Title,
 		AuthService,
 		LayoutConfigService,
 		LayoutRefService,

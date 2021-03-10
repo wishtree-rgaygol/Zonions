@@ -6,6 +6,8 @@ import { shuffle } from 'lodash';
 // Widgets model
 import { LayoutConfigService, SparklineChartOptions } from '../../../core/_base/layout';
 import { Widget4Data } from '../../partials/content/widgets/widget4/widget4.component';
+import { RestaurantService } from '../restaurants/_services/restaurant.service';
+import { UserService } from '../restaurants/_services/user.service';
 
 @Component({
 	selector: 'kt-dashboard',
@@ -21,11 +23,14 @@ export class DashboardComponent implements OnInit {
 	widget4_2: Widget4Data;
 	widget4_3: Widget4Data;
 	widget4_4: Widget4Data;
-
-	constructor(private layoutConfigService: LayoutConfigService) {
+	userLength:number;
+	restaurantLength:number;
+	constructor(private layoutConfigService: LayoutConfigService,private userService:UserService,private restaurantService:RestaurantService) {
 	}
 
 	ngOnInit(): void {
+		this.getUsers();
+		this.getRestaurant();
 		this.chartOptions1 = {
 			data: [10, 14, 18, 11, 9, 12, 14, 17, 18, 14],
 			color: this.layoutConfigService.getConfig('colors.state.brand'),
@@ -194,5 +199,17 @@ export class DashboardComponent implements OnInit {
 				valueColor: 'kt-font-brand'
 			},
 		]);
+	}
+	getUsers(): any {
+		this.userService.getAllUsers().subscribe(data => {
+			  this.userLength = data.length;
+			  console.log(this.userLength);
+		} );
+	}
+	getRestaurant(): any {
+		this.restaurantService.getAllRestaurant().subscribe(data => {
+			  this.restaurantLength = data.length;
+			  console.log(this.restaurantLength);
+		} );
 	}
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
@@ -18,9 +19,10 @@ export class UserDetailComponent implements OnInit {
   role: any[];
   user = new User();
   constructor(private router: Router, private userService: UserService,
-              private activatedRoute: ActivatedRoute,private dialog: MatDialog) { }
+              private activatedRoute: ActivatedRoute,private dialog: MatDialog,private title:Title) { }
 
   ngOnInit(): void {
+    this.title.setTitle('User Details');
     this.reloadUser();
   }
 

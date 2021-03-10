@@ -18,7 +18,9 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'dashboard',
-				loadChildren: 'app/views/pages/dashboard/dashboard.module#DashboardModule'
+				loadChildren: 'app/views/pages/dashboard/dashboard.module#DashboardModule',
+				data: { title: "Dashboard" }
+
 			},
 			{
 				path: 'restaurants',
@@ -56,7 +58,7 @@ const routes: Routes = [
 					subtitle: 'Internal Server Error'
 				},
 			},
-		/* 	{path: '', redirectTo: 'dashboard', pathMatch: 'full'} */
+		 	{path: '', redirectTo: 'restaurants/restHome', pathMatch: 'full'} 
 		],
 	},
 

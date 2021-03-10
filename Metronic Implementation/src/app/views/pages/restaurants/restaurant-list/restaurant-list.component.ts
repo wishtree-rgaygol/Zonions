@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Restaurant } from '../_helpers/restaurant';
@@ -15,9 +16,10 @@ restaurants: Observable<Restaurant[]>;
   rest = new Restaurant();
 
   constructor(private restaurantService: RestaurantService,
-    private router: Router, private httpClient: HttpClient) { }
+    private router: Router, private httpClient: HttpClient,private title:Title) { }
 
   ngOnInit() {
+    this.title.setTitle('Restaurant List');
     this.refreshRestaurants();
   }
 
