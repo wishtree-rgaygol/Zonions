@@ -54,6 +54,11 @@ export class LanguageSelectorComponent implements OnInit {
 			name: 'French',
 			flag: './assets/media/flags/195-france.svg'
 		},
+		{
+			lang: 'hi',
+			name: 'India',
+			flag: './assets/media/flags/246-india.svg'
+		},
 	];
 
 	/**

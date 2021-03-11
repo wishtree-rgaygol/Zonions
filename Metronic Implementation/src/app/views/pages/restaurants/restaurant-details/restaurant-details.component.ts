@@ -19,7 +19,7 @@ export class RestaurantDetailsComponent implements OnInit {
   imagePath: any;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private restaurantService: RestaurantService, private httpClient: HttpClient,private title:Title) { }
+    private restaurantService: RestaurantService, private httpClient: HttpClient, private title:Title) { }
 
   ngOnInit() {
     this.title.setTitle('Restaurant Details');

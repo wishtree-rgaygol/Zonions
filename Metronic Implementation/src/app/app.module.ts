@@ -63,6 +63,7 @@ import * as json from 'highlight.js/lib/languages/json';
 import { DataTablesModule } from 'angular-datatables';
 import { BreadcrumbModule } from 'angular-crumbs';
 import { LoggerModule } from 'ngx-logger';
+import { ThemeService } from 'ng2-charts';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -121,6 +122,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 	exports: [],
 	providers: [
 		Title,
+		ThemeService,
 		AuthService,
 		LayoutConfigService,
 		LayoutRefService,

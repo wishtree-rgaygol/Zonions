@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { RestaurantService } from '../_services/restaurant.service';
 
@@ -12,7 +13,7 @@ import { RestaurantService } from '../_services/restaurant.service';
 export class BookTableComponent implements OnInit{
   data: any;
   bookTableData:any;
-  constructor(private bookTableService:RestaurantService,private title:Title)
+  constructor(private bookTableService:RestaurantService,private title:Title,private router: Router)
   {
 
   }
@@ -43,5 +44,8 @@ export class BookTableComponent implements OnInit{
     }
     successNotification(){
       Swal.fire('Hi', 'We have been initiate your request we will inform you once your seat is confirm.', 'success')
+    }
+    list() {                             /* <---Method call from details Form for come back to Homepage */
+      this.router.navigate(['restaurants', 'restHome']);
     }
   }

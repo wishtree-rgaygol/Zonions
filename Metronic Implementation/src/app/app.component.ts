@@ -11,6 +11,7 @@ import { locale as esLang } from './core/_config/i18n/es';
 import { locale as jpLang } from './core/_config/i18n/jp';
 import { locale as deLang } from './core/_config/i18n/de';
 import { locale as frLang } from './core/_config/i18n/fr';
+import { locale as hiLang } from './core/_config/i18n/hi';
 import { Title } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';  
 
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
 				         private splashScreenService: SplashScreenService,private titleService: Title) {
 
 		// register translations
-		this.translationService.loadTranslations(enLang, chLang, esLang, jpLang, deLang, frLang);
+		this.translationService.loadTranslations(enLang, chLang, esLang, jpLang, deLang, frLang, hiLang);
 	}
 
 	/**

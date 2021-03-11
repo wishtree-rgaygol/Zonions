@@ -24,19 +24,23 @@ export class MenuConfig implements OnInit {
 					root: true,
 					alignment: 'left',
 					toggle: 'click',
+					translate: 'MENU.Restaurants',
 					submenu: [
 								{
 									title: 'Add Restaurant',
-									page: '/restaurants/addRestaurant'
+									page: '/restaurants/addRestaurant',
+									translate: 'MENU.Create_Restaurant',
 
 								},
 								{
 									title: 'Restaurant List',
-									page: '/restaurants/restaurant'
+									page: '/restaurants/restaurant',
+									translate: 'MENU.Restaurant_list'
 								},
 								{
 									title: 'Active Restaurants',
-									page: '/restaurants/restHome'
+									page: '/restaurants/restHome',
+									translate: 'MENU.Active_Restaurant'
 								},
 					]
 				},
@@ -45,11 +49,13 @@ export class MenuConfig implements OnInit {
 					root: true,
 					alignment: 'left',
 					toggle: 'click',
+					translate: 'MENU.User_Management',
 					submenu: [
 						{
 
 								title: 'Active Users',
-								page: '/restaurants/users'
+								page: '/restaurants/users',
+								translate: 'MENU.Active_Users'
 
 						}
 					]
@@ -80,19 +86,23 @@ export class MenuConfig implements OnInit {
 					icon: 'flaticon2-expand',
 					alignment: 'left',
 					toggle: 'click',
+					translate: 'MENU.Restaurants',
 					submenu: [
 								{
 									title: 'Add Restaurant',
-									page: '/restaurants/addRestaurant'
+									page: '/restaurants/addRestaurant',
+									translate: 'MENU.Create_Restaurant',
 
 								},
 								{
 									title: 'Restaurant List',
-									page: '/restaurants/restaurant'
+									page: '/restaurants/restaurant',
+									translate: 'MENU.Restaurant_list'
 								},
 								{
 									title: 'Active Restaurants',
-									page: '/restaurants/restHome'
+									page: '/restaurants/restHome',
+									translate: 'MENU.Active_Restaurant'
 								},
 
 
@@ -105,11 +115,13 @@ export class MenuConfig implements OnInit {
 					icon: 'flaticon2-user-outline-symbol',
 					alignment: 'left',
 					toggle: 'click',
+					translate: 'MENU.User_Management',
 					submenu: [
 						{
 
 								title: 'Active Users',
-								page: '/restaurants/users'
+								page: '/restaurants/users',
+								translate: 'MENU.Active_Users'
 
 						}
 					]
@@ -127,10 +139,12 @@ export class MenuConfig implements OnInit {
 					root: true,
 					alignment: 'left',
 					toggle: 'click',
+					translate: 'MENU.Restaurants',
 					submenu: [
 						{
 							title: 'Active Restaurants',
-							page: '/restaurants/restHome'
+							page: '/restaurants/restHome',
+							translate: 'MENU.Active_Restaurant'
 						}
 					]
 				},
@@ -144,10 +158,12 @@ export class MenuConfig implements OnInit {
 					root: true,
 					alignment: 'left',
 					toggle: 'click',
+					translate: 'MENU.Restaurants',
 					submenu: [
 								{
 									title: 'Active Restaurants',
-									page: '/restaurants/restHome'
+									page: '/restaurants/restHome',
+									translate: 'MENU.Active_Restaurant'
 								}
 					]
 				}
