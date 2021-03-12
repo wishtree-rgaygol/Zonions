@@ -6,11 +6,15 @@ import {BaseComponent} from './views/theme/base/base.component';
 import {ErrorPageComponent} from './views/theme/content/error-page/error-page.component';
 // Auth
 import {AuthGuard} from './core/auth';
+import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
 
 const routes: Routes = [
 	   {path: 'auth',
 	    loadChildren: 'app/views/pages/auth/auth.module#AuthModule'},
-
+		{
+			path: 'TestHomeList',
+			component: RestaurantHomeDisplayComponent
+		},
 	{
 		path: '',
 		component: BaseComponent,

@@ -194,4 +194,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 		const result = control.hasError(validationType) && (control.dirty || control.touched);
 		return result;
 	}
+	show() {
+
+		this.router.navigate(['TestHomeList']);
+	  }
 }

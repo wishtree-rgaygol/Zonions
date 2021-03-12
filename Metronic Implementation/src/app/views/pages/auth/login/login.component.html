@@ -58,42 +58,29 @@
 			</div>
 			<!--begin::Action-->
 			<div class="kt-login__actions">
-				<a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
+				<!-- <a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
 					{{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
-				</a>
-				<button (click)="submit()" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-primary btn-elevate kt-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
+				</a> -->
+				<button (click)="submit()" style="margin-left: 240px"  [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-dark btn-elevate kt-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
 			</div>
 			<!--end::Action-->
 		</form>
 		<!--end::Form-->
 
 		<!--begin::Divider-->
-	<!-- 	<div class="kt-login__divider">
+	 	<div class="kt-login__divider">
 			<div class="kt-divider">
 				<span></span>
-				<span>OR</span>
+				<span style="color: rgb(45, 65, 65);">OR</span>
 				<span></span>
 			</div>
-		</div> -->
+		</div>
 		<!--end::Divider-->
 
 		<!--begin::Options-->
-		<!-- <div class="kt-login__options">
-			<a href="https://www.facebook.com/" target="_blank" class="btn btn-primary kt-btn">
-				<i class="fab fa-facebook-f"></i>
-				Facebook
-			</a>
-
-			<a href="https://twitter.com/" target="_blank" class="btn btn-info kt-btn">
-				<i class="fab fa-twitter"></i>
-				Twitter
-			</a>
-
-			<a href="https://www.google.com/gmail/"  target="_blank" class="btn btn-danger kt-btn">
-				<i class="fab fa-google"></i>
-				Google
-			</a>
-		</div> -->
+	     <div class="kt-login__options">
+			<button (click)="show()"  class="btn btn-dark" style="margin-left: 240px" >Show Active Restaurant List</button>
+		</div> 
 		<!--end::Options-->
 	</div>
 	<!--end::Signin-->

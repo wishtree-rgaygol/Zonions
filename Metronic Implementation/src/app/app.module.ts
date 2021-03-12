@@ -64,6 +64,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { BreadcrumbModule } from 'angular-crumbs';
 import { LoggerModule } from 'ngx-logger';
 import { ThemeService } from 'ng2-charts';
+import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -92,7 +93,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 }
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppComponent, RestaurantHomeDisplayComponent],
 	imports: [
 		BrowserAnimationsModule,
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
