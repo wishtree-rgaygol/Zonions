@@ -4,7 +4,7 @@ import { Component, ElementRef, OnInit, Renderer2, ViewEncapsulation } from '@an
 import { LayoutConfigService, SplashScreenService, TranslationService } from '../../../core/_base/layout';
 // Auth
 import { AuthNoticeService } from '../../../core/auth';
-
+ 
 @Component({
 	selector: 'kt-auth',
 	templateUrl: './auth.component.html',
@@ -14,7 +14,7 @@ import { AuthNoticeService } from '../../../core/auth';
 export class AuthComponent implements OnInit {
 	// Public properties
 	today: number = Date.now();
-	headerLogo: string;
+	headerLogo: string; 
 
 	/**
 	 * Component constructor
