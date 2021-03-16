@@ -19,10 +19,10 @@ export class DashboardComponent implements OnInit {
 	chartOptions4: SparklineChartOptions;
 	userLength: number;
 	restaurantLength: number;
+	/* barChartData: [{ data: number[]; label: string; }, { data: number[]; label: string; }]; */
 	// tslint:disable-next-line: max-line-length
 	constructor(private layoutConfigService: LayoutConfigService, private userService: UserService, private restaurantService: RestaurantService) {
 	}
-
 	ngOnInit(): void {
 		this.getUsers();
 		this.getRestaurant();
@@ -59,13 +59,12 @@ export class DashboardComponent implements OnInit {
 	// tslint:disable-next-line: member-ordering
 	public barChartLabels = ['Today'];
 	// tslint:disable-next-line: member-ordering
-	public barChartType = 'bar';
+	 public barChartType = 'bar';
+ // tslint:disable-next-line: member-ordering
+     public barChartLegend = true; 
 	// tslint:disable-next-line: member-ordering
-	public barChartLegend = true;
-	// tslint:disable-next-line: member-ordering
-	public barChartData = [
-		{ data: [3, 1], label: 'Total User' },
-		{ data: [5], label: 'Total Restaurants' }
+	barChartData = [
+		{ data: [2, 1], label: 'Total User' },
+		{ data: [7], label: 'Total Restaurants' }
 	];
-
-}
+} 

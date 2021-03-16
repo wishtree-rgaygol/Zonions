@@ -36,7 +36,7 @@ this.title.setTitle('Active Restaurants');
     this.dtTrigger.next();
   }
    restaurantDetails() {
-
+ 
     this.openAlertDialog();
     this.router.navigate(['auth', 'login']);
   }
