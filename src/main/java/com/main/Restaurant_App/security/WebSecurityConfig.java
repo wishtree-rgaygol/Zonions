@@ -159,7 +159,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
         .antMatchers("/api/auth/**").permitAll().antMatchers("/api/user/**").permitAll()
         .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**",
-            "/swagger-ui.html/")
+            "/swagger-ui.html/**")
         .permitAll().antMatchers("/zonions/restaurants/**").permitAll().antMatchers("/zonions/**")
         .permitAll().anyRequest().authenticated();
 

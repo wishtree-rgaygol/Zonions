@@ -1,4 +1,4 @@
-package com.main.Restaurant_App.Interceptor;
+package com.main.Restaurant_App.interceptor;
 
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
@@ -12,22 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.main.Restaurant_App.controller.RestaurantController;
 
 @Component
-public class RequestInterceptor implements HandlerInterceptor {
-
+public class LoginInterceptor implements HandlerInterceptor {
 
   @Autowired
   RestaurantController controller;
 
-  private static Logger log = LoggerFactory.getLogger(RequestInterceptor.class);
+  private static Logger log = LoggerFactory.getLogger(LoginInterceptor.class);
 
-  /*
-   * @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-   * Object handler) throws Exception { Date creationTime = new
-   * Date(request.getSession().getCreationTime()); log.info(creationTime + " Inside - preHandle " +
-   * request.getMethod() + " " + request.getRequestURI());
-   * 
-   * return true; }
-   */
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {

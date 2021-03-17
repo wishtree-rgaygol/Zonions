@@ -25,7 +25,7 @@ export class CreateRestaurantComponent implements OnInit {
   base64Data: any;
   retrieveResonse: any;
   message: string;
- 
+  
   num: number;
  
   opentime = { hour: 10, minute: 10 };
@@ -94,7 +94,7 @@ data: any;
 constructor(private restaurantservice: RestaurantService, private dialog: MatDialog,
   // tslint:disable-next-line: align
   // tslint:disable-next-line: max-line-length
-  private router: Router, private snackBar: MatSnackBar, private title: Title, private logger: NGXLogger, private modalService: NgbModal) { }
+  private router: Router, private snackBar: MatSnackBar, private title: Title, private logger: NGXLogger, private modalService: NgbModal) { } 
 
   restaurantForm = new FormGroup({
     restname: new FormControl('', [Validators.required,
