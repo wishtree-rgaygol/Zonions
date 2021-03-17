@@ -5,7 +5,7 @@ export const environment = {
   name: 'dev',
   authTokenKey: '',
   logging: {
-		level: NgxLoggerLevel.ERROR,
-		serverLogLevel: NgxLoggerLevel.ERROR
+		level: NgxLoggerLevel.LOG,
+		serverLogLevel: NgxLoggerLevel.LOG
 	  }
 };

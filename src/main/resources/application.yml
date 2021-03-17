@@ -21,6 +21,17 @@ server:
   port: 8080
   
 #spring.profiles.active: stage  
+
+#logging configuration
+logging:
+  file: logs/debug.log
+  pattern: 
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    org.springframework.web: ERROR
+    com.main.Restaurant_App.controller: INFO
+    org.hibernate: ERROR
   
 #Session Management
 spring.session:

@@ -1,9 +1,13 @@
-<h3>Update Restaurant</h3>
-<div class="container">
-    <form #Updateform="ngForm" (ngSubmit)="updateRestaurant()">
-
-        <!----------------------------- Update Restaurant Name ----------------------------------------->
-        <div>
+<h3>&nbsp;&nbsp;&nbsp;Update Restaurant</h3>
+<!-- <div class="container"> -->
+<mat-card>
+    <mat-card-content>
+        <form #Updateform="ngForm" (ngSubmit)="updateRestaurant()">
+            <table>
+                <tr>
+                    <td>
+                        <!----------------------------- Update Restaurant Name ----------------------------------------->
+                        <!-- <div>
             <label for="restname"><span style="color: red;">*</span>Restaurant name:</label>
             <input type="text" class="form-control" placeholder="Enter Restaurant name" name="restnm"
                 [(ngModel)]="restaurant.restname" required pattern="[A-Za-z0-9]+" required #restoname="ngModel"
@@ -13,10 +17,26 @@
                 <small class="text-danger" *ngIf="restoname.errors.pattern">Special Characters Not Allowed Please Enter
                     Correct Restaurantname</small>
             </div>
-        </div>
-
-        <!--------------------- ------ Update Restaurant Address ---------------------------------------->
-        <div class="form-group">
+        </div>  -->
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Restaurant name <span style="color: red;">*</span></mat-label>
+                            <input matInput placeholder="Enter Restaurant Name" name="restnm"
+                                [(ngModel)]="restaurant.restname" required pattern="[A-Za-z0-9]+" required
+                                #restoname="ngModel" [class.is-invalid]="restoname.invalid && restoname.touched">
+                        </mat-form-field>
+                        <div *ngIf="restoname.errors && restoname.invalid && restoname.touched">
+                            <small class="text-danger" *ngIf="restoname.errors.required">Restaurant name is Required
+                                field</small>
+                            <small class="text-danger" *ngIf="restoname.errors.pattern">Special Characters Not Allowed
+                                Please Enter
+                                Correct Restaurantname</small>
+                        </div>
+                    </td>
+                </tr>
+                <!--------------------- ------ Update Restaurant Address ---------------------------------------->
+                <tr>
+                    <td>
+                        <!-- <div class="form-group">
             <label for="restaddress"><span style="color: red;">*</span>Restaurant Address:</label>
             <textarea class="form-control" name="Addr" required #restoaddress="ngModel"
                 [(ngModel)]="restaurant.restaddress" placeholder="Enter Restaurant address"
@@ -25,10 +45,25 @@
                 <small class="text-danger" *ngIf="restoaddress.errors.required">Restaurant Address is Required
                     field</small>
             </div>
-        </div>
+        </div> -->
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Restaurant Address <span style="color: red;">*</span> </mat-label>
+                            <textarea matInput name="Addr" required #restoaddress="ngModel"
+                                [(ngModel)]="restaurant.restaddress" placeholder="Enter Restaurant address"
+                                [class.is-invalid]="restoaddress.invalid && restoaddress.touched"></textarea>
+                        </mat-form-field>
+                        <div *ngIf="restoaddress.errors && restoaddress.invalid && restoaddress.touched">
+                            <small class="text-danger" *ngIf="restoaddress.errors.required">Restaurant Address is
+                                Required
+                                field</small>
+                        </div>
+                    </td>
+                </tr>
 
-        <!-----------------------------Update Restaurant Contact Number ---------------------------------->
-        <div class="form-group">
+                <!-----------------------------Update Restaurant Contact Number ---------------------------------->
+                <tr>
+                    <td>
+                        <!-- <div class="form-group">
             <label for="restphone"><span style="color: red;">*</span>Restaurant Phone Number:</label>
             <input type="text" class="form-control" placeholder="Enter Restaurant Number" name="restph"
                 [(ngModel)]="restaurant.restphone" required pattern="[789][0-9]{10}" required #restophone="ngModel"
@@ -39,67 +74,111 @@
                 <small class="text-danger" *ngIf="restophone.errors.pattern">Only 10 Digits Allowed It Should Start With
                     Digit(7/8/9) Please Correct valid Restaurant Number</small>
             </div>
-        </div>
- <!---------------------------Update Restaurant Open Time --------------------------------------->
- <div class="form-group">
-    <label for="openTime"><span style="color: red;">*</span>Timing for opening of Restaurant:</label>
-    <input type="time" name="appt" class="form-control" min="09:00" max="18:00" [(ngModel)]="restaurant.openTime">
-  </div>
+        </div>  -->
+                        <mat-form-field class="demo-full-width">
+                            <mat-label>Restaurant Contact <span style="color: red;">*</span> </mat-label>
+                            <input matInput placeholder="Enter Restaurant Number" name="restph"
+                                [(ngModel)]="restaurant.restphone" required pattern="[789][0-9]{10}" required
+                                #restophone="ngModel" [class.is-invalid]="restophone.invalid && restophone.touched">
+                        </mat-form-field>
+                        <div *ngIf="restophone.errors && restophone.invalid && restophone.touched">
+                            <small class="text-danger" *ngIf="restophone.errors.required">Restaurant Number is Required
+                                field</small>
+                            <small class="text-danger" *ngIf="restophone.errors.pattern">Only 10 Digits Allowed It
+                                Should Start With
+                                Digit(7/8/9) Please Correct valid Restaurant Number</small>
+                        </div>
+                    </td>
+                </tr>
+                <!--------------------------Update Restaurant Open Time --------------------------------------->
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="openTime">Timing for opening of
+                                Restaurant: <span style="color: red;">*</span></label>
+                            <input type="time" name="appt" class="form-control" min="09:00" max="18:00"
+                                [(ngModel)]="restaurant.openTime">
+                        </div>
+                    </td>
+                </tr>
+                <!---------------------------Update Restaurant Close Time --------------------------------------->
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="closeTime">Timing for closing of
+                                Restaurant <span style="color: red;">*</span></label>
+                            <input type="time" name="appt" class="form-control" min="09:00" max="18:00"
+                                [(ngModel)]="restaurant.closeTime">
+                        </div>
+                    </td>
+                </tr>
 
-        <!---------------------------Update Restaurant Close Time --------------------------------------->
-        <div class="form-group">
-            <label for="closeTime"><span style="color: red;">*</span>Timing for closing of Restaurant:</label>
-            <input type="time" name="appt" class="form-control" min="09:00" max="18:00" [(ngModel)]="restaurant.closeTime" >
-          </div>
-       
 
-      
-        <!-------------------------Update Restaurant Active Or InActive Status ------------------------>
-        <div class="form-group">
-            <label for="active"><span style="color: red;">*</span>Restaurant Status :-</label>
-            <input type="checkbox" name="active" class="form-control" min="09:00" max="18:00" [(ngModel)]="restaurant.active" >
-          </div>
-    
 
-     
+                <!-------------------------Update Restaurant Active Or InActive Status ------------------------>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="active">Restaurant Status <span style="color: red;">*</span></label>
+                            <input type="checkbox" name="active" class="form-control" min="09:00" max="18:00"
+                                [(ngModel)]="restaurant.active">
+                        </div>
+                    </td>
+                </tr>
 
-    <!---------------------Form For Upload OR Update the Menu For Specified Restaurant ------------->
-    <form (ngSubmit)="UploadMenu()">
-        <div class="form-group">
-            <label for="active"><span style="color: red;">*</span>Restaurant Menu :-</label>
-            <div class="container row">
-                <div class="col-md-12">
-                    <h1>Upload Menu</h1>
-                    <h3><small class="text-danger">Choose only png , jpg , jpeg image types</small>
-                    </h3>
-                </div>
-            </div>
-            <hr>
-            <div class="container row">
-                <div class="col-md-12">
-                    <div *ngIf=message>{{message}}</div>
-                </div>
-            </div>
-        </div>
-        <div class="container row">
-            <div class="col-md-6">
-                <input type="file" accept="image/*" (change)="ChooseFile($event)" multiple="false" name="name"
-                    height="200">
-            </div>
-            <div class="col-md-6">
-                <input type="submit" value="upload">
-            </div>
-        </div>
-         <br>
-         <br>
-        <!---------------------------------Display the Uploaded Menu---------------------------------------->
-        <div class="container row"><img [src]="imagePath" style="height: 200px; width: 200px;"></div>
-    </form>
-    <br>
-    <br>
-    <div class="form-group">
-        <button [disabled]="Updateform.form.invalid" type="submit" class="btn btn-dark btn-block">Update</button>
-      </div>
-      
-</form>
-</div>
+
+
+                <!---------------------Form For Upload OR Update the Menu For Specified Restaurant ------------->
+                <tr>
+                    <td>
+                        <form (ngSubmit)="UploadMenu()">
+                            <div class="form-group">
+                                <label for="active">Restaurant Menu <span style="color: red;">*</span></label>
+                                <div class="container row">
+                                    <div class="col-md-12">
+                                        <h1>Upload Menu</h1>
+                                        <h3><small class="text-danger">Choose only png , jpg , jpeg image types</small>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="container row">
+                                    <div class="col-md-12">
+                                        <div *ngIf=message>{{message}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container row">
+                                <div class="col-md-6">
+                                    <input type="file" accept="image/*" (change)="ChooseFile($event)" multiple="false"
+                                        name="name" height="200">
+                                </div>
+                                <br>
+                                <br>
+                                <div class="col-md-7">
+                                    <input type="submit" value="upload">
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <!---------------------------------Display the Uploaded Menu---------------------------------------->
+                            <div class="container row"><img [src]="imagePath" style="height: 200px; width: 200px;">
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <button [disabled]="Updateform.form.invalid" type="submit"
+                                class="btn btn-dark btn-block">Update</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <!-- </div>  -->
+    </mat-card-content>
+</mat-card>

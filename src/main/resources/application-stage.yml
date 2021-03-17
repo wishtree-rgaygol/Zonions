@@ -20,7 +20,12 @@ app:
 server:
   port: 8080
   
-
+#Session Management
+spring.session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
   
 resilience4j.ratelimiter:
   instances:

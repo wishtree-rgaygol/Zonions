@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,10 +67,12 @@ public class AuthController {
   @Autowired
   UserDetailsServiceImpl service;
 
+  private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
       HttpServletRequest request) {
-
+    logger.info("Inside signin method");
     Authentication authentication =
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
             loginRequest.getUsername(), loginRequest.getPassword()));
@@ -87,7 +91,8 @@ public class AuthController {
 
     for (Role r : user.getRoles()) {
       role.add(r.getName().name());
-      System.out.println("Getting role......" + r.getName().name());
+      logger.info("Getting role......" + r.getName().name());
+      /* System.out.println("Getting role......" + r.getName().name()); */
       roles = role;
     }
 
@@ -106,7 +111,8 @@ public class AuthController {
 
     request.getSession().setMaxInactiveInterval(10 * 60);
 
-    System.out.println(roles);
+    logger.info("Total roles" + roles);
+    /* System.out.println(roles); */
     return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
         userDetails.getEmail(), roles));
 
@@ -115,11 +121,13 @@ public class AuthController {
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+      logger.warn("Logger Error: Username is already taken!");
       return ResponseEntity.badRequest()
           .body(new MessageResponse("Error: Username is already taken!"));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+      logger.warn("Logger Error: Email is already in use!");
       return ResponseEntity.badRequest()
           .body(new MessageResponse("Error: Email is already in use!"));
     }
@@ -174,23 +182,3 @@ public class AuthController {
 }
 
 
-
-/*
- * @SuppressWarnings("unchecked") List<String> usernames = (List<String>)
- * request.getSession().getAttribute("Login_Session"); if (usernames == null) { usernames = new
- * ArrayList<>();
- * 
- * request.getSession().setAttribute("Login_Session", loginRequest.getUsername());
- * request.getSession().setMaxInactiveInterval(10 * 60);
- * 
- * }
- * 
- * usernames.add(loginRequest.getUsername()); request.getSession().setAttribute("Login_Session",
- * usernames);
- * 
- * request.getSession().setMaxInactiveInterval(10 * 60);
- * 
- * return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
- * userDetails.getEmail(), roles));
- * 
- */

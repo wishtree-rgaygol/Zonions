@@ -34,15 +34,8 @@ public class RestaurantController {
 
   @Autowired
   private RestaurantService service;
-  private static final Logger logger = LoggerFactory.getLogger(RestController.class);
-  /*
-   * private static final String RESTAURANT_SERVICE = "restaurantService";
-   * 
-   * public ResponseEntity<String> rateLimiterFallback(NoDataFoundException e) { return new
-   * ResponseEntity<>("Many requests please try after some time..! ", HttpStatus.TOO_MANY_REQUESTS);
-   * 
-   * }
-   */
+  private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
+
 
   private static final String RESTAURANT_SERVICE = "restaurantService";
 
@@ -59,6 +52,7 @@ public class RestaurantController {
   @PostMapping("/restaurants")
   @PreAuthorize("hasRole('ADMIN')")
   public Restaurant registerResto(@RequestBody Restaurant restoObj) throws Exception {
+    logger.info("Inside Restaurant Register method");
     String tempRestname = restoObj.getRestname();
     if (tempRestname != null && !"".equals(tempRestname)) {
       Restaurant tempRestObj = rservice.fetchRestaurantByName(tempRestname);
@@ -72,11 +66,14 @@ public class RestaurantController {
   }
 
   @PutMapping(value = "/upload/{restid}", consumes = "multipart/form-data")
-  // @PreAuthorize("hasRole('ADMIN')")
   public String uplaodImage(@RequestParam MultipartFile file,
       @PathVariable(value = "restid") int restid) throws Exception {
-    System.out.println("Upload Rest id :" + restid + "File name :" + file.getName()
+    logger.info("Upload Restaurant id :" + restid + "File name :" + file.getName()
         + "Original file name" + file.getOriginalFilename());
+    /*
+     * System.out.println("Upload Rest id :" + restid + "File name :" + file.getName() +
+     * "Original file name" + file.getOriginalFilename());
+     */
     return rservice.uploadImage(file, restid);
   }
 
@@ -88,17 +85,17 @@ public class RestaurantController {
 
   @GetMapping("/restaurants")
   @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")
-  // @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
   public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+    logger.info("Inside get all Restaurant method");
     List<Restaurant> resList = rservice.getAllRestaurant();
     return ResponseEntity.of(Optional.of(resList));
   }
 
   @GetMapping("/restaurants/{restid}")
   @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")
-  // @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
   public ResponseEntity<Restaurant> getRestaurantById(@PathVariable(value = "restid") int restid)
       throws Exception {
+    logger.info("Inside get Restaurant by ID method");
     return rservice.getRestaurantById(restid);
   }
 
@@ -113,21 +110,11 @@ public class RestaurantController {
   @PreAuthorize("hasRole('ADMIN')")
   public Map<String, Boolean> deleteRestaurant(@PathVariable(value = "restid") int restid)
       throws Exception {
-    System.out.println("Delete Rest ID" + restid);
+    logger.info("Inside Delete Restaurant method for ID -" + restid);
+    /* System.out.println("Delete Rest ID" + restid); */
     return rservice.deleteRestaurant(restid);
   }
 
-  /*
-   * @PostMapping("/loginadmin") public Admin loginAdmin(@RequestBody Admin admin) throws Exception
-   * { String tempUsername = admin.getUsername(); String tempPassword = admin.getPassword();
-   * System.out.println(tempUsername + " " + tempPassword); Admin adminObj = null; if (tempUsername
-   * != null && tempPassword != null) { adminObj =
-   * aservice.fetchAdminByUsernameAndPassword(tempUsername, tempPassword); } if (adminObj == null) {
-   * throw new Exception("You are not Admin"); } return adminObj; }
-   * 
-   * @PostMapping("/registeradmin1") public Admin registerAdmin(@RequestBody Admin admin) { return
-   * aservice.registerAdmin(admin); }
-   */
 
 
 }
