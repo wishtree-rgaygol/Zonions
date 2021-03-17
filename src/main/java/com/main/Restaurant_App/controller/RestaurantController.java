@@ -103,6 +103,7 @@ public class RestaurantController {
   @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Restaurant> updateRestaurant(@PathVariable(value = "restid") int restid,
       @RequestBody Restaurant restDetails) throws Exception {
+    logger.info("Inside Update Restaurant method");
     return rservice.updateRestaurant(restid, restDetails);
   }
 

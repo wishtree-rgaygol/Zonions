@@ -173,7 +173,7 @@ saveRestaurant(fvalue: any): void {
       this.openAlertDialog();
     },
       error => console.log(error));
-}
+} 
 backEvent(): void {
   this.router.navigate(['restaurants', 'restHome']);
 }

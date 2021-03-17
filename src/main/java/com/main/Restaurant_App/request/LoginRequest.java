@@ -1,6 +1,6 @@
 package com.main.Restaurant_App.request;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public @Data class LoginRequest {
-  @NotBlank
+  // @NotBlank
+  @NotEmpty(message = "{username.not.empty}")
   private String username;
 
-  @NotBlank
+  // @NotBlank
+  @NotEmpty(message = "{password.not.empty}")
   private String password;
 
 

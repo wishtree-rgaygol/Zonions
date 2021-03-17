@@ -23,6 +23,7 @@ server:
 #spring.profiles.active: stage  
 
 #logging configuration
+
 logging:
   file: logs/debug.log
   pattern: 
