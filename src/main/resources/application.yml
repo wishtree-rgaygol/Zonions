@@ -58,3 +58,17 @@ management:
   endpoint:
     health:
       show-details: always
+
+
+#swagger config
+apps:
+  name: Zonions
+  api:
+    title: Zonions API
+    version: 1.0.0
+    description: Deals with management of restaurants
+    base-package: com.main.Restaurant_App
+    contact-name: ZonionsGroup
+    contact-email: zonionsAPI@gmail.com
+    swagger:
+      enable: true

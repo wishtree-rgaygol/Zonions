@@ -3,7 +3,6 @@ package com.main.Restaurant_App.controller;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
@@ -83,10 +82,9 @@ public class AuthController {
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
     List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
         .collect(Collectors.toList());
-    Optional<UserEntityDto> findByUsername =
-        dtoRepository.findByUsername(loginRequest.getUsername());
+    UserEntityDto findByUsername = dtoRepository.findByUsername(loginRequest.getUsername());
     List<String> role = new ArrayList<>();
-    UserEntityDto user = findByUsername.get();
+    UserEntityDto user = findByUsername;
 
 
     for (Role r : user.getRoles()) {
@@ -120,6 +118,7 @@ public class AuthController {
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    logger.info("Inside signup method");
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       logger.warn("Logger Error: Username is already taken!");
       return ResponseEntity.badRequest()
@@ -143,8 +142,7 @@ public class AuthController {
 
     Set<Role> roles = new HashSet<>();
 
-    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+    Role userRole = roleRepository.findByName(ERole.ROLE_USER);
     roles.add(userRole);
 
     user.setRoles(roles);
@@ -156,23 +154,26 @@ public class AuthController {
 
   @GetMapping("/users")
   public List<UserEntityDto> getAll() {
+    logger.info("Inside get all role method");
     System.out.println(service.getAllUsers());
     return service.getAllUsers();
   }
 
   @GetMapping("/users/{id}")
   public ResponseEntity<UserEntityDto> getUserById(@PathVariable long id) {
+    logger.info("Inside get role by id method");
     return service.getUsertById(id);
   }
 
   @PutMapping("/users/{id}")
   public UserEntityDto changeRole(@PathVariable long id, @RequestBody User regi) {
+    logger.info("Inside change role method");
     return service.changeRole(id, regi);
   }
 
   @DeleteMapping("/users/{id}")
   public ResponseEntity<HttpStatus> deleteByUsername(@PathVariable long id) {
-
+    logger.info("Inside delete role method");
     return service.deleteByUsername(id);
 
   }

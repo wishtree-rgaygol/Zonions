@@ -60,8 +60,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = registrationRepository.findByUsername(username).orElseThrow(
-        () -> new UsernameNotFoundException("User Not Found with username: " + username));
+    User user = registrationRepository.findByUsername(username);
 
     return UserDetailsImpl.build(user);
   }
@@ -105,8 +104,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("inside inner if");
         System.out.println(resm.getRoles());
         Set<Role> role = new HashSet<Role>();
-        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
         role.add(adminRole);
         entity.setRoles(role);
         System.out.println(entity.getRoles());

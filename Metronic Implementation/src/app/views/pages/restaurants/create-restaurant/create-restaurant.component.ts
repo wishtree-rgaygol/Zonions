@@ -39,7 +39,7 @@ export class CreateRestaurantComponent implements OnInit {
   ngOnInit(): void {
   }
   newRestaurant(): void {
-    this.submitted = false;
+    this.submitted = false; 
     this.restaurant = new Restaurant();
   }
 
@@ -59,7 +59,7 @@ export class CreateRestaurantComponent implements OnInit {
             this.router.navigate(['/500']);
           }
         });
-  }
+  } 
 
   onSubmit(): void { */
 /*     this.restaurant.openTime = this.opentime.hour + ':' + this.opentime.minute;
