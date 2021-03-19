@@ -40,6 +40,9 @@ this.title.setTitle('Active Restaurants');
     this.openAlertDialog();
     this.router.navigate(['auth', 'login']);
   }
+  Login() {
+    this.router.navigate(['auth', 'login']);
+  }
   openAlertDialog(){
     Swal.fire('Please Login First..!');
   }
