@@ -59,6 +59,7 @@ export class UpdateRestaurantComponent implements OnInit {
   }
 
    updateRestaurant() { 
+    this.logger.info('In Restaurant Update Method');
     let now=moment();
     this.restaurant.lastModified=now.format();
     this.restaurantService.updateRestaurant(this.restid, this.restaurant)
@@ -66,6 +67,7 @@ export class UpdateRestaurantComponent implements OnInit {
         this.restaurant = new Restaurant();
         this.restaurantList();
         this.openAlertDialog();
+        this.logger.info('Restaurant Updated');
       }, error => console.log(error));
   } 
   restaurantList() {

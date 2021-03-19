@@ -27,7 +27,7 @@ export class CreateRestaurantComponent implements OnInit {
   message: string;
   
   num: number;
- 
+  
   opentime = { hour: 10, minute: 10 };
   closetime = { hour: 10, minute: 10 };
 
@@ -42,7 +42,7 @@ export class CreateRestaurantComponent implements OnInit {
     this.submitted = false; 
     this.restaurant = new Restaurant();
   }
-
+ 
   save(): void {
     let now=moment();
     this.restaurant.lastModified=now.format();
@@ -66,7 +66,6 @@ export class CreateRestaurantComponent implements OnInit {
     this.restaurant.closeTime = this.closetime.hour + ':' + this.closetime.minute; */
  /*    this.submitted = true;
     this.save();
-
 
   }
 
@@ -149,6 +148,7 @@ ngOnInit() {
   this.title.setTitle('Create Restaurant');
 }
 saveRestaurant(fvalue: any): void {
+  this.logger.info('In Restaurant Register method');
   console.log(this.restaurantForm.value);
   this.data = fvalue;
   console.log('console data object=', this.data);
@@ -167,7 +167,7 @@ saveRestaurant(fvalue: any): void {
     .createRestaurant(this.restaurantForm.value).subscribe(data => {
       console.log(data);
       this.restaurant = new Restaurant();
-      this.logger.info('restaurant created');
+      this.logger.info('Restaurant created');
       this.backEvent();
       /* this.refreshRestaurants(); */
       this.openAlertDialog();

@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { DeleteConfirmBoxComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/delete-confirm-box/delete-confirm-box.component';
 import { AlertConfirmBoxComponent, DialogConfig } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import Swal from 'sweetalert2';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
 	selector: 'kt-data-table',
@@ -36,7 +37,7 @@ export class DataTableComponent implements OnInit {
 	 * @param dataTableService: DataTableService
 	 */
 	restaurants: Observable<Restaurant[]>;
-	constructor(private restService: RestaurantService,private router: Router,private dialog: MatDialog) {}
+	constructor(private restService: RestaurantService,private router: Router,private dialog: MatDialog, private logger: NGXLogger) {}
 
 	/**
 	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
@@ -85,7 +86,8 @@ export class DataTableComponent implements OnInit {
 		this.dataSource.loadItems(queryParams);
 		this.selection.clear();
 	}
-	deleteRestaurant(restid: number) {                      /* <---Method call from Display List Form to Delete Restaurant */
+	deleteRestaurant(restid: number) {
+		this.logger.info('In Restaurant Delete Method');                      /* <---Method call from Display List Form to Delete Restaurant */
 		this.restService.deleteRestaurant(restid)
 		  .subscribe(
 			data => {
@@ -151,7 +153,8 @@ export class DataTableComponent implements OnInit {
 		Swal.fire('Restaurant Deleted Successfully..!');
 		/* window.location.reload();  */
 	  }
-	  refreshRestaurants() {                                   /* <---Method to Diplay all the Restaurants list again to admin */
+	  refreshRestaurants() { 
+		this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */
 		this.restaurants = this.restService.getAllRestaurant();
 		
 	  }
