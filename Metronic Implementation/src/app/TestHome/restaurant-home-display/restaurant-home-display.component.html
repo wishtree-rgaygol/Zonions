@@ -51,20 +51,20 @@
           <h1 style="margin-left: 450px; font-size: 25px;color: rgb(35, 56, 75);">Active Restaurant List</h1>
         </div>
         <div class="panel-body">
-          <table class="table">
+          <table class="table" style="margin-right: 20px;margin-left: 20px; min-width: 1200px;">
             <thead>
               <tr class="danger">
-                <th style="font-size: 20px;"><u>Restaurant Name</u></th>
-                <th style="font-size: 20px;"><u>Address</u></th>
-                <th style="font-size: 20px;"><u>Contact Number</u></th>
+                <th style="font-size: 18px;color: rgb(35, 56, 75);"><u>Restaurant Name</u></th>
+                <th style="font-size: 18px;color: rgb(35, 56, 75);"><u>Address</u></th>
+                <th style="font-size: 18px;color: rgb(35, 56, 75);"><u>Contact Number</u></th>
               </tr>
             </thead>
             <tbody>
               <ng-container *ngFor="let r of restaurants | async">
                 <tr *ngIf="r.active==true" class="tr">
-                  <td style="font:bolder;font-size: 16px;">{{r.restname}}</td>
-                  <td style="font:bolder;font-size: 16px;">{{r.restaddress}}</td>
-                  <td style="font:bolder;font-size: 16px;">{{r.restphone}}</td>
+                  <td style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">{{r.restname}}</td>
+                  <td style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">{{r.restaddress}}</td>
+                  <td style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">{{r.restphone}}</td>
                   <td>
                     <button (click)="restaurantDetails()" class="btn btn-outline-dark"
                       style="margin-left: 400px">Restaurant
@@ -80,8 +80,4 @@
 </div>
 <br>
 </div>
-<div>
-  <span style="align-items: center;">
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Copyright&nbsp;&nbsp; &copy;<script>document.write(new Date().getFullYear());</script>All rights reserved By Zonions | Zonions Web App Interface For Restaurant Information<i class="fa fa-heart-o" aria-hidden="true"></i>
-    </span>
-</div>
+<kt-footer></kt-footer>

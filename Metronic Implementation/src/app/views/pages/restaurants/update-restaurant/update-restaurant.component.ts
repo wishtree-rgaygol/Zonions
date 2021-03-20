@@ -16,7 +16,7 @@ import { NGXLogger } from 'ngx-logger';
   styleUrls: ['update-restaurant.component.scss']
 })
 export class UpdateRestaurantComponent implements OnInit {
-
+ 
   restid: number;
   restaurant: Restaurant;
   displayURL = "http://localhost:8080/zonions/get";

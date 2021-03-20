@@ -96,25 +96,7 @@ export class DataTableComponent implements OnInit {
 			},
 			error => console.log(error));
 	  }
-	  /* removeRestaurant(restid: number) {
-		const confirmDialog = this.dialog.open(DeleteConfirmBoxComponent, {
-		  data: {
-			title: 'Confirm Remove Restaurant',
-			message: 'Are you sure, you want to remove an restaurant'
-		  }
-		});
-		confirmDialog.afterClosed().subscribe(result => {
-		  if (result === true) {
-			this.restService.deleteRestaurant(restid)
-			.subscribe(
-			  data => {
-				this.refreshRestaurants();
-				this.openAlertDialog();
-			  },
-			  error => console.log(error));
-		  }
-		});
-	  } */
+	 
 	  removeRestaurant(restid: number){
 		Swal.fire({
 		  title: 'Are you sure you want to delete restaurant?',
@@ -141,17 +123,9 @@ export class DataTableComponent implements OnInit {
 		  }
 		})
 	  }
-	 /*  openAlertDialog(): void {
-		const dialog: DialogConfig = {
-		  title: 'Restaurant Deleted Successfully',
-		  close: 'OK'
-		};
-		window.location.reload(); 
-		this.dialog.open(AlertConfirmBoxComponent, { width: '350px', data: dialog });
-	  } */
+	 
 	  openAlertDialog(){
 		Swal.fire('Restaurant Deleted Successfully..!');
-		/* window.location.reload();  */
 	  }
 	  refreshRestaurants() { 
 		this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */
