@@ -4,12 +4,12 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GestureConfig, MatProgressSpinnerModule } from '@angular/material';
+import { GestureConfig, MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 // Angular in memory
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // Perfect Scroll bar
-import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 // SVG inline
 import { InlineSVGModule } from 'ng-inline-svg';
 // Env
@@ -65,7 +65,9 @@ import { BreadcrumbModule } from 'angular-crumbs';
 import { LoggerModule } from 'ngx-logger';
 import { ThemeService } from 'ng2-charts';
 import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
-import { IgxAvatarModule } from 'igniteui-angular';
+import { IgxAvatarModule, IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxToggleModule } from 'igniteui-angular';
+import { FormsModule } from '@angular/forms';
+import { DialogBoxComponent } from './TestHome/dialog-box/dialog-box.component';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -86,20 +88,21 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
 
 export function hljsLanguages(): HighlightLanguage[] {
 	return [
-		{name: 'typescript', func: typescript},
-		{name: 'scss', func: scss},
-		{name: 'xml', func: xml},
-		{name: 'json', func: json}
+		{ name: 'typescript', func: typescript },
+		{ name: 'scss', func: scss },
+		{ name: 'xml', func: xml },
+		{ name: 'json', func: json }
 	];
 }
 
 @NgModule({
-	declarations: [AppComponent, RestaurantHomeDisplayComponent],
+	declarations: [AppComponent, RestaurantHomeDisplayComponent, DialogBoxComponent],
 	imports: [
 		BrowserAnimationsModule,
 		IgxAvatarModule,
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		BreadcrumbModule,
+		FormsModule,
 		AppRoutingModule,
 		HttpClientModule,
 		environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
@@ -110,9 +113,9 @@ export function hljsLanguages(): HighlightLanguage[] {
 		PartialsModule,
 		CoreModule,
 		OverlayModule,
-		StoreModule.forRoot(reducers, {metaReducers}),
+		StoreModule.forRoot(reducers, { metaReducers }),
 		EffectsModule.forRoot([]),
-		StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
+		StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
 		StoreDevtoolsModule.instrument(),
 		AuthModule.forRoot(),
 		TranslateModule.forRoot(),
@@ -120,6 +123,72 @@ export function hljsLanguages(): HighlightLanguage[] {
 		InlineSVGModule.forRoot(),
 		ThemeModule,
 		DataTablesModule,
+		PerfectScrollbarModule,
+		MatTableModule,
+		MatIconModule,
+		MatButtonModule,
+		MatProgressSpinnerModule,
+		MatPaginatorModule,
+		MatSortModule,
+		MatButtonModule,
+		MatMenuModule,
+		MatSelectModule,
+		MatInputModule,
+		MatTableModule,
+		MatAutocompleteModule,
+		MatRadioModule,
+		MatIconModule,
+		MatNativeDateModule,
+		MatProgressBarModule,
+		MatDatepickerModule,
+		MatCardModule,
+		MatPaginatorModule,
+		MatSortModule,
+		MatCheckboxModule,
+		MatProgressSpinnerModule,
+		MatSnackBarModule,
+		MatTabsModule,
+		MatTooltipModule,
+		MatDialogModule,
+		MatToolbarModule,
+		MatSlideToggleModule,
+		MatDatepickerModule,
+		MatInputModule,
+		MatNativeDateModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatFormFieldModule, MatListModule, MatRadioModule
+		, MatAutocompleteModule,
+		MatButtonModule,
+		MatButtonToggleModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatDatepickerModule,
+		MatDialogModule,
+		MatExpansionModule,
+		MatGridListModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
+		MatMenuModule,
+		MatNativeDateModule,
+		MatProgressBarModule,
+		MatProgressSpinnerModule,
+		MatRadioModule,
+		MatRippleModule,
+		MatSelectModule,
+		MatSidenavModule,
+		MatSliderModule,
+		MatSlideToggleModule,
+		MatSnackBarModule,
+		MatStepperModule,
+		MatTableModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
+		IgxButtonModule,
+		IgxDialogModule,
+		IgxRippleModule,
+		IgxToggleModule,
+		IgxIconModule,
 		LoggerModule.forRoot(environment.logging)
 	],
 	exports: [],
@@ -150,7 +219,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		},
 		{
 			provide: HIGHLIGHT_OPTIONS,
-			useValue: {languages: hljsLanguages}
+			useValue: { languages: hljsLanguages }
 		},
 		// template services
 		SubheaderService,

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_services/restaurant.service';
 import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_helpers/restaurant';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -22,11 +23,11 @@ export class RestaurantListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   restaurants = new Array<Restaurant>();
   restaurant: Observable<Restaurant[]>;
-  constructor(private restService: RestaurantService, private router: Router, private logger: NGXLogger) {
+  constructor(private restService: RestaurantService, private title: Title, private router: Router, private logger: NGXLogger) {
 
   }
   ngOnInit(): void {
-  
+    this.title.setTitle('Restaurants List');
      // tslint:disable-next-line: align
      this.restService.getAllRestaurant().subscribe(
       (data) => {
