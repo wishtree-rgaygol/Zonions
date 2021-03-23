@@ -26,7 +26,7 @@ body {
 }    
     
 mat-card {    
-    max-width: 80%;    
+    max-width: 100%;    
     margin: 2em auto;    
     text-align: left;    
 }    
@@ -56,3 +56,5 @@ mat-toolbar-row {
     right: 0;
     transform: translate(50%, -50%);
   }
+
+  

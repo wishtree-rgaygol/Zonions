@@ -60,8 +60,6 @@
 
               <tr>
                   <td>
-                   <!--  <b><label>Restaurant Name<span style="color: red;">*</span></label></b>
-                    <br> -->
                       <mat-form-field class="demo-full-width">
                         <mat-label>Restaurant Name  <span style="color: red;">*</span> </mat-label>
                           <input matInput placeholder="Enter Restaurant name" formControlName="restname"
@@ -78,8 +76,6 @@
               </tr>
               <tr>
                   <td colspan="2">
-                    <!-- <b><label>Restaurant Address<span style="color: red;">*</span></label></b>
-                    <br> -->
                       <mat-form-field class="demo-full-width">
                         <mat-label>Restaurant Address  <span style="color: red;">*</span> </mat-label>
                           <textarea matInput placeholder="Enter Restaurant Address" matTextareaAutosize matAutosizeMinRows="2"
@@ -145,7 +141,8 @@
                 <td>
                   <b><label>Active  <span style="color: red;">*</span></label></b>
                     <div class="form-group">
-                          <mat-checkbox class="example-margin" formControlName="active" name="active"></mat-checkbox>
+                          <!-- <mat-checkbox class="example-margin" formControlName="active" name="active"></mat-checkbox> -->
+                          <input type="checkbox" class="form-control" formControlName="active" name="active"/>
                     </div>
                 </td>
 

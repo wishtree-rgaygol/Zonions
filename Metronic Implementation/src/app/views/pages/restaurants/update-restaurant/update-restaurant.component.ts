@@ -23,10 +23,13 @@ export class UpdateRestaurantComponent implements OnInit {
   imagePath: any;
   message: string;
   selectedFile: any;
-  // tslint:disable-next-line: variable-name
+  hour: number;
+  minute: number;
+  
+ /*  // tslint:disable-next-line: variable-name
   openTime = '';
   // tslint:disable-next-line: variable-name
-  closeTime = '';
+  closeTime = ''; */
   time = { hour: 13, minute: 30 };
   constructor(private route: ActivatedRoute, private router: Router, private logger: NGXLogger,
     // tslint:disable-next-line: align

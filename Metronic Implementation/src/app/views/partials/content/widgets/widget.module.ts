@@ -13,6 +13,8 @@ import { Widget12Component } from './widget12/widget12.component';
 import { Widget14Component } from './widget14/widget14.component';
 import { Widget26Component } from './widget26/widget26.component';
 import { Timeline2Component } from './timeline2/timeline2.component';
+import { IgxAvatarModule, IgxFilterModule, IgxForOfModule, IgxIconModule, IgxInputGroupModule, IgxListModule, IgxRippleModule } from 'igniteui-angular';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -47,6 +49,14 @@ import { Timeline2Component } from './timeline2/timeline2.component';
 		MatProgressSpinnerModule,
 		MatPaginatorModule,
 		MatSortModule,
+		IgxFilterModule,
+		IgxListModule,
+		IgxIconModule,
+		IgxRippleModule,
+		IgxForOfModule,
+		IgxInputGroupModule,
+		IgxAvatarModule,
+		FormsModule
 	]
 })
 export class WidgetModule {

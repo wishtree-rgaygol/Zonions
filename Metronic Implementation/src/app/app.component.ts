@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	title = 'Zonions';
 	loader: boolean;
 	private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-
+ 
 	/**
 	 * Component constructor
 	 *

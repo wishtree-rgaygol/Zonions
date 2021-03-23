@@ -25,6 +25,7 @@ import {
 	MatTabsModule,
 	MatTooltipModule,
 } from '@angular/material';
+
 // NgBootstrap
 import {NgbDropdownModule, NgbTabsetModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 // Perfect Scrollbar
@@ -73,6 +74,8 @@ import {WidgetModule} from './content/widgets/widget.module';
 // SVG inline
 import {InlineSVGModule} from 'ng-inline-svg';
 import {CartComponent} from './layout/topbar/cart/cart.component';
+import { IgxAvatarModule } from 'igniteui-angular';
+
 
 @NgModule({
 	declarations: [
@@ -113,7 +116,6 @@ import {CartComponent} from './layout/topbar/cart/cart.component';
 	exports: [
 		WidgetModule,
 		PortletModule,
-
 		ScrollTopComponent,
 		NoticeComponent,
 		ActionNotificationComponent,
@@ -150,6 +152,7 @@ import {CartComponent} from './layout/topbar/cart/cart.component';
 	],
 	imports: [
 		CommonModule,
+		IgxAvatarModule,
 		RouterModule,
 		FormsModule,
 		ReactiveFormsModule,

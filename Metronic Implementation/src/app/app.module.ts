@@ -65,6 +65,7 @@ import { BreadcrumbModule } from 'angular-crumbs';
 import { LoggerModule } from 'ngx-logger';
 import { ThemeService } from 'ng2-charts';
 import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
+import { IgxAvatarModule } from 'igniteui-angular';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -96,6 +97,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 	declarations: [AppComponent, RestaurantHomeDisplayComponent],
 	imports: [
 		BrowserAnimationsModule,
+		IgxAvatarModule,
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		BreadcrumbModule,
 		AppRoutingModule,

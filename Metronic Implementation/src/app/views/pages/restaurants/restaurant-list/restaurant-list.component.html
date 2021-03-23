@@ -1,41 +1,53 @@
-<!-- <nav class="navbar">
-  
-  </nav>
+
+ <kt-portlet>
+  <ng-container ktPortletTitle>
+      <h3 class="kt-portlet__head-title">
+          <h2>&nbsp;&nbsp;&nbsp;Restaurant List</h2>
+      </h3>
+  </ng-container>
   <br>
-  <div class="table-responsive">
-    <div class="panel-heading">
-      <h2>Restaurants</h2>
-    </div>
-    <div class="panel-body">
-      <table class="table">
-        <thead class="black white-text">
-          <tr>
-            <th>Restaurant Name</th>
-            <th>Open Time</th>
-            <th>Close Time</th>
-            <th>Last Updated</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rest of restaurants | async">
-            <td>{{rest.restname}}</td>
-            <td>{{rest.openTime}}</td>
-            <td>{{rest.closeTime}}</td>
-            <td>{{rest.lastModified}}</td>
-            <td>
-              <button (click)="updateRestaurant(rest.restid)" class="btn btn-secondary"
-                style="margin-left: 10px">Update</button>               
-               <button (click)="deleteRestaurant(rest.restid)" class="btn btn-dark"
-                style="margin-left: 15px">Delete</button>               
-              </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="search-div">
+      <mat-form-field class="search-form-field">
+          <input matInput [(ngModel)]="searchKey" placeholder="Search Restaurant" autocomplete="off" (keyup)="applyFilter()">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
   </div>
 
-  <button (click)="list()" class="btn btn-primary">Back to Home Page</button><br>
-  -->
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="restname">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Restaurant Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.restname}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="openTime">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Open Time </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.openTime}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="closeTime">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Close Time </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.closeTime}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="lastModified">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.lastModified}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef style="text-align: center;">Actions</mat-header-cell>
+          <mat-cell *matCellDef="let element">
 
-  <kt-data-table></kt-data-table>
+            <button mat-icon-button color="primary" (click)="updateRestaurant(element.restid)" matTooltip="Edit item">
+              <mat-icon>create</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="removeRestaurant(element.restid)" type="button" matTooltip="Delete item">
+            <mat-icon>delete</mat-icon>
+        </button>
+          </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
+</div>
+</kt-portlet>

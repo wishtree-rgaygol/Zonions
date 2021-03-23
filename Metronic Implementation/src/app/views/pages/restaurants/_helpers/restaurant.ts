@@ -4,8 +4,8 @@ export class Restaurant {
     restname:string; 
     restaddress:string;
     restphone:string;
-    openTime:string;
-	closeTime:string;
+    openTime = '';
+	closeTime = '';
     active:boolean;
     lastModified:string;
     name:string;

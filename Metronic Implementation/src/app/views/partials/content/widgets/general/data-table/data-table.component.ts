@@ -17,6 +17,7 @@ import { DeleteConfirmBoxComponent } from '/home/rgaygol/Documents/Zonions Proje
 import { AlertConfirmBoxComponent, DialogConfig } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import Swal from 'sweetalert2';
 import { NGXLogger } from 'ngx-logger';
+import { IgxFilterOptions } from "igniteui-angular";
 
 @Component({
 	selector: 'kt-data-table',
@@ -24,6 +25,13 @@ import { NGXLogger } from 'ngx-logger';
 	styleUrls: ['./data-table.component.scss']
 })
 export class DataTableComponent implements OnInit {
+	public search: string;
+    get fo() {
+        const _fo = new IgxFilterOptions();
+        _fo.key = "name";
+        _fo.inputValue = this.search;
+        return _fo;
+    }
 	// Public properties
 	dataSource: DataTableDataSource;
 	displayedColumns = [ 'Restaurant Name', 'Open Time', 'Close Time', 'Last Updated', 'actions' ];
@@ -196,4 +204,5 @@ export class DataTableComponent implements OnInit {
 		}
 		return '';
 	}
+
 }

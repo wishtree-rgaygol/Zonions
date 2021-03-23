@@ -11,4 +11,4 @@ export class RestaurantsComponent implements OnInit {
 
 	ngOnInit() {
 	}
-}
+} 

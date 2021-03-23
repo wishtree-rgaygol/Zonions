@@ -18,11 +18,12 @@ import { UpdateRestaurantComponent } from './update-restaurant/update-restaurant
 import { UserDetailComponent } from './user-details/user-detail.component';
 import { DataTablesModule } from 'angular-datatables';
 import { BookTableComponent } from './BookTable/book-table.component';
-import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { DeleteConfirmBoxComponent } from './DialogBoxes/delete-confirm-box/delete-confirm-box.component';
 import { AlertConfirmBoxComponent } from './DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { Title } from '@angular/platform-browser';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { IgxProgressBarModule } from "igniteui-angular";
 
 
 
@@ -75,6 +76,7 @@ const routes: Routes = [
 @NgModule({
 	imports: [
 		CommonModule,
+		IgxProgressBarModule,
 		PartialsModule,
 		NgbModule,
 		CoreModule,
@@ -117,6 +119,35 @@ const routes: Routes = [
 		MatTabsModule,
 		MatToolbarModule,
 		MatTooltipModule,
+		PerfectScrollbarModule,
+		MatTableModule,
+		MatIconModule,
+		MatButtonModule,
+		MatProgressSpinnerModule,
+		MatPaginatorModule,
+		MatSortModule,
+		MatButtonModule,
+		MatMenuModule,
+		MatSelectModule,
+        MatInputModule,
+		MatTableModule,
+		MatAutocompleteModule,
+		MatRadioModule,
+		MatIconModule,
+		MatNativeDateModule,
+		MatProgressBarModule,
+		MatDatepickerModule,
+		MatCardModule,
+		MatPaginatorModule,
+		MatSortModule,
+		MatCheckboxModule,
+		MatProgressSpinnerModule,
+		MatSnackBarModule,
+		MatTabsModule,
+		MatTooltipModule,
+		MatDialogModule,
+		MatToolbarModule,
+		MatSlideToggleModule
 		
 	],
 	exports: [RouterModule],
