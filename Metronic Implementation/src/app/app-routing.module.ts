@@ -62,7 +62,7 @@ const routes: Routes = [
 					subtitle: 'Internal Server Error'
 				},
 			},
-		 	{path: '', redirectTo: 'restaurants/restHome', pathMatch: 'full'} 
+		 	{path: '', redirectTo: 'restaurants/restHome', pathMatch: 'full'}
 		],
 	},
 

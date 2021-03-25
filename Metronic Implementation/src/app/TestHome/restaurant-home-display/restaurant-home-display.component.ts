@@ -76,7 +76,7 @@ this.title.setTitle('Active Restaurants');
   private _animaitonSettings: PositionSettings = {
       openAnimation: useAnimation(slideInBottom, { params: { fromPosition: "translateY(100%)" } }),
       closeAnimation: useAnimation(slideOutTop, { params: { toPosition: "translateY(-100%)" } })
-  };
+   };
 
   private _dialogOverlaySettings2;
 

@@ -51,7 +51,6 @@ public class MysqlStartupConfig implements ApplicationListener<ContextRefreshedE
   private final User createUserIfNotFound(final String username, String email, Set<Role> roles) {
     User user = registrationRepository.findByUsername(username);
     if (user == null) {
-      System.out.println("*******************");
       user = new User();
       user.setUsername(username);
       user.setEmail(email);
@@ -67,7 +66,6 @@ public class MysqlStartupConfig implements ApplicationListener<ContextRefreshedE
       Set<Role> roles) {
     UserEntityDto user = registrationRepositorydto.findByUsername(username);
     if (user == null) {
-      System.out.println("*******************");
       user = new UserEntityDto();
       user.setUsername(username);
       user.setEmail(email);
@@ -81,7 +79,6 @@ public class MysqlStartupConfig implements ApplicationListener<ContextRefreshedE
   private final Role createRoleIfNotFound(final ERole name) {
     Role role = roleRepository.findByName(name);
     if (role == null) {
-      // role.setName(name);
       role = roleRepository.save(new Role(name));
     }
 

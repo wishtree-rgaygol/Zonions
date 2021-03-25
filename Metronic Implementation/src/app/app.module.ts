@@ -65,7 +65,7 @@ import { BreadcrumbModule } from 'angular-crumbs';
 import { LoggerModule } from 'ngx-logger';
 import { ThemeService } from 'ng2-charts';
 import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
-import { IgxAvatarModule, IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxToggleModule } from 'igniteui-angular';
+import { IgxAvatarModule, IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from 'igniteui-angular';
 import { FormsModule } from '@angular/forms';
 import { DialogBoxComponent } from './TestHome/dialog-box/dialog-box.component';
 
@@ -189,6 +189,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		IgxRippleModule,
 		IgxToggleModule,
 		IgxIconModule,
+		IgxSnackbarModule,
 		LoggerModule.forRoot(environment.logging)
 	],
 	exports: [],

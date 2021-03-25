@@ -60,7 +60,7 @@ export class CreateRestaurantComponent implements OnInit {
           }
         });
   } 
-
+ 
   onSubmit(): void { */
 /*     this.restaurant.openTime = this.opentime.hour + ':' + this.opentime.minute;
     this.restaurant.closeTime = this.closetime.hour + ':' + this.closetime.minute; */

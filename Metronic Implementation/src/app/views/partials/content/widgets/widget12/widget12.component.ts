@@ -3,35 +3,25 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 // Layout config
 import { LayoutConfigService } from '../../../../../core/_base/layout';
 
-/**
- * Sample components with sample data
- */
+
 @Component({
 	selector: 'kt-widget12',
 	templateUrl: './widget12.component.html',
 	styleUrls: ['./widget12.component.scss']
 })
-export class Widget12Component implements OnInit {
+export class Widget12Component  {
 
-	// Public properties
-	@Input() data: { labels: string[], datasets: any[] };
+
+/* 	@Input() data: { labels: string[], datasets: any[] };
 	@Input() type = 'line';
 	@ViewChild('chart', {static: true}) chart: ElementRef;
 
-	/**
-	 * Component constructor
-	 * @param layoutConfigService
-	 */
+	
+ @param layoutConfigService
+	
 	constructor(private layoutConfigService: LayoutConfigService) {
 	}
 
-	/**
-	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-	 */
-
-	/**
-	 * On init
-	 */
 	ngOnInit(): void {
 		if (!this.data) {
 			const color = Chart.helpers.color;
@@ -40,7 +30,7 @@ export class Widget12Component implements OnInit {
 				datasets: [
 					{
 						fill: true,
-						// borderWidth: 0,
+				
 						backgroundColor: color(this.layoutConfigService.getConfig('colors.state.brand')).alpha(0.6).rgbString(),
 						borderColor: color(this.layoutConfigService.getConfig('colors.state.brand')).alpha(0).rgbString(),
 
@@ -55,7 +45,7 @@ export class Widget12Component implements OnInit {
 					},
 					{
 						fill: true,
-						// borderWidth: 0,
+				
 						backgroundColor: color(this.layoutConfigService.getConfig('colors.state.brand')).alpha(0.2).rgbString(),
 						borderColor: color(this.layoutConfigService.getConfig('colors.state.brand')).alpha(0).rgbString(),
 
@@ -75,8 +65,7 @@ export class Widget12Component implements OnInit {
 	}
 
 	private initChart() {
-		// For more information about the chartjs, visit this link
-		// https://www.chartjs.org/docs/latest/getting-started/usage.html
+
 
 		const chart = new Chart(this.chart.nativeElement, {
 			type: this.type,
@@ -163,5 +152,5 @@ export class Widget12Component implements OnInit {
 				}
 			}
 		});
-	}
+	} */
 }
