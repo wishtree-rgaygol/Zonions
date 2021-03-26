@@ -18,23 +18,23 @@
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="restname">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Restaurant Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.restname}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);"> Restaurant Name </mat-header-cell>
+          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.restname}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="openTime">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Open Time </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.openTime}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);"> Open Time </mat-header-cell>
+          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.openTime}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="closeTime">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Close Time </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.closeTime}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);"> Close Time </mat-header-cell>
+          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.closeTime}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="lastModified">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Last Updated</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.lastModified}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);">Last Updated</mat-header-cell>
+          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.lastModified}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef style="text-align: center;">Actions</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef style="text-align: center;"  style="font-size: 16px;color: rgb(35, 56, 75);">Actions</mat-header-cell>
           <mat-cell *matCellDef="let element">
 
             <button mat-icon-button color="primary" (click)="updateRestaurant(element.restid)" matTooltip="Edit Restaurant">

@@ -93,9 +93,8 @@
                 <!--------------------------Update Restaurant Open Time --------------------------------------->
                 <tr>
                     <td>
+                        <b><label>Open Time <span style="color: red;">*</span></label></b>
                         <div class="form-group">
-                            <label for="openTime">Timing for opening of
-                                Restaurant: <span style="color: red;">*</span></label>
                             <input type="time" name="appt" class="form-control"
                                 [(ngModel)]="restaurant.openTime">
                         </div>
@@ -104,9 +103,8 @@
                 <!---------------------------Update Restaurant Close Time --------------------------------------->
                 <tr>
                     <td>
+                        <b><label>Close Time <span style="color: red;">*</span></label></b>
                         <div class="form-group">
-                            <label for="closeTime">Timing for closing of
-                                Restaurant <span style="color: red;">*</span></label>
                             <input type="time" name="appt" class="form-control"
                                 [(ngModel)]="restaurant.closeTime">
                         </div>
@@ -118,8 +116,8 @@
                 <!-------------------------Update Restaurant Active Or InActive Status ------------------------>
                 <tr>
                     <td>
+                        <b><label>Active  <span style="color: red;">*</span></label></b>
                         <div class="form-group">
-                            <label for="active">Restaurant Status <span style="color: red;">*</span></label>
                             <input type="checkbox" name="active" class="form-control" min="09:00" max="18:00"
                                 [(ngModel)]="restaurant.active">
                         </div>
@@ -132,8 +130,8 @@
                 <tr>
                     <td>
                         <form (ngSubmit)="UploadMenu()">
+                            <b><label for="active">Restaurant Menu <span style="color: red;">*</span></label></b>
                             <div class="form-group">
-                                <label for="active">Restaurant Menu <span style="color: red;">*</span></label>
                                 <div class="container row">
                                     <div class="col-md-12">
                                         <h1>Upload Menu</h1>

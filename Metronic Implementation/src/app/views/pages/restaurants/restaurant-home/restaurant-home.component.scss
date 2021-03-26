@@ -1,0 +1,112 @@
+@import '~igniteui-angular/lib/core/styles/themes/index';
+
+.dialog-container{
+    display: flex;
+}
+
+igx-icon {
+    margin-right: 8px;
+}
+
+$my-dialog-theme: igx-dialog-theme(
+    $background: #011627,
+    $title-color:  #ECAA53,
+    $message-color:  #FEFEFE,
+    $border-radius: .3,
+);
+
+$dark-button: igx-button-theme(
+    $raised-background: #ECAA53,
+    $raised-text-color: #011627,
+);
+
+:host {
+    /* display: block;
+    padding: 16px; */
+    ::ng-deep {
+        @include igx-dialog($my-dialog-theme);
+
+        .dialog-container {
+            @include igx-button($dark-button);
+        }
+    }
+}
+.styled-table {
+    /* border-collapse: collapse; */
+    /* border: 1px solid black; */
+    /* margin: 25px 0; */
+    margin-right: 20px;
+    margin-left: 20px;
+   /*  font-size: 0.9em; */
+    /* font-family: Arial, Helvetica, sans-serif; */
+    min-width: 1250px;
+   /*  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15); */
+}
+
+/* .styled-table thead tr {
+    background-color: #222f36;
+    color: #ffffff;
+    text-align: left;
+    font-size: 16px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #222f36;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+} */
+
+/* 
+.btn {
+    min-width: 50px;
+    min-height: 50px;
+} */
+
+
+/* filter controls */
+/* :host {
+    display: block;
+    padding: 16px;
+}
+ */
+.search-div{
+ 
+    min-height: 70px;
+    padding: 8px 24px 0;
+      }
+      .search-form-field{
+          width: 40%;
+         /*  margin-left: 360px; */
+          padding: 5px 10px;
+          background-color: #f5f5f5;
+          border-radius: 5px;
+          }
+          .search-form-field div.mat-form-field-underline {
+              display: none;
+          }
+          .search-form-field div.mat-form-field-infix{
+              border-top: 0px;
+          }
+          .search-form-field div.mat-form-field-wrapper{
+            padding-bottom: 0px;
+        }
+        .search-form-field div.mat-form-field-suffix button{
+            height: 32px;
+            width: 32px;
+        }

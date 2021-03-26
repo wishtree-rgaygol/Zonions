@@ -16,27 +16,22 @@ import { NGXLogger } from 'ngx-logger';
   styleUrls: ['update-restaurant.component.scss']
 })
 export class UpdateRestaurantComponent implements OnInit {
- 
   restid: number;
   restaurant: Restaurant;
-  displayURL = "http://localhost:8080/zonions/get";
+  displayURL = 'http://localhost:8080/zonions/get';
   imagePath: any;
   message: string;
   selectedFile: any;
   hour: number;
   minute: number;
-  
- /*  // tslint:disable-next-line: variable-name
-  openTime = '';
-  // tslint:disable-next-line: variable-name
-  closeTime = ''; */
+
   time = { hour: 13, minute: 30 };
   constructor(private route: ActivatedRoute, private router: Router, private logger: NGXLogger,
     // tslint:disable-next-line: align
     private restaurantService: RestaurantService, private httpClient: HttpClient, private dialog: MatDialog, private title: Title) { }
 
   UploadMenu() {
-    console.log("In onUpload " + this.selectedFile + "selected rest id :" + this.restid);
+    console.log('In onUpload ' + this.selectedFile + 'selected rest id :' + this.restid);
     this.restaurantService.UploadFileFromService(this.selectedFile, this.restid).subscribe((resp: any) => {
       if (resp.status === 200) {
         this.message = 'Image uploaded successfully';
@@ -52,27 +47,30 @@ export class UpdateRestaurantComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('Update Restaurant');
     this.restaurant = new Restaurant();
+    // tslint:disable-next-line: no-string-literal
     this.restid = this.route.snapshot.params['restid'];
-    
     this.restaurantService.getRestaurantById(this.restid)
+      // tslint:disable-next-line: deprecation
       .subscribe(data => {
         this.restaurant = data;
         this.imagePath = `${this.displayURL}/${this.restaurant.restid}/${this.restaurant.name}`;
       }, error => console.log(error));
   }
 
-   updateRestaurant() { 
+   updateRestaurant() {
     this.logger.info('In Restaurant Update Method');
-    let now=moment();
-    this.restaurant.lastModified=now.format();
+    // tslint:disable-next-line: prefer-const
+    let now = moment();
+    this.restaurant.lastModified = now.format();
     this.restaurantService.updateRestaurant(this.restid, this.restaurant)
+      // tslint:disable-next-line: deprecation
       .subscribe(data => {
         this.restaurant = new Restaurant();
         this.restaurantList();
         this.openAlertDialog();
         this.logger.info('Restaurant Updated');
       }, error => console.log(error));
-  } 
+  }
   restaurantList() {
     this.router.navigate(['restaurants', 'restaurant']);
   }

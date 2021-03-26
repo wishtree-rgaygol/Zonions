@@ -23,7 +23,7 @@ import { DeleteConfirmBoxComponent } from './DialogBoxes/delete-confirm-box/dele
 import { AlertConfirmBoxComponent } from './DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { Title } from '@angular/platform-browser';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { IgxProgressBarModule } from "igniteui-angular";
+import { IgxButtonModule, IgxDialogModule, IgxIconModule, IgxProgressBarModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from "igniteui-angular";
 
 
 
@@ -147,7 +147,19 @@ const routes: Routes = [
 		MatTooltipModule,
 		MatDialogModule,
 		MatToolbarModule,
-		MatSlideToggleModule
+		MatSlideToggleModule,
+		MatSnackBarModule,
+		MatStepperModule,
+		MatTableModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
+		IgxButtonModule,
+		IgxDialogModule,
+		IgxRippleModule,
+		IgxToggleModule,
+		IgxIconModule,
+		IgxSnackbarModule,
 		
 	],
 	exports: [RouterModule],
