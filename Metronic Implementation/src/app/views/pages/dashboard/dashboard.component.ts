@@ -65,6 +65,6 @@ export class DashboardComponent implements OnInit {
 	// tslint:disable-next-line: member-ordering
 	barChartData = [
 		{ data: [2, 1], label: 'Total User' },
-		{ data: [7], label: 'Total Restaurants' }
+		{ data: [5], label: 'Total Restaurants' }
 	];
-} 
+}
