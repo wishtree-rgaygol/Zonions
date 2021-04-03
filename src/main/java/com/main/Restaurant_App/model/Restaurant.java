@@ -1,12 +1,19 @@
 package com.main.Restaurant_App.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,5 +55,9 @@ public @Data class Restaurant implements Serializable {
   @Column
   private byte[] picByte;
 
-
+  @ManyToMany
+  @JoinTable(name = "cuisine_manager", joinColumns = @JoinColumn(name = "restid"),
+      inverseJoinColumns = @JoinColumn(name = "cuisine_id"))
+  @Fetch(FetchMode.JOIN)
+  private Set<Cuisine> cuisineManager = new HashSet<>();
 }

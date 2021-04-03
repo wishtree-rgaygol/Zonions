@@ -43,7 +43,7 @@ import com.main.Restaurant_App.security.service.UserDetailsServiceImpl;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 // @EnableSwagger2
 public class AuthController {
   @Autowired

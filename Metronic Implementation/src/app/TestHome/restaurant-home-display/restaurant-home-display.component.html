@@ -1,100 +1,10 @@
+
 <!-- <nav class="navbar navbar-expand-sm bg-dark navbar-light">
-  <ul class="navbar-nav">
-    <ng-template>
-      <button style="font-weight: bolder" (click)="Login()" class="btn btn-light">Login</button>
-    </ng-template>
-  </ul>
-    <h1 style="margin-left: 450px; font-size: 30px;color: cornsilk;">Active Restaurant List</h1>
-</nav>
-<br>
-<br>
-<table class="styled-table">
-    <thead>
-        <tr>
-            <th>Restaurant Name</th>
-            <th>Address</th>
-            <th>Contact Number</th>
-            <th> </th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngFor="let r of restaurants | async">
-            <tr *ngIf="r.active==true" class="tr">
-                <td style="color: black;font-size: 14px;">{{r.restname}}</td>
-                <td style="color: black;font-size: 14px;">{{r.restaddress}}</td>
-                <td style="color: black;font-size: 14px;">{{r.restphone}}</td>
-                <td>
-                    <button (click)="restaurantDetails()" class="btn btn-outline-dark" style="margin-left: 10px">More
-                        Details</button>
-                </td>
-            </tr>
-        </ng-container>
-    </tbody>
-</table> -->
-<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-light" >
-
-  <ul class="navbar-nav">
-      <button style="font-weight: bolder" (click)="Login()" class="btn btn-light">Login</button>
-  </ul>
-</nav>
-<div [ngStyle]="{backgroundImage:'url(./assets/Rest3.jpg)'}" style="size: 45px;">
-  <br>
-  <h1
-    style="text-align: center;color: rgb(225, 237, 255);background-color: rgb(43, 48, 54);font-family:'Courier New', Courier, monospace;font: bolder;font-size: 35px;">
-    <u>Welcome To Zonions</u>
-  </h1>
-  <hr>
-  <div class="card">
-    <div class="card-body">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h1 style="margin-left: 450px; font-size: 25px;color: rgb(35, 56, 75);">Active Restaurant List</h1>
-        </div>
-        <div class="panel-body">
-          <table class="table" style="margin-right: 20px;margin-left: 20px; min-width: 1200px;">
-            <thead>
-              <tr class="danger">
-                <th style="font-size: 18px;color: rgb(35, 56, 75);"><u>Restaurant Name</u></th>
-                <th style="font-size: 18px;color: rgb(35, 56, 75);"><u>Address</u></th>
-                <th style="font-size: 18px;color: rgb(35, 56, 75);"><u>Contact Number</u></th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let r of restaurants | async">
-                <tr *ngIf="r.active==true" class="tr">
-                  <td style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">{{r.restname}}</td>
-                  <td style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">{{r.restaddress}}</td>
-                  <td style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">{{r.restphone}}</td>
-                  <td>
-                    <button (click)="restaurantDetails()" class="btn btn-outline-dark"
-                      style="margin-left: 400px">Restaurant
-                      Details</button> 
-                  </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
-        </div>
-      </div>
-  </div>
-</div>
-<br>
-</div> -->
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-light">
 
   <ul class="navbar-nav">
     <button style="font-weight: bolder" (click)="Login()" class="btn btn-light">Login</button>
   </ul>
   <ul class="navbar-nav">
-    <!--  <button class="btn btn-light" igxRipple="white" (click)="alert.open()" style="font-weight: bolder;margin-left:1130px">Help</button>
-
-<igx-dialog #alert 
-    title="N"
-    message="Plese mail us on our official id -zonionsRest1020@gmail.com!"
-    leftButtonLabel="OK"
-    (onLeftButtonSelect)="alert.close()">
-</igx-dialog> -->
     <button class="btn btn-light" igxRipple="white" (click)="openDialog()"
       style="font-weight: bolder;margin-left:1130px">Help</button>
     <div igxOverlayOutlet>
@@ -182,4 +92,139 @@
       </div>
     </div>
   </div>
+</div> -->
+
+
+<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-light">
+
+  <ul class="navbar-nav">
+    <button style="font-weight: bolder" (click)="Login()" class="btn btn-light">Login</button>
+  </ul>
+  <ul class="navbar-nav">
+    <button class="btn btn-light" igxRipple="white" (click)="openDialog()"
+      style="font-weight: bolder;margin-left:1130px">Help</button>
+    <div igxOverlayOutlet>
+
+      <igx-dialog #dialog1 message="Plese mail your query on zonions@gmail.com">
+        <igx-dialog-title>
+          <div class="dialog-container">
+            <igx-icon>account_box</igx-icon>
+            <div class="dialog-title">Always Happy To Help You.</div>
+          </div>
+        </igx-dialog-title>
+        <div igxDialogActions class="dialog-container dialog-actions">
+          <button igxButton="raised" igxRipple="white" (click)="dialog.close()">OK</button>
+        </div>
+      </igx-dialog>
+    </div>
+
+  </ul>
+</nav>
+
+<div [ngStyle]="{backgroundImage:'url(./assets/Rest3.jpg)'}" style="size: 45px;">
+  <br>
+  <h1
+    style="text-align: center;color: rgb(225, 237, 255);background-color: rgb(43, 48, 54);font-family:'Courier New', Courier, monospace;font: bolder;font-size: 35px;">
+    <b><u>Welcome To Zonions</u></b>
+  </h1>
+  <hr>
+  <div class="card">
+    <div class="card-body">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h1 style="margin-left: 500px; font-size: 25px;color: rgb(35, 56, 75);">Active <b>Restaurants</b></h1>
+        </div>
+        <div class="panel-body">
+          <kt-portlet>
+
+            <br>
+            <div class="search-div">
+              <mat-form-field class="search-form-field">
+                <input matInput [(ngModel)]="searchKey" placeholder="Search Restaurant" autocomplete="off"
+                  (keyup)="applyFilter()">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey"
+                  (click)="onSearchClear()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <div class="mat-elevation-z8">
+              <mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="restname">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 18px;color: rgb(35, 56, 75);">
+                    Restaurant Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element" style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">
+                    {{element.restname}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="restaddress">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 18px;color: rgb(35, 56, 75);">
+                    Restaurant Address </mat-header-cell>
+                  <mat-cell *matCellDef="let element" style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">
+                    {{element.restaddress}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="restphone">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 18px;color: rgb(35, 56, 75);">
+                    Contact </mat-header-cell>
+                  <mat-cell *matCellDef="let element" style="font:bolder;font-size: 16px;color: rgb(35, 56, 75);">
+                    {{element.restphone}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef style="font-size: 18px;color: rgb(35, 56, 75);">Actions
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <button (click)="restaurantDetails()" class="btn btn-outline-dark">Restaurant
+                      Details</button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
+            </div>
+          </kt-portlet>
+          <kt-footer></kt-footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="container">
+  <ng-container>
+      <!-- <h3 class="kt-portlet__head-title" style="text-align: center;">
+          <h2>Active Restaurant List</h2>
+      </h3> -->
+  </ng-container>
+  <br><br>
+  <div class="search-div">
+
+      <mat-form-field class="search-form-field">
+          <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="on" (keyup)="applyFilter()">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+              <mat-icon>close</mat-icon>
+          </button>
+      </mat-form-field>
+  </div>
+  <div class="mat-elevation-z8">
+      <mat-table [dataSource]="listData" matSort>
+          <ng-container matColumnDef="restname">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Restaurant Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.restname}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef style="text-align: center;">Actions</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+               <!--  <a [routerLink]="['/restaurant/restaurantDetail',element.restid]"> -->
+                  <button mat-icon-button matTooltip="Restaurant Details" (click)="restaurantDetails(element.restid)"><mat-icon>launch</mat-icon></button>
+              </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
+<br>
+<br>

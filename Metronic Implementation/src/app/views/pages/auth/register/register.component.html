@@ -88,7 +88,19 @@
 					</mat-error>
 				</mat-form-field>
 			</div>
+
+			<ngx-recaptcha2 #captchaElem
+			[siteKey]="'6Lcg7JcaAAAAAGSO1Lf4RIpohhhhhI6qESg7iyZL'"
+			(success)="handleSuccess($event)"
+			[useGlobalDomain]="false"
+			[size]="size"
+			[hl]="lang"
+			[theme]="theme"
+			[type]="type"
+			formControlName="recaptcha">
+		  </ngx-recaptcha2>
 			<div class="form-group">
+
 				<mat-checkbox name="agree" formControlName="agree">
 					I agree the <a href="javascript:;">terms & conditions</a>
 				</mat-checkbox>
@@ -100,7 +112,7 @@
 					{{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
 				</a> -->
 				<button routerLink="/auth/login" [disabled]="loading" id="kt_login_signup_cancel" class="btn btn-outline-dark btn-elevate kt-login__btn-secondary">{{ 'AUTH.GENERAL.BACK_BUTTON' | translate }}</button>
-				<button (click)="submit()" id="kt_login_signin_submit" class="btn btn-dark btn-elevate kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}</button>
+				<button (click)="submit()" *ngIf="captchaSuccess" id="kt_login_signin_submit" class="btn btn-dark btn-elevate kt-login__btn-primary" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">{{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}</button>
 			</div>
 			<!--end::Action-->
 		</form>

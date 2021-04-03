@@ -1,9 +1,11 @@
 package com.main.Restaurant_App.controller;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import com.main.Restaurant_App.model.Cuisine;
+import com.main.Restaurant_App.model.ECuisine;
 import com.main.Restaurant_App.model.Restaurant;
+import com.main.Restaurant_App.repository.CuisineRepository;
+import com.main.Restaurant_App.repository.RestaurantRepository;
 import com.main.Restaurant_App.service.RestaurantService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 
@@ -45,25 +51,41 @@ public class RestaurantController {
 
   }
 
+  @Autowired
+  RestaurantRepository restaurantRepo;
+
+  @Autowired
+  CuisineRepository CuisineRepository;
 
   @Autowired
   RestaurantService rservice;
 
   @PostMapping("/restaurants")
-  @PreAuthorize("hasRole('ADMIN')")
+  /* @PreAuthorize("hasRole('ADMIN')") */
   public Restaurant registerResto(@RequestBody Restaurant restoObj) throws Exception {
+    /*
+     * logger.info("Inside Restaurant Register method"); String tempRestname =
+     * restoObj.getRestname(); if (tempRestname != null && !"".equals(tempRestname)) { Restaurant
+     * tempRestObj = rservice.fetchRestaurantByName(tempRestname); if (tempRestObj != null) { throw
+     * new Exception("Restaurant with " + tempRestname + " is already exist"); } } Restaurant
+     * tempRestObj = null; tempRestObj = rservice.registerResto(restoObj); return tempRestObj;
+     */
     logger.info("Inside Restaurant Register method");
-    String tempRestname = restoObj.getRestname();
-    if (tempRestname != null && !"".equals(tempRestname)) {
-      Restaurant tempRestObj = rservice.fetchRestaurantByName(tempRestname);
-      if (tempRestObj != null) {
-        throw new Exception("Restaurant with " + tempRestname + " is already exist");
-      }
-    }
-    Restaurant tempRestObj = null;
-    tempRestObj = rservice.registerResto(restoObj);
-    return tempRestObj;
+    System.out.println(restoObj.getCuisineManager());
+    System.out.println(restoObj);
+    Set<Cuisine> cuise = new HashSet<>();
+    Restaurant rest = rservice.registerResto(restoObj);
+    Cuisine dining = CuisineRepository.findByName(ECuisine.DINING);
+    Cuisine home_delivery = CuisineRepository.findByName(ECuisine.HOME_DELIVERY);
+    Cuisine take_away = CuisineRepository.findByName(ECuisine.TAKE_AWAY);
+    cuise.add(dining);
+    cuise.add(home_delivery);
+    cuise.add(take_away);
+    rest.setCuisineManager(cuise);
+    restaurantRepo.save(rest);
+    return rest;
   }
+
 
   @PutMapping(value = "/upload/{restid}", consumes = "multipart/form-data")
   public String uplaodImage(@RequestParam MultipartFile file,

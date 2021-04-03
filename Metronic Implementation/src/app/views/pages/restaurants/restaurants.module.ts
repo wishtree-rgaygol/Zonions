@@ -24,6 +24,7 @@ import { AlertConfirmBoxComponent } from './DialogBoxes/alert-confirm-box/alert-
 import { Title } from '@angular/platform-browser';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { IgxButtonModule, IgxDialogModule, IgxIconModule, IgxProgressBarModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from "igniteui-angular";
+import { TimeFormat } from './_helpers/conversionTime.pipe';
 
 
 
@@ -31,7 +32,7 @@ const routes: Routes = [
 	{
 		path: '',
 		component: RestaurantsComponent,
-		data : { breadcrumb: 'Restaurants'},
+		data : { breadcrumb: 'All Restaurants'},
 		children: [
 			{
 				path: 'restHome',
@@ -164,6 +165,7 @@ const routes: Routes = [
 	],
 	exports: [RouterModule],
 	declarations: [
+		TimeFormat,
 		RestaurantsComponent,
 		HomeComponent,
         CreateRestaurantComponent,

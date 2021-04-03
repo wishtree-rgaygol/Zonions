@@ -22,6 +22,7 @@ import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
 import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
 import { Title } from '@angular/platform-browser';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 const routes: Routes = [
 	{
@@ -57,6 +58,7 @@ const routes: Routes = [
 @NgModule({
 	imports: [
 		CommonModule,
+		NgxCaptchaModule,
 		FormsModule,
 		ReactiveFormsModule,
 		MatButtonModule,

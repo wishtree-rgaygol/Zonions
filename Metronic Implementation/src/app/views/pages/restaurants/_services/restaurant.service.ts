@@ -6,39 +6,39 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RestaurantService {
-  private registerUrl = 'http://localhost:8080/zonions/restaurants';
-  private getAllUrl = 'http://localhost:8080/zonions/restaurants';
-  private getByIdUrl = 'http://localhost:8080/zonions/restaurants';
-  private updateUrl = 'http://localhost:8080/zonions/restaurants';
-  private deleteUrl = 'http://localhost:8080/zonions/restaurants';
-  private uploadUrl = 'http://localhost:8080/zonions/upload';
+ /*  private registerUrl = 'http://localhost:8080/zonions/restaurants'; */
+ /*  private getAllUrl = 'http://localhost:8080/zonions/restaurants'; */
+  /* private getByIdUrl = 'http://localhost:8080/zonions/restaurants'; */
+ /*  private updateUrl = 'http://localhost:8080/zonions/restaurants'; */
+  /* private deleteUrl = 'http://localhost:8080/zonions/restaurants'; */
+  private uploadUrl = 'http://localhost:8080/api/zonions/upload';
   private bookTableUrl='http://localhost:8080/zonions/bookTable';
- /*  private basedUrl = 'http://localhost:8080/restaurants'; */
+  private basedUrl = 'http://localhost:8080/api/zonions/restaurants';
   constructor(private http: HttpClient) { }
 
   getRestaurantById(restid: number): Observable<any> {
-    return this.http.get(`${this.getByIdUrl}/${restid}`);
+    return this.http.get(`${this.basedUrl}/${restid}`);
   }
 
   createRestaurant(restaurant: Object): Observable<Object> {
-    return this.http.post(`${this.registerUrl}`, restaurant);
+    return this.http.post(`${this.basedUrl}`, restaurant);
   }
 
   updateRestaurant(restid: number, value: any): Observable<Object> {
     console.log("Update Service: " + restid);
-    console.log("Update URL" + this.updateUrl + '/' + restid);
-    return this.http.put(this.updateUrl + '/' + restid, value);
+    console.log("Update URL" + this.basedUrl + '/' + restid);
+    return this.http.put(this.basedUrl + '/' + restid, value);
   }
 
   deleteRestaurant(restid: number): Observable<any> {
     console.log("Delete Service: " + restid);
-    console.log("Delete URL" + this.deleteUrl + '/' + restid);
-    return this.http.delete(this.deleteUrl + '/' + restid, { responseType: 'text' });
+    console.log("Delete URL" + this.basedUrl + '/' + restid);
+    return this.http.delete(this.basedUrl + '/' + restid, { responseType: 'text' });
 
   }
 
   getAllRestaurant(): Observable<any> {
-    return this.http.get(`${this.getAllUrl}`);
+    return this.http.get(`${this.basedUrl}`);
   }
   UploadFileFromService(file: any, restid: number): any { /* Method to Upload the Menu */
     let target: DataTransfer = <DataTransfer>(file.target);

@@ -9,11 +9,13 @@ import {AuthGuard} from './core/auth';
 import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
 
 const routes: Routes = [
-	   {path: 'auth',
-	    loadChildren: 'app/views/pages/auth/auth.module#AuthModule'},
+	   {
+		   path: 'auth',
+	       loadChildren: 'app/views/pages/auth/auth.module#AuthModule'
+	    },
 		{
-			path: 'TestHomeList',
-			component: RestaurantHomeDisplayComponent
+			path: 'restaurant',
+			loadChildren : 'app/TestHome/restaurant.module#RestaurantModule'
 		},
 	{
 		path: '',
@@ -62,10 +64,11 @@ const routes: Routes = [
 					subtitle: 'Internal Server Error'
 				},
 			},
-		 	{path: '', redirectTo: 'restaurants/restHome', pathMatch: 'full'}
+			{path: '**', redirectTo: 'error/404', pathMatch: 'full'},
+		 	{path: '', redirectTo: 'restaurant/home', pathMatch: 'full'}
 		],
 	},
-
+	{path: '', redirectTo: 'restaurant/home', pathMatch: 'full'},
 	{path: '**', redirectTo: 'error/404', pathMatch: 'full'},
 ];
 

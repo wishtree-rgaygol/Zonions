@@ -1,23 +1,11 @@
-<h3>&nbsp;&nbsp;&nbsp;Update Restaurant</h3>
-<!-- <div class="container"> -->
+<!-- <h3>&nbsp;&nbsp;&nbsp;Update Restaurant</h3>
+
 <mat-card>
     <mat-card-content>
         <form #Updateform="ngForm" (ngSubmit)="updateRestaurant()">
             <table>
                 <tr>
                     <td>
-                        <!----------------------------- Update Restaurant Name ----------------------------------------->
-                        <!-- <div>
-            <label for="restname"><span style="color: red;">*</span>Restaurant name:</label>
-            <input type="text" class="form-control" placeholder="Enter Restaurant name" name="restnm"
-                [(ngModel)]="restaurant.restname" required pattern="[A-Za-z0-9]+" required #restoname="ngModel"
-                [class.is-invalid]="restoname.invalid && restoname.touched">
-            <div *ngIf="restoname.errors && restoname.invalid && restoname.touched">
-                <small class="text-danger" *ngIf="restoname.errors.required">Restaurant name is Required field</small>
-                <small class="text-danger" *ngIf="restoname.errors.pattern">Special Characters Not Allowed Please Enter
-                    Correct Restaurantname</small>
-            </div>
-        </div>  -->
                         <mat-form-field class="example-full-width">
                             <mat-label>Restaurant name <span style="color: red;">*</span></mat-label>
                             <input matInput placeholder="Enter Restaurant Name" name="restnm"
@@ -33,19 +21,10 @@
                         </div>
                     </td>
                 </tr>
-                <!--------------------- ------ Update Restaurant Address ---------------------------------------->
+
                 <tr>
                     <td>
-                        <!-- <div class="form-group">
-            <label for="restaddress"><span style="color: red;">*</span>Restaurant Address:</label>
-            <textarea class="form-control" name="Addr" required #restoaddress="ngModel"
-                [(ngModel)]="restaurant.restaddress" placeholder="Enter Restaurant address"
-                [class.is-invalid]="restoaddress.invalid && restoaddress.touched"></textarea>
-            <div *ngIf="restoaddress.errors && restoaddress.invalid && restoaddress.touched">
-                <small class="text-danger" *ngIf="restoaddress.errors.required">Restaurant Address is Required
-                    field</small>
-            </div>
-        </div> -->
+
                         <mat-form-field class="demo-full-width">
                             <mat-label>Restaurant Address <span style="color: red;">*</span> </mat-label>
                             <textarea matInput name="Addr" required #restoaddress="ngModel"
@@ -60,21 +39,10 @@
                     </td>
                 </tr>
 
-                <!-----------------------------Update Restaurant Contact Number ---------------------------------->
+
                 <tr>
                     <td>
-                        <!-- <div class="form-group">
-            <label for="restphone"><span style="color: red;">*</span>Restaurant Phone Number:</label>
-            <input type="text" class="form-control" placeholder="Enter Restaurant Number" name="restph"
-                [(ngModel)]="restaurant.restphone" required pattern="[789][0-9]{10}" required #restophone="ngModel"
-                [class.is-invalid]="restophone.invalid && restophone.touched">
-            <div *ngIf="restophone.errors && restophone.invalid && restophone.touched">
-                <small class="text-danger" *ngIf="restophone.errors.required">Restaurant Number is Required
-                    field</small>
-                <small class="text-danger" *ngIf="restophone.errors.pattern">Only 10 Digits Allowed It Should Start With
-                    Digit(7/8/9) Please Correct valid Restaurant Number</small>
-            </div>
-        </div>  -->
+
                         <mat-form-field class="demo-full-width">
                             <mat-label>Restaurant Contact <span style="color: red;">*</span> </mat-label>
                             <input matInput placeholder="Enter Restaurant Number" name="restph"
@@ -90,33 +58,28 @@
                         </div>
                     </td>
                 </tr>
-                <!--------------------------Update Restaurant Open Time --------------------------------------->
+
                 <tr>
                     <td>
                         <b><label>Open Time <span style="color: red;">*</span></label></b>
                         <div class="form-group">
-                            <input type="time" name="appt" class="form-control"
-                                [(ngModel)]="restaurant.openTime">
+                            <input type="time" name="appt" class="form-control" [(ngModel)]="restaurant.openTime">
                         </div>
                     </td>
                 </tr>
-                <!---------------------------Update Restaurant Close Time --------------------------------------->
+
                 <tr>
                     <td>
                         <b><label>Close Time <span style="color: red;">*</span></label></b>
                         <div class="form-group">
-                            <input type="time" name="appt" class="form-control"
-                                [(ngModel)]="restaurant.closeTime">
+                            <input type="time" name="appt" class="form-control" [(ngModel)]="restaurant.closeTime">
                         </div>
                     </td>
                 </tr>
 
-
-
-                <!-------------------------Update Restaurant Active Or InActive Status ------------------------>
                 <tr>
                     <td>
-                        <b><label>Active  <span style="color: red;">*</span></label></b>
+                        <b><label>Active <span style="color: red;">*</span></label></b>
                         <div class="form-group">
                             <input type="checkbox" name="active" class="form-control" min="09:00" max="18:00"
                                 [(ngModel)]="restaurant.active">
@@ -124,9 +87,6 @@
                     </td>
                 </tr>
 
-
-
-                <!---------------------Form For Upload OR Update the Menu For Specified Restaurant ------------->
                 <tr>
                     <td>
                         <form (ngSubmit)="UploadMenu()">
@@ -157,11 +117,11 @@
                                     <input type="submit" value="upload" id="uploaded">
                                 </div>
 
-                                <br> 
+                                <br>
                             </div>
                             <br>
                             <br>
-                            <!---------------------------------Display the Uploaded Menu---------------------------------------->
+
                             <div class="container row"><img [src]="imagePath" style="height: 200px; width: 200px;">
                             </div>
                         </form>
@@ -172,13 +132,69 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <button  type="submit"
-                                class="btn btn-dark btn-block">Update</button>
+                            <button type="submit" class="btn btn-dark btn-block">Update</button>
                         </div>
                     </td>
                 </tr>
             </table>
         </form>
-        <!-- </div>  -->
+
     </mat-card-content>
-</mat-card>
+</mat-card> -->
+
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Restaurant</h4>
+    
+</div>
+<div class="modal-body">
+        <form  #updateForm="ngForm" (ngSubmit)="onSubmit()">
+            <br>
+        <div class="form-group">
+            <b><label >Restaurant Name<span style="color: red;">*</span></label></b>
+            <input type="text" placeholder="Enter restaurant name" required name="restoName"[(ngModel)]="restaurant.restname" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <b><label >Address<span style="color: red;">*</span></label></b>
+            <textarea placeholder="enter address" class="form-control" name="Address" [(ngModel)]="restaurant.restaddress"></textarea>
+        </div>
+        <div class="form-group">
+            <b><label >Contact Number<span style="color: red;">*</span></label></b>
+            <input type="text" placeholder="Enter phone no." name="phone"class="form-control" [(ngModel)]="restaurant.restphone">
+        </div>
+        <div class="form-group">
+            <b><label >Open Time</label></b>
+            <ngb-timepicker  name="openTime" [(ngModel)]="open_Time" [meridian]="meridian"></ngb-timepicker>
+        </div>
+        <div class="form-group">
+            <b><label >Close Time</label></b>
+            <ngb-timepicker  name="closeTime" [(ngModel)]="close_Time" [meridian]="meridian"></ngb-timepicker>
+        </div>
+        <!-- <div class="form-group">
+            <b><label >Active</label></b>
+            <input type="checkbox" name="active" class="form-control" min="09:00" max="18:00"
+                [(ngModel)]="restaurant.active">
+        </div> -->
+        <strong>Upload Menu</strong>
+        <div>
+            <img [src]="imagePath" height="100px" width="100px"/> &nbsp;
+            <input type="file" name="imageName"  accept="image/*" (change)="onChange($event)" style="width: 210px;"/> &nbsp; &nbsp;
+            <button type="button" class="btn btn-dark" (click)="updateImage()" translate="">Upload</button>
+            <br>
+            <span style="color: red;">*Choose only png , jpg , jpeg image types</span>
+            <br><br>
+        </div>
+        <!-- <div class="alert alert-success" *ngIf="isSubmitted===true">
+            <strong>Menu Uploaded Successfully !!!</strong>
+          </div> -->
+          <div class="container row">
+            <div class="col-md-12">
+                <div *ngIf=message>{{message}}</div>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <button type="submit" [disabled]="updateForm.invalid" class="btn btn-dark" >Update</button>
+        </div>
+    </form>
+    <br/>
+</div>

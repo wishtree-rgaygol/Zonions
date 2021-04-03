@@ -87,6 +87,7 @@ export class RestaurantListComponent implements OnInit {
 	 
 	  openAlertDialog(){
 		Swal.fire('Restaurant Deleted Successfully..!');
+    window.location.reload();
 	  }
 	  refreshRestaurants() { 
 		this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */

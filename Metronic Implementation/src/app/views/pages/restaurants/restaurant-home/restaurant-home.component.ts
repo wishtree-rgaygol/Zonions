@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
       this.dialog.open(this._dialogOverlaySettings2);
   }
   ngOnInit(): void {
-    this.title.setTitle('Restaurants List');
+    this.title.setTitle('All Restaurants');
      // tslint:disable-next-line: align
      this.restService.getAllRestaurant().subscribe(
       (data) => {

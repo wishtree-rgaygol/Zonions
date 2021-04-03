@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	username: any;
 	email: any;
 	password: any;
-
+	captchaSuccess = false;
 	private unsubscribe: Subject<any>; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
 	/**
@@ -112,6 +112,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 				Validators.maxLength(20)
 			])
 			],
+			recaptcha: ['', Validators.required],
 			agree: [false, Validators.compose([Validators.required])]
 		}, {
 			validator: ConfirmPasswordValidator.MatchPassword
@@ -189,4 +190,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		const result = control.hasError(validationType) && (control.dirty || control.touched);
 		return result;
 	}
+	handleSuccess(e) {
+		this.captchaSuccess = true;
+		console.log('ReCaptcha', e);
+	  }
 }

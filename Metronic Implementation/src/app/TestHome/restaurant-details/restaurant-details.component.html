@@ -1,0 +1,65 @@
+<!-- <div class="container">
+
+    <br>
+    <table class="table striped">
+        <thead>
+            <th>Restaurant Name</th>
+            <th>Restaurant Address</th>
+            <th>Restaurant Contact Number</th>
+            <th>Restaurant Open Time</th>
+            <th>Restaurant Close Time</th>
+            <th>Restaurant Menu</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{restaurant.restname}}</td>
+                <td>{{restaurant.restaddress}}</td>
+                <td>{{restaurant.restphone}}</td>
+                <td>{{restaurant.openTime}}</td>
+                <td>{{restaurant.closeTime}}</td>
+                <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/restaurants/home"><button type="button" class="btn btn-primary active">Back</button></a>&nbsp;
+    <button type="button" (click)="bookTable()" class="btn btn-primary active">Book Table</button>
+</div>
+ -->
+ <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf= "timeCounter==false" style="color: green;"><b>Restaurant Open</b></div>
+      <div *ngIf= "timeCounter" style="color:red;"><b>Restaurant Closed</b></div>
+    
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <tr class="danger">
+            <th>Restaurant Name</th>
+            <th>Restaurant Address</th>
+            <th>Restaurant Contact Number</th>
+            <th>Restaurant Open Time</th>
+            <th>Restaurant Close Time</th>
+            <th>Restaurant Menu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>{{rest.restname}}</td>
+          <td>{{rest.restaddress}}</td>
+          <td>{{rest.restphone}}</td>
+          <td>{{rest.openTime | conversionTime}}</td>
+          <td>{{rest.closeTime | conversionTime}}</td>
+          <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <br>
+  <br>
+  <!-- <a href="/restaurants/home"> -->
+  <button type="button" (click)="home()" class="btn btn-dark">Back</button>&nbsp;
+  <br>
+  <br>
+  
+  <button (click)="bookTable()" class="btn btn-dark btn-block">Book Table</button> 

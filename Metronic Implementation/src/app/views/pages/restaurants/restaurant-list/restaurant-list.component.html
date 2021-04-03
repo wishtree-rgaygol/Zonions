@@ -23,11 +23,11 @@
       </ng-container>
       <ng-container matColumnDef="openTime">
           <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);"> Open Time </mat-header-cell>
-          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.openTime}} </mat-cell>
+          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.openTime | conversionTime}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="closeTime">
           <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);"> Close Time </mat-header-cell>
-          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.closeTime}} </mat-cell>
+          <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);"> {{element.closeTime | conversionTime}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="lastModified">
           <mat-header-cell *matHeaderCellDef mat-sort-header  style="font-size: 16px;color: rgb(35, 56, 75);">Last Updated</mat-header-cell>

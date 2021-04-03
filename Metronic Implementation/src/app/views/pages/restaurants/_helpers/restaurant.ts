@@ -12,4 +12,7 @@ export class Restaurant {
     type:string;
 	picByte:Byte[];
      img:string;
+     TAKE_AWAY: boolean;
+     HOME_DELIVERY: boolean;
+     DINING: boolean;
 }

@@ -65,6 +65,7 @@
     "ng-inline-svg": "^9.2.2",
     "ng2-charts": "^2.4.2",
     "ngrx-store-freeze": "^0.2.4",
+    "ngx-captcha": "^9.0.1",
     "ngx-clipboard": "^12.3.0",
     "ngx-daterangepicker-material": "^2.1.11",
     "ngx-highlightjs": "^3.0.3",

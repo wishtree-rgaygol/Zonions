@@ -12,7 +12,7 @@ export class MenuConfig implements OnInit {
 		header: {
 			self: {},
 			items: [
-				{
+				/* {
 					title: 'Dashboards',
 					root: true,
 					alignment: 'left',
@@ -59,73 +59,76 @@ export class MenuConfig implements OnInit {
 
 						}
 					]
-				}
+				} */
 			]
 		},
 		aside: {
 			self: {},
 			items: [
 				{
-					title: 'Dashboard',
+					title: 'Menu',
 					root: true,
 					icon: 'flaticon2-architecture-and-city',
-					page: '/dashboard',
-					translate: 'MENU.DASHBOARD',
+/* 					translate: 'MENU.DASHBOARD', */
 					bullet: 'dot',
-				},
-				// {
-				// 	title: 'Layout Builder',
-				// 	root: true,
-				// 	icon: 'flaticon2-expand',
-				// 	page: '/builder'
-				// },
-				{
-					title: 'Restaurants',
-					root: true,
-					bullet: 'dot',
-					icon: 'flaticon2-expand',
-					alignment: 'left',
-					toggle: 'click',
-					translate: 'MENU.Restaurants',
-					submenu: [
-								{
-									title: 'Add Restaurant',
-									page: '/restaurants/addRestaurant',
-									translate: 'MENU.Create_Restaurant',
-
-								},
-								{
-									title: 'Restaurant List',
-									page: '/restaurants/restaurant',
-									translate: 'MENU.Restaurant_list'
-								},
-								{
-									title: 'Active Restaurants',
-									page: '/restaurants/restHome',
-									translate: 'MENU.Active_Restaurant'
-								},
-
-
-					]
-				},
-				{
-					title: 'User Management',
-					root: true,
-					bullet: 'dot',
-					icon: 'flaticon2-user-outline-symbol',
-					alignment: 'left',
-					toggle: 'click',
-					translate: 'MENU.User_Management',
 					submenu: [
 						{
-
-								title: 'Active Users',
-								page: '/restaurants/users',
-								translate: 'MENU.Active_Users'
-
+							title: 'Dashboard',
+							root: true,
+							icon: 'flaticon2-architecture-and-city',
+							page: '/dashboard',
+							translate: 'MENU.DASHBOARD',
+							bullet: 'dot',
+						},
+						{
+							title: 'Restaurants',
+							root: true,
+							bullet: 'dot',
+							icon: 'flaticon2-expand',
+							alignment: 'left',
+							toggle: 'click',
+							translate: 'MENU.Restaurants',
+							submenu: [
+										{
+											title: 'Add Restaurant',
+											page: '/restaurants/addRestaurant',
+											translate: 'MENU.Create_Restaurant',
+		
+										},
+										{
+											title: 'Restaurant List',
+											page: '/restaurants/restaurant',
+											translate: 'MENU.Restaurant_list'
+										},
+										{
+											title: 'Active Restaurants',
+											page: '/restaurants/restHome',
+											translate: 'MENU.Active_Restaurant'
+										},
+		
+		
+							]
+						},
+						{
+							title: 'User Management',
+							root: true,
+							bullet: 'dot',
+							icon: 'flaticon2-user-outline-symbol',
+							alignment: 'left',
+							toggle: 'click',
+							translate: 'MENU.User_Management',
+							submenu: [
+								{
+		
+										title: 'Active Users',
+										page: '/restaurants/users',
+										translate: 'MENU.Active_Users'
+		
+								}
+							]
 						}
 					]
-				}
+				},
 			]
 		},
 	};

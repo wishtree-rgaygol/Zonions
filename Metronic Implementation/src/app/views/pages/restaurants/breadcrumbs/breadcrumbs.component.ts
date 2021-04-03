@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, distinctUntilChanged } from 'rxjs/operators';
-import { IBreadCrumb } from './ibread-crumb';
+import { IBreadCrumb } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/breadcrumbs/ibread-crumb';
 @Component({
   selector: 'kt-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',

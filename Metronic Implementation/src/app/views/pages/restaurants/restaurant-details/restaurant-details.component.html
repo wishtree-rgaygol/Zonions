@@ -1,6 +1,7 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h2>Restaurant Details</h2>
+    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf= "timeCounter==false" style="color: green;"><b>Restaurant Open</b></div>
+    <div *ngIf= "timeCounter" style="color:red;"><b>Restaurant Closed</b></div>
     <!----------------------------Here Display the Restaurant details on Homepage for all users ----------------------->
   </div>
   <div class="panel-body">
@@ -19,8 +20,8 @@
         <td>{{restaurant.restname}}</td>
         <td>{{restaurant.restaddress}}</td>
         <td>{{restaurant.restphone}}</td>
-        <td>{{restaurant.openTime}}</td>
-        <td>{{restaurant.closeTime}}</td>
+        <td>{{restaurant.openTime | conversionTime}}</td>
+        <td>{{restaurant.closeTime | conversionTime}}</td>
         <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
       </tbody>
     </table>
@@ -31,3 +32,6 @@
 <br>
 <button (click)="list()" class="btn btn-outline-dark">Back to Restaurant List</button><br><br>
 <a href="/restaurants/booktable"><button class="btn btn-dark btn-block">Book Table</button></a>
+
+<div *ngIf= "timeCounter==false">Restaurant Open</div>
+<div *ngIf= "timeCounter">Restaurant Closed</div>

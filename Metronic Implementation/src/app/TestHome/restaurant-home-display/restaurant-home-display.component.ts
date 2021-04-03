@@ -6,9 +6,7 @@ import { NGXLogger } from 'ngx-logger';
 import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 // tslint:disable-next-line: max-line-length
-import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_helpers/restaurant';
 // tslint:disable-next-line: max-line-length
-import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_services/restaurant.service';
 import { CloseScrollStrategy,
   GlobalPositionStrategy,
   IgxDialogComponent,
@@ -17,6 +15,8 @@ import { CloseScrollStrategy,
   slideInBottom,
   slideOutTop } from "igniteui-angular";
   import { useAnimation } from "@angular/animations";
+import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/TestHome/models/restaurant';
+import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/TestHome/services/restaurant.service';
 
 @Component({
   selector: 'kt-restaurant-home-display',
@@ -24,40 +24,58 @@ import { CloseScrollStrategy,
   styleUrls: ['./restaurant-home-display.component.scss']
 })
 export class RestaurantHomeDisplayComponent implements OnInit {
+  restaurants = new Array<Restaurant>();
+  public errorMessage = '';
 
-  /* restaurants: Observable<Restaurant[]>;
-  rest = new Restaurant();
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
-  constructor(private restaurantService: RestaurantService,
-    private router: Router,private title:Title) { }
+  constructor(private restaurantService: RestaurantService, private router: Router,
+              private title: Title, private logger: NGXLogger) {}
 
-  ngOnInit() {
-this.title.setTitle('Active Restaurants');
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 3
-    };
-    this.getRestaurantList();
+  listData: MatTableDataSource<Restaurant>;
+  displayedColumns: string[] = ['restname', 'actions'];
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  searchKey: string;
+  ngOnInit(): void {
+    this.title.setTitle('Home Page');
+
+    this.restaurantService.getAllRestaurant().subscribe((data) => {
+      console.log(data);
+      console.log(data.length);
+      this.restaurants = data;
+      this.listData = new MatTableDataSource(this.restaurants);
+      this.listData.sort = this.sort;
+      this.listData.paginator = this.paginator;
+              // tslint:disable-next-line: no-shadowed-variable
+      this.listData.filterPredicate = (data, filter) => {
+                return this.displayedColumns.some(element => {
+                  return element !== 'actions' && data[element].toLowerCase().indexOf(filter) !== -1;
+
+                });
+              };
+    },   error => {
+        if (error.status === 500) {
+          this.router.navigate(['error/500']);
+        }
+    });
   }
 
-  getRestaurantList() { 
-    this.restaurants = this.restaurantService.getAllRestaurant();
-    this.dtTrigger.next();
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
   }
-   restaurantDetails() {
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+  restaurantDetails(restid: number) {
+    this.logger.info('In Restaurant Get By Id Method');
+    this.router.navigate(['restaurant', 'restaurantDetail', restid]);
+  }
  
-    this.openAlertDialog();
-    this.router.navigate(['auth', 'login']);
-  }
-  Login() {
-    this.router.navigate(['auth', 'login']);
-  }
-  openAlertDialog(){
-    Swal.fire('Please Login First..!');
-  } */
+}
 
-  displayedColumns: string[] = ['restname', 'restaddress', 'restphone', 'actions'];
+/* 
+displayedColumns: string[] = ['restname', 'restaddress', 'restphone', 'actions'];
   dataSource: MatTableDataSource<Restaurant>;
   searchKey: string;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -115,7 +133,7 @@ this.title.setTitle('Active Restaurants');
   }
 
 	  refreshRestaurants() { 
-		this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */
+		this.logger.info('In Restaurant List Method');           
 		this.restaurant = this.restService.getAllRestaurant();
 		
 	  }
@@ -139,4 +157,4 @@ this.title.setTitle('Active Restaurants');
     openAlertDialog(){
       Swal.fire('Please Login First..!');
     }
-}
+*/

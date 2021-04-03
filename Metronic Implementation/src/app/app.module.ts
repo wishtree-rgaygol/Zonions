@@ -68,6 +68,7 @@ import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-displ
 import { IgxAvatarModule, IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from 'igniteui-angular';
 import { FormsModule } from '@angular/forms';
 import { DialogBoxComponent } from './TestHome/dialog-box/dialog-box.component';
+import { RestaurantModule } from './TestHome/restaurant.module';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -96,8 +97,9 @@ export function hljsLanguages(): HighlightLanguage[] {
 }
 
 @NgModule({
-	declarations: [AppComponent, RestaurantHomeDisplayComponent, DialogBoxComponent],
+	declarations: [AppComponent, DialogBoxComponent],
 	imports: [
+		RestaurantModule,
 		BrowserAnimationsModule,
 		IgxAvatarModule,
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
