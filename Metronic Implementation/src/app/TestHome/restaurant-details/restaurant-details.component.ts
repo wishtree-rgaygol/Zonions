@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,23 +16,31 @@ import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git h
 })
 export class RestaurantDetailsComponent implements OnInit {
   openNow = false;
+  data: any;
   currentTime = new Date();
   timeCounter = true;
   restid: number;
   restaurants: Observable<Restaurant[]>;
   restaurant: Restaurant;
   rest: any;
-  url = '';
-  finalurl = '';
-  fileURL = "http://localhost:8080/api/zonions/get";     /* <---URL comes from rest api to display the uploaded menu */
+  Dining: boolean;
+  TakeAWay: boolean;
+  HomeDelivery: boolean;
+  fileURL = 'http://localhost:8080/api/zonions/file';     /* <---URL comes from rest api to display the uploaded menu */
   imagePath: any;
+  imageForm: FormGroup;
   restaurantDetail = new Array<Restaurant>();
   restaurantList: any;
   constructor(private route: ActivatedRoute, private router: Router,
-    private restaurantService: RestaurantService, private httpClient: HttpClient, private title:Title) { }
+              private restaurantService: RestaurantService,private formBuilder: FormBuilder ,private httpClient: HttpClient, private title:Title) { }
 
   ngOnInit() {
     this.title.setTitle('Restaurant Details');
+    this.imageForm = this.formBuilder.group(
+      {
+     menu: new FormControl(),
+      }
+    );
     this.restaurant = new Restaurant();
     this.restid = this.route.snapshot.params['restid'];
     this.restaurantService.getRestaurantById(this.restid)
@@ -48,9 +57,22 @@ export class RestaurantDetailsComponent implements OnInit {
             this.timeCounter = false;
           }
         }
-        console.log(hour);
-        console.log(min);
-        this.imagePath = `${this.fileURL}/${this.rest.restid}/${this.rest.name}`;
+        console.log('current time hours' + this.currentTime.getHours());
+        console.log('current time minutes' + this.currentTime.getMinutes());
+        console.log('close time hours', hour);
+        console.log('close time minutes', min);
+        if (this.rest.dining === true) {
+          console.log('Dining');
+          this.Dining = true;
+        }
+        if (this.rest.takeaway === true) {
+          console.log('Dining');
+          this.TakeAWay = true;
+        }
+        if (this.rest.homedelivery === true) {
+          console.log('Dining');
+          this.HomeDelivery = true;
+        }
       }, error => console.log(error)
       );
   } 
@@ -73,4 +95,10 @@ export class RestaurantDetailsComponent implements OnInit {
 
 		this.router.navigate(['restaurant','home']);
 	  }
+    saveImage(fvalue: any): void{
+      this.data = fvalue;
+      console.log(JSON.stringify(this.data.menu));
+      this.imagePath= `${this.fileURL}/${this.rest.restid}/${this.data.menu}`;
+      console.log(this.imagePath);
+    }
 }

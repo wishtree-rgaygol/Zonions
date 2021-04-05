@@ -1,35 +1,11 @@
-<!-- <div class="container">
 
-    <br>
-    <table class="table striped">
-        <thead>
-            <th>Restaurant Name</th>
-            <th>Restaurant Address</th>
-            <th>Restaurant Contact Number</th>
-            <th>Restaurant Open Time</th>
-            <th>Restaurant Close Time</th>
-            <th>Restaurant Menu</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{restaurant.restname}}</td>
-                <td>{{restaurant.restaddress}}</td>
-                <td>{{restaurant.restphone}}</td>
-                <td>{{restaurant.openTime}}</td>
-                <td>{{restaurant.closeTime}}</td>
-                <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="/restaurants/home"><button type="button" class="btn btn-primary active">Back</button></a>&nbsp;
-    <button type="button" (click)="bookTable()" class="btn btn-primary active">Book Table</button>
-</div>
- -->
  <div class="panel panel-primary">
     <div class="panel-heading">
       <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf= "timeCounter==false" style="color: green;"><b>Restaurant Open</b></div>
       <div *ngIf= "timeCounter" style="color:red;"><b>Restaurant Closed</b></div>
-    
+      <div *ngIf= "Dining">We provide Dining Facility</div>
+      <div *ngIf= "TakeAWay">We provide Take A Way Facility</div>
+      <div *ngIf= "HomeDelivery">We provide Home Delivery Facility</div>
     </div>
     <div class="panel-body">
       <table class="table">
@@ -52,6 +28,21 @@
           <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
         </tbody>
       </table>
+      <form [formGroup]="imageForm" (ngSubmit)="saveImage(imageForm.value)">
+      <b><label>Choose Menu</label></b>
+          
+          <mat-select formControlName="menu" placeholder="Select which type of menu you want.." >
+  
+          <mat-option>-- Select --</mat-option>
+          <mat-option  value="italian">Italian</mat-option>
+          <mat-option  value="chinese">Chinese</mat-option>
+          <mat-option  value="continental">Continential</mat-option>
+         
+      </mat-select>
+      <br>
+      <br>
+      <button class="btn btn-outline-dark">Get Menu</button>
+  </form>
     </div>
   </div>
   

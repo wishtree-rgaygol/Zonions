@@ -8,7 +8,7 @@ import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-con
 import { MatDialog } from '@angular/material';
 import Swal from 'sweetalert2';
 import { Title } from '@angular/platform-browser';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NGXLogger } from 'ngx-logger';
 @Component({
   selector: 'kt-update-restaurant',
@@ -95,8 +95,11 @@ export class UpdateRestaurantComponent implements OnInit {
   isSubmitted = false;
   component: string;
   meridian = true;
-  displayURL = 'http://localhost:8080/api/zonions/get';
+  fileURL = 'http://localhost:8080/api/zonions/file';     /* <---URL comes from rest api to display the uploaded menu */
   imagePath: any;
+  menuArray: any;
+  // tslint:disable-next-line: ban-types
+  urlArray = [''];
   // tslint:disable-next-line: variable-name
   open_Time = {
     hour: 10,
@@ -107,21 +110,42 @@ export class UpdateRestaurantComponent implements OnInit {
     hour: 21,
     minute: 30
   };
+  Imagedata: any;
+  menuForm: FormGroup;
   restid: number;
   constructor(private restaurantService: RestaurantService, private route: ActivatedRoute,
               private router: Router,
-              private title: Title) {
+              private title: Title, private formBuilder: FormBuilder) {
                 this.restaurant = new Restaurant();
   }
   ngOnInit(): void {
 
       this.title.setTitle('Update Restaurant');
+      this.menuForm = this.formBuilder.group({
+        menu: new FormControl('')
+      });
+      
     // tslint:disable-next-line: no-string-literal
       this.restid = this.route.snapshot.params['restid'];
       this.restaurantService.getRestaurantById(this.restid)
       // tslint:disable-next-line: deprecation
       .subscribe(data => {
         this.restaurant = data;
+        this.restaurantService.getMenuById(this.restaurant.restid).subscribe(data => {
+          this.menuArray = data;
+          console.log(this.menuArray);
+          console.log('Restaurant id inside menu metho', this.restid);
+          const url = 'http://localhost:8080/api/zonions/file';
+          // tslint:disable-next-line: prefer-for-of
+          for (let i = 0; i < this.menuArray.length; i++) {
+              if (this.menuArray.length) {
+                this.url = `${url}/${this.restid}/${this.menuArray[i].type}`;
+                this.urlArray.push(this.url);
+              }
+          }
+          this.urlArray.splice(0, 1);
+          console.log(this.urlArray.length);
+        });
          // tslint:disable-next-line: radix
         this.openHr = parseInt(this.restaurant.openTime.slice(0, 2));
          // tslint:disable-next-line: radix
@@ -132,7 +156,6 @@ export class UpdateRestaurantComponent implements OnInit {
          // tslint:disable-next-line: radix
         const closeMin: number = parseInt(this.restaurant.closeTime.slice(3, 5));
         this.close_Time = { hour: closeHr, minute: closeMin };
-        this.imagePath = `${this.displayURL}/${this.restaurant.restid}/${this.restaurant.name}`;
       }, error => console.log(error));
   }
   updateResto(): void {
@@ -149,28 +172,12 @@ export class UpdateRestaurantComponent implements OnInit {
     this.restaurant.closeTime = this.close_Time.hour + ':' + this.close_Time.minute;
     this.updateResto();
     this.backEvent();
-   
     this.openAlertDialog();
     this.component = 'UpdateRestaurantComponent' ;
-  
    /*  window.location.reload(); */
   }
-  /* onChange(file: any): void {
-      this.file = file;
 
-  }
-  updateImage(): void {
-    console.log('I am in upload' + this.file);
-    this.restaurantService.uploadMenu(this.file, this.id).subscribe((resp: any) => {
-      console.log(resp);
-      this.isSubmitted = true;
-    }, error => {
-        if (error.status === 500) {
-            this.router.navigate(['error/500']);
-          }
-    });
-  } */
-  updateImage() {
+  /* updateImage() {
     console.log('In onUpload ' + this.selectedFile + 'selected rest id :' + this.restid);
     this.restaurantService.UploadFileFromService(this.selectedFile, this.restid).subscribe((resp: any) => {
       if (resp.status === 200) {
@@ -183,12 +190,30 @@ export class UpdateRestaurantComponent implements OnInit {
   }
   public onChange(selectedFile: any) {
     this.selectedFile = selectedFile;
-  }
+  } */
   backEvent(): void {
-    this.router.navigate(['restaurants', 'restaurant']);
+    this.router.navigate(['restaurants', 'restHome']);
 
   }
   openAlertDialog(){
     Swal.fire('Restaurant Updated Successfully..!');
+  }
+  updateImage(fValue: any) {
+    console.log('In onUpload ' + this.selectedFile + 'selected rest id :' + this.restaurantData.restid);
+    this.Imagedata = fValue;
+    // tslint:disable-next-line: max-line-length
+    this.restaurantService.UploadFileFromService(this.selectedFile, this.restaurantData.restid, this.Imagedata.menu).subscribe((resp: any) => {
+      /* this.refreshRestaurants(); */
+
+      if (resp.status === 200) {
+        this.message = 'Image uploaded successfully';
+      } else {
+        this.message = 'Image not uploaded successfully';
+      }
+    }
+    );
+  }
+  public onChange(selectedFile: any) {
+    this.selectedFile = selectedFile;
   }
 }

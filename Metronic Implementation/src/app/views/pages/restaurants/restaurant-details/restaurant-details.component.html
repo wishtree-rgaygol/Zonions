@@ -1,7 +1,10 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf= "timeCounter==false" style="color: green;"><b>Restaurant Open</b></div>
-    <div *ngIf= "timeCounter" style="color:red;"><b>Restaurant Closed</b></div>
+    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf= "!timeCounter" style="color: green;"><b>Restaurant Open</b></div>
+    <div *ngIf= "timeCounter" style="color:red;"><b>Restaurant Closed</b></div>&nbsp;&nbsp;&nbsp;
+    <div *ngIf= "Dining">We provide Dining Facility</div>
+    <div *ngIf= "TakeAWay">We provide Take A Way Facility</div>
+    <div *ngIf= "HomeDelivery">We provide Home Delivery Facility</div>
     <!----------------------------Here Display the Restaurant details on Homepage for all users ----------------------->
   </div>
   <div class="panel-body">
@@ -25,6 +28,21 @@
         <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
       </tbody>
     </table>
+    <form [formGroup]="imageForm" (ngSubmit)="saveImage(imageForm.value)">
+      <b><label>Choose Menu</label></b>
+          
+          <mat-select formControlName="menu" placeholder="Select which type of menu you want.." >
+  
+          <mat-option>-- Select --</mat-option>
+          <mat-option  value="italian">Italian</mat-option>
+          <mat-option  value="chinese">Chinese</mat-option>
+          <mat-option  value="continental">Continential</mat-option>
+         
+      </mat-select>
+      <br>
+      <br>
+      <button class="btn btn-outline-dark">Get Menu</button>
+  </form>
   </div>
 </div>
 
@@ -32,6 +50,3 @@
 <br>
 <button (click)="list()" class="btn btn-outline-dark">Back to Restaurant List</button><br><br>
 <a href="/restaurants/booktable"><button class="btn btn-dark btn-block">Book Table</button></a>
-
-<div *ngIf= "timeCounter==false">Restaurant Open</div>
-<div *ngIf= "timeCounter">Restaurant Closed</div>

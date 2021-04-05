@@ -6,14 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RestaurantService {
- /*  private registerUrl = 'http://localhost:8080/zonions/restaurants'; */
- /*  private getAllUrl = 'http://localhost:8080/zonions/restaurants'; */
-  /* private getByIdUrl = 'http://localhost:8080/zonions/restaurants'; */
- /*  private updateUrl = 'http://localhost:8080/zonions/restaurants'; */
-  /* private deleteUrl = 'http://localhost:8080/zonions/restaurants'; */
+
   private uploadUrl = 'http://localhost:8080/api/zonions/upload';
   private bookTableUrl='http://localhost:8080/zonions/bookTable';
   private basedUrl = 'http://localhost:8080/api/zonions/restaurants';
+  private getMenu = 'http://localhost:8080/api/zonions/file';
   constructor(private http: HttpClient) { }
 
   getRestaurantById(restid: number): Observable<any> {
@@ -40,13 +37,13 @@ export class RestaurantService {
   getAllRestaurant(): Observable<any> {
     return this.http.get(`${this.basedUrl}`);
   }
-  UploadFileFromService(file: any, restid: number): any { /* Method to Upload the Menu */
+  UploadFileFromService(file: any, restid: number,imageType: String): any { /* Method to Upload the Menu */
     let target: DataTransfer = <DataTransfer>(file.target);
     let fileList: FileList = target.files;
     let Selectedfile: File = fileList[0];
     const formdata: FormData = new FormData();
     formdata.append('file', Selectedfile, Selectedfile.name);
-    const req = new HttpRequest('PUT', `${this.uploadUrl}/${restid}`, formdata, {
+    const req = new HttpRequest('PUT', `${this.uploadUrl}/${restid}/${imageType}`, formdata, {
       reportProgress: true,
       responseType: 'text'
     }
@@ -57,4 +54,23 @@ export class RestaurantService {
     return this.http.post(this.bookTableUrl, bookTable);
   }
   
+  /* uploadMenu(file: any, id: number, menuType: string): any {
+    const target: DataTransfer =  (file.target) as DataTransfer;
+    const fileList: FileList = target.files;
+    const filel: File = fileList[0];
+    const formdata: FormData = new FormData();
+    formdata.append('file', filel, filel.name);
+    console.log('formdata in service', formdata);
+   // formdata.append('file', file);
+    const req = new HttpRequest('PUT', ${this.urlimage}/${id}/${menuType}, formdata, {
+      reportProgress: true,
+      responseType: 'text'
+    }
+    );
+    console.log('request object in service', req);
+    return this.http.request(req);
+  } */
+  getMenuById(restid: number) {
+    return this.http.get(`${this.getMenu}/${restid}`);
+  }
 }

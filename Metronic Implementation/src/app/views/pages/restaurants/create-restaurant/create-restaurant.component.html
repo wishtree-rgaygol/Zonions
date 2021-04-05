@@ -166,24 +166,35 @@
             </div>
         </div>
         <div class="form-group">
-            <b><label>Take a way <span style="color: red;">*</span></label></b>
-            <input type="checkbox" class="form-control" formControlName="TAKE_AWAY" name="TAKE_AWAY" />
+            <b><label>Dining<span style="color: red;">*</span></label></b>
+            <input type="checkbox" class="form-control" formControlName="dining" name="dining" />
+        </div>
+        <div class="form-group">
+            <b><label>Take a way<span style="color: red;">*</span></label></b>
+            <input type="checkbox" class="form-control" formControlName="takeaway" name="takeaway" />
         </div>
         <div class="form-group">
             <b><label>Home Delivery <span style="color: red;">*</span></label></b>
-            <input type="checkbox" class="form-control" formControlName="HOME_DELIVERY" name="HOME_DELIVERY" />
+            <input type="checkbox" class="form-control" formControlName="homedelivery" name="homedelivery" />
         </div>
-        <div class="form-group">
-            <b><label>Dining <span style="color: red;">*</span></label></b>
-            <input type="checkbox" class="form-control" formControlName="DINING" name="DINING" />
-        </div>
-        <!-- <div class="form-group">
-            <b><label>Active<span style="color: red;">*</span></label></b>
-            <input type="checkbox" class="form-control" formControlName="active" name="active"/>
-      </div> -->
+       
         <button type="submit" [disabled]="restaurantForm.invalid" class="btn btn-dark" value="Check"
-            translate="">Save</button>&nbsp;&nbsp;
+            translate="">Register</button>&nbsp;&nbsp;
     </form>
+    <br>
+    <br>
+    <form class="example-form" [formGroup]="menuForm" (ngSubmit)="updateImage(menuForm.value)">
+        <input type="file" (change)="onChange($event)" multiple="false" name="select file"
+            style="width: 210px;" accept=".png,.jpg,.jpeg,.jfif" />
+        &nbsp;&nbsp;&nbsp;<span style="color: red;">*Choose only png , jpg , jpeg image types</span>
+        <br>
+        <br>
+        <input type="text" formControlName="menu"  name="Enter Menu Type" id="">
+
+        <button type="submit" class="btn btn-primary" translate="">Upload</button>
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="close()" translate="">Save</button>
+    </form> 
     <br />
 
 </div>

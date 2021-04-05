@@ -1,14 +1,12 @@
 package com.main.Restaurant_App.controller;
 
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,10 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.main.Restaurant_App.model.Cuisine;
-import com.main.Restaurant_App.model.ECuisine;
+import com.main.Restaurant_App.model.ImageModel;
 import com.main.Restaurant_App.model.Restaurant;
-import com.main.Restaurant_App.repository.CuisineRepository;
+import com.main.Restaurant_App.repository.ImageRepository;
 import com.main.Restaurant_App.repository.RestaurantRepository;
 import com.main.Restaurant_App.service.RestaurantService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
@@ -54,55 +51,29 @@ public class RestaurantController {
   @Autowired
   RestaurantRepository restaurantRepo;
 
-  @Autowired
-  CuisineRepository CuisineRepository;
 
   @Autowired
   RestaurantService rservice;
 
+  @Autowired
+  ImageRepository irepo;
+
   @PostMapping("/restaurants")
   /* @PreAuthorize("hasRole('ADMIN')") */
   public Restaurant registerResto(@RequestBody Restaurant restoObj) throws Exception {
-    /*
-     * logger.info("Inside Restaurant Register method"); String tempRestname =
-     * restoObj.getRestname(); if (tempRestname != null && !"".equals(tempRestname)) { Restaurant
-     * tempRestObj = rservice.fetchRestaurantByName(tempRestname); if (tempRestObj != null) { throw
-     * new Exception("Restaurant with " + tempRestname + " is already exist"); } } Restaurant
-     * tempRestObj = null; tempRestObj = rservice.registerResto(restoObj); return tempRestObj;
-     */
+
     logger.info("Inside Restaurant Register method");
-    System.out.println(restoObj.getCuisineManager());
-    System.out.println(restoObj);
-    Set<Cuisine> cuise = new HashSet<>();
-    Restaurant rest = rservice.registerResto(restoObj);
-    Cuisine dining = CuisineRepository.findByName(ECuisine.DINING);
-    Cuisine home_delivery = CuisineRepository.findByName(ECuisine.HOME_DELIVERY);
-    Cuisine take_away = CuisineRepository.findByName(ECuisine.TAKE_AWAY);
-    cuise.add(dining);
-    cuise.add(home_delivery);
-    cuise.add(take_away);
-    rest.setCuisineManager(cuise);
-    restaurantRepo.save(rest);
-    return rest;
-  }
+    String tempRestname = restoObj.getRestname();
+    if (tempRestname != null && !"".equals(tempRestname)) {
+      Restaurant tempRestObj = rservice.fetchRestaurantByName(tempRestname);
+      if (tempRestObj != null) {
+        throw new Exception("Restaurant with " + tempRestname + " is already exist");
+      }
+    }
+    Restaurant tempRestObj = null;
+    tempRestObj = rservice.registerResto(restoObj);
+    return tempRestObj;
 
-
-  @PutMapping(value = "/upload/{restid}", consumes = "multipart/form-data")
-  public String uplaodImage(@RequestParam MultipartFile file,
-      @PathVariable(value = "restid") int restid) throws Exception {
-    logger.info("Upload Restaurant id :" + restid + "File name :" + file.getName()
-        + "Original file name" + file.getOriginalFilename());
-    /*
-     * System.out.println("Upload Rest id :" + restid + "File name :" + file.getName() +
-     * "Original file name" + file.getOriginalFilename());
-     */
-    return rservice.uploadImage(file, restid);
-  }
-
-  @GetMapping("/get/{restid}/{name}")
-  public ResponseEntity<byte[]> getFile(@PathVariable("restid") int restid,
-      @PathVariable("name") String name) throws IOException {
-    return rservice.getFile(name, restid);
   }
 
   @GetMapping("/restaurants")
@@ -138,7 +109,35 @@ public class RestaurantController {
     return rservice.deleteRestaurant(restid);
   }
 
+  // To upload menu
+  @PutMapping(value = "/upload/{restid}/{menuType}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public String imageUpload(@RequestParam MultipartFile file, @PathVariable int restid,
+      @PathVariable String menuType) {
+    return rservice.uploadImage(file, restid, menuType);
+  }
 
+  // To get Image By name and restaurant Id
+  @GetMapping("/file/{restid}/{type}")
+  public ResponseEntity<byte[]> getFileByName(@PathVariable int restid, @PathVariable String type) {
+    System.out.println("menuType=" + type + "Id=" + restid);
+    Optional<ImageModel> fileOptional = irepo.findByRestidAndType(restid, type);
+
+    System.out.println(fileOptional);
+    if (fileOptional.isPresent()) {
+      ImageModel file = fileOptional.get();
+      return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+          "attachment; filename=\"" + file.getName() + "\"").body(file.getPic());
+    }
+
+    return ResponseEntity.status(404).body(null);
+  }
+
+  @GetMapping(value = "/file/{restid}")
+  public List<ImageModel> getMenuById(@PathVariable int restid) {
+    List<ImageModel> list = rservice.getMenuById(restid);
+    return list;
+  }
 
 }
 

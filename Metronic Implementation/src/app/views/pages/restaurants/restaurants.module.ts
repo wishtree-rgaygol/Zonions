@@ -68,8 +68,17 @@ const routes: Routes = [
 				path: 'booktable',
 				component: BookTableComponent,
 				data : {breadcrumb: 'Book Table'}
+			},
+			/* {
+				path: '**',
+				component: ErrorPageComponent,
+				data: {
+					type: 'error-v3',
+					code: 404,
+					title: 'Page Not Found'
+				}
 			}
-
+ */
 		]
 	}
 ];

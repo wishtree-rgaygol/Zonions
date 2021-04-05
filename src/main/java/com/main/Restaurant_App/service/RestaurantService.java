@@ -1,6 +1,5 @@
 package com.main.Restaurant_App.service;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +7,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import com.main.Restaurant_App.model.ImageModel;
 import com.main.Restaurant_App.model.Restaurant;
+import com.main.Restaurant_App.repository.ImageRepository;
 import com.main.Restaurant_App.repository.RestaurantRepository;
 
 
@@ -23,6 +24,9 @@ public class RestaurantService {
   private static Logger log = LoggerFactory.getLogger(RestaurantService.class);
   @Autowired
   RestaurantRepository repo;
+
+  @Autowired
+  ImageRepository irepo;
 
   // @Autowired
   // ImageRepository irepo;
@@ -64,7 +68,6 @@ public class RestaurantService {
     restaurant.setOpenTime(restDetails.getOpenTime());
     restaurant.setCloseTime(restDetails.getCloseTime());
     restaurant.setLastModified(restDetails.getLastModified());
-    restaurant.setActive(restDetails.isActive());
     final Restaurant updatedRestaurant = repo.save(restaurant);
     return ResponseEntity.ok().body(updatedRestaurant);
   }
@@ -78,28 +81,53 @@ public class RestaurantService {
     return deleteResponce;
   }
 
-  public String uploadImage(@RequestParam("file") MultipartFile file, int restid) throws Exception {
-    System.out.println("Original Image Byte Size - " + file.getBytes().length);
-    Restaurant restaurant = repo.findById(restid)
-        .orElseThrow(() -> new Exception("Restaurant not found for this id ::" + restid));
-    restaurant.setName(file.getOriginalFilename());
-    restaurant.setType(file.getContentType());
-    restaurant.setPicByte(file.getBytes());
-    System.out.println("Upload rest obj:" + restaurant.getName());
+  public String uploadImage(@RequestParam("file") MultipartFile file, @PathVariable int id,
+      @PathVariable String type) {
 
-    repo.save(restaurant);
-    return "Image Uploaded";
-  }
+    Optional<Restaurant> restId = repo.findById(id);
+    try {
+      if (restId.isPresent()) {
+        ImageModel menu = new ImageModel();
 
-  public ResponseEntity<byte[]> getFile(String name, int restid) throws IOException {
-    final Optional<Restaurant> retrievedImage = repo.findByNameAndRestid(name, restid);
-    if (retrievedImage.isPresent()) {
-      Restaurant img = retrievedImage.get();
-      return ResponseEntity.ok()
-          .header(HttpHeaders.CONTENT_DISPOSITION, "connected;filename=\"" + img.getName() + "\"")
-          .body(img.getPicByte());
+        menu.setRestid(id);
+        menu.setType(type);
+        menu.setName(file.getOriginalFilename());
+        menu.setMimetype(file.getContentType());
+        menu.setPic(file.getBytes());
+
+        irepo.save(menu);
+
+      }
+      return "File uploaded successfully! -> filename = " + file.getOriginalFilename();
+    } catch (Exception e) {
+      return "FAIL! Maybe You had uploaded the file before or the file's size > 500KB";
     }
-    return ResponseEntity.status(404).body(null);
+
   }
+
+  public List<ImageModel> getMenuById(int restid) {
+    List<ImageModel> list = irepo.findByRestid(restid);
+    return list;
+  }
+  /*
+   * public String uploadImage(@RequestParam("file") MultipartFile file, int restid) throws
+   * Exception { System.out.println("Original Image Byte Size - " + file.getBytes().length);
+   * Restaurant restaurant = repo.findById(restid) .orElseThrow(() -> new
+   * Exception("Restaurant not found for this id ::" + restid));
+   * restaurant.setName(file.getOriginalFilename()); restaurant.setType(file.getContentType());
+   * restaurant.setPicByte(file.getBytes()); System.out.println("Upload rest obj:" +
+   * restaurant.getName());
+   * 
+   * repo.save(restaurant); return "Image Uploaded"; }
+   */
+
+  /*
+   * public ResponseEntity<byte[]> getFile(String name, int restid) throws IOException { final
+   * Optional<Restaurant> retrievedImage = repo.findByNameAndRestid(name, restid); if
+   * (retrievedImage.isPresent()) { Restaurant img = retrievedImage.get(); return
+   * ResponseEntity.ok() .header(HttpHeaders.CONTENT_DISPOSITION, "connected;filename=\"" +
+   * img.getName() + "\"") .body(img.getPicByte()); } return ResponseEntity.status(404).body(null);
+   * }
+   */
 
 }

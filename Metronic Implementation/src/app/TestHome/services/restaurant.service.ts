@@ -6,11 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RestaurantService {
- /*  private registerUrl = 'http://localhost:8080/zonions/restaurants'; */
- /*  private getAllUrl = 'http://localhost:8080/zonions/restaurants'; */
- /*  private getByIdUrl = 'http://localhost:8080/zonions/restaurants'; */
- /*  private updateUrl = 'http://localhost:8080/zonions/restaurants'; */
- /*  private deleteUrl = 'http://localhost:8080/zonions/restaurants'; */
+
   private uploadUrl = 'http://localhost:8080/api/zonions/upload';
   private bookTableUrl='http://localhost:8080/zonions/bookTable';
   private basedUrl = 'http://localhost:8080/api/zonions/restaurants';
