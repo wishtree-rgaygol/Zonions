@@ -16,68 +16,6 @@ import { NGXLogger } from 'ngx-logger';
   styleUrls: ['update-restaurant.component.scss']
 })
 export class UpdateRestaurantComponent implements OnInit {
-  /* restid: number;
-  restaurant: Restaurant;
-  displayURL = 'http://localhost:8080/zonions/get';
-  imagePath: any;
-  message: string;
-  selectedFile: any;
-  hour: number;
-  minute: number;
-
-  time = { hour: 13, minute: 30 };
-  constructor(private route: ActivatedRoute, private router: Router, private logger: NGXLogger,
-    // tslint:disable-next-line: align
-    private restaurantService: RestaurantService, private httpClient: HttpClient, private dialog: MatDialog, private title: Title) { }
-
-  UploadMenu() {
-    console.log('In onUpload ' + this.selectedFile + 'selected rest id :' + this.restid);
-    this.restaurantService.UploadFileFromService(this.selectedFile, this.restid).subscribe((resp: any) => {
-      if (resp.status === 200) {
-        this.message = 'Image uploaded successfully';
-      } else {
-        this.message = 'Image not uploaded successfully';
-      }
-    }
-    );
-  }
-  public ChooseFile(selectedFile: any) {
-    this.selectedFile = selectedFile;
-  }
-  ngOnInit() {
-    this.title.setTitle('Update Restaurant');
-    this.restaurant = new Restaurant();
-    // tslint:disable-next-line: no-string-literal
-    this.restid = this.route.snapshot.params['restid'];
-    this.restaurantService.getRestaurantById(this.restid)
-      // tslint:disable-next-line: deprecation
-      .subscribe(data => {
-        this.restaurant = data;
-        this.imagePath = `${this.displayURL}/${this.restaurant.restid}/${this.restaurant.name}`;
-      }, error => console.log(error));
-  }
-
-   updateRestaurant() {
-    this.logger.info('In Restaurant Update Method');
-    // tslint:disable-next-line: prefer-const
-    let now = moment();
-    this.restaurant.lastModified = now.format();
-    this.restaurantService.updateRestaurant(this.restid, this.restaurant)
-      // tslint:disable-next-line: deprecation
-      .subscribe(data => {
-        this.restaurant = new Restaurant();
-        this.restaurantList();
-        this.openAlertDialog();
-        this.logger.info('Restaurant Updated');
-      }, error => console.log(error));
-  }
-  restaurantList() {
-    this.router.navigate(['restaurants', 'restaurant']);
-  }
-
-  openAlertDialog() {
-    Swal.fire('Restaurant Updated Successfully..!');
-  } */
   message: string;
   selectedFile: any;
   data: any;
@@ -86,7 +24,7 @@ export class UpdateRestaurantComponent implements OnInit {
   /* restaurant: Restaurant; */
   restaurant: Restaurant = new Restaurant();
   id: number;
-  imagename: string ;
+  imagename: string;
   url: string;
   finalurl: string;
   file: any;
@@ -114,20 +52,20 @@ export class UpdateRestaurantComponent implements OnInit {
   menuForm: FormGroup;
   restid: number;
   constructor(private restaurantService: RestaurantService, private route: ActivatedRoute,
-              private router: Router,
-              private title: Title, private formBuilder: FormBuilder) {
-                this.restaurant = new Restaurant();
+    private router: Router,
+    private title: Title, private formBuilder: FormBuilder) {
+    this.restaurant = new Restaurant();
   }
   ngOnInit(): void {
 
-      this.title.setTitle('Update Restaurant');
-      this.menuForm = this.formBuilder.group({
-        menu: new FormControl('')
-      });
-      
+    this.title.setTitle('Update Restaurant');
+    this.menuForm = this.formBuilder.group({
+      menu: new FormControl('')
+    });
+
     // tslint:disable-next-line: no-string-literal
-      this.restid = this.route.snapshot.params['restid'];
-      this.restaurantService.getRestaurantById(this.restid)
+    this.restid = this.route.snapshot.params['restid'];
+    this.restaurantService.getRestaurantById(this.restid)
       // tslint:disable-next-line: deprecation
       .subscribe(data => {
         this.restaurant = data;
@@ -138,29 +76,29 @@ export class UpdateRestaurantComponent implements OnInit {
           const url = 'http://localhost:8080/api/zonions/file';
           // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < this.menuArray.length; i++) {
-              if (this.menuArray.length) {
-                this.url = `${url}/${this.restid}/${this.menuArray[i].type}`;
-                this.urlArray.push(this.url);
-              }
+            if (this.menuArray.length) {
+              this.url = `${url}/${this.restid}/${this.menuArray[i].type}`;
+              this.urlArray.push(this.url);
+            }
           }
           this.urlArray.splice(0, 1);
           console.log(this.urlArray.length);
         });
-         // tslint:disable-next-line: radix
+        // tslint:disable-next-line: radix
         this.openHr = parseInt(this.restaurant.openTime.slice(0, 2));
-         // tslint:disable-next-line: radix
+        // tslint:disable-next-line: radix
         this.openMin = parseInt(this.restaurant.openTime.slice(3, 5));
-        this.open_Time = { hour: this.openHr, minute: this.openMin};
-         // tslint:disable-next-line: radix
+        this.open_Time = { hour: this.openHr, minute: this.openMin };
+        // tslint:disable-next-line: radix
         const closeHr: number = parseInt(this.restaurant.closeTime.slice(0, 2));
-         // tslint:disable-next-line: radix
+        // tslint:disable-next-line: radix
         const closeMin: number = parseInt(this.restaurant.closeTime.slice(3, 5));
         this.close_Time = { hour: closeHr, minute: closeMin };
       }, error => console.log(error));
   }
   updateResto(): void {
     let now = moment();
-    this.restaurant.lastModified =  moment().format('MMMM Do YYYY, h:mm:ss a');
+    this.restaurant.lastModified = moment().format('MMMM Do YYYY, h:mm:ss a');
     this.restaurantService.updateRestaurant(this.restid, this.restaurant).subscribe(data => {
       this.restaurant = new Restaurant();
 
@@ -173,29 +111,16 @@ export class UpdateRestaurantComponent implements OnInit {
     this.updateResto();
     this.backEvent();
     this.openAlertDialog();
-    this.component = 'UpdateRestaurantComponent' ;
-   /*  window.location.reload(); */
+    this.component = 'UpdateRestaurantComponent';
+
   }
 
-  /* updateImage() {
-    console.log('In onUpload ' + this.selectedFile + 'selected rest id :' + this.restid);
-    this.restaurantService.UploadFileFromService(this.selectedFile, this.restid).subscribe((resp: any) => {
-      if (resp.status === 200) {
-        this.message = 'Image uploaded successfully';
-      } else {
-        this.message = 'Image not uploaded successfully';
-      }
-    }
-    );
-  }
-  public onChange(selectedFile: any) {
-    this.selectedFile = selectedFile;
-  } */
+
   backEvent(): void {
     this.router.navigate(['restaurants', 'restHome']);
 
   }
-  openAlertDialog(){
+  openAlertDialog() {
     Swal.fire('Restaurant Updated Successfully..!');
   }
   updateImage(fValue: any) {

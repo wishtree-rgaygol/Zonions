@@ -32,53 +32,43 @@ const routes: Routes = [
 	{
 		path: '',
 		component: RestaurantsComponent,
-		data : { breadcrumb: 'All Restaurants'},
+		data: { breadcrumb: 'All Restaurants' },
 		children: [
 			{
 				path: 'restHome',
 				component: HomeComponent,
-				data : { breadcrumb: 'Active Restaurants'}
+				data: { breadcrumb: 'Active Restaurants' }
 			},
 			{
 				path: 'addRestaurant',
 				component: CreateRestaurantComponent,
-				data : {breadcrumb: 'Add Restaurant'}
-            },
-            {
-                path: 'restaurant',
-                component: RestaurantListComponent,
-				data : {breadcrumb: 'Restaurant List'}
+				data: { breadcrumb: 'Add Restaurant' }
+			},
+			{
+				path: 'restaurant',
+				component: RestaurantListComponent,
+				data: { breadcrumb: 'Restaurant List' }
 			},
 			{
 				path: 'restUpdate/:restid',
 				component: UpdateRestaurantComponent,
-				data : {breadcrumb: 'Update Restaurant'}
+				data: { breadcrumb: 'Update Restaurant' }
 			},
 			{
 				path: 'restDetails/:restid',
 				component: RestaurantDetailsComponent,
-				data : {breadcrumb: ''}
+				data: { breadcrumb: '' }
 			},
 			{
 				path: 'users',
 				component: UserDetailComponent,
-				data : {breadcrumb: 'User details'}
+				data: { breadcrumb: 'User details' }
 			},
 			{
 				path: 'booktable',
 				component: BookTableComponent,
-				data : {breadcrumb: 'Book Table'}
+				data: { breadcrumb: 'Book Table' }
 			},
-			/* {
-				path: '**',
-				component: ErrorPageComponent,
-				data: {
-					type: 'error-v3',
-					code: 404,
-					title: 'Page Not Found'
-				}
-			}
- */
 		]
 	}
 ];
@@ -99,7 +89,7 @@ const routes: Routes = [
 		DataTablesModule,
 		MatDatepickerModule,
 		MatInputModule,
-		MatNativeDateModule,MatIconModule,MatButtonModule,MatCheckboxModule, MatToolbarModule, MatCardModule,MatFormFieldModule,MatListModule,MatRadioModule
+		MatNativeDateModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatToolbarModule, MatCardModule, MatFormFieldModule, MatListModule, MatRadioModule
 		, MatAutocompleteModule,
 		MatButtonModule,
 		MatButtonToggleModule,
@@ -139,7 +129,7 @@ const routes: Routes = [
 		MatButtonModule,
 		MatMenuModule,
 		MatSelectModule,
-        MatInputModule,
+		MatInputModule,
 		MatTableModule,
 		MatAutocompleteModule,
 		MatRadioModule,
@@ -170,25 +160,25 @@ const routes: Routes = [
 		IgxToggleModule,
 		IgxIconModule,
 		IgxSnackbarModule,
-		
+
 	],
 	exports: [RouterModule],
 	declarations: [
 		TimeFormat,
 		RestaurantsComponent,
 		HomeComponent,
-        CreateRestaurantComponent,
+		CreateRestaurantComponent,
 		RestaurantListComponent,
 		UpdateRestaurantComponent,
 		RestaurantDetailsComponent,
 		UserDetailComponent,
-        BookTableComponent,
-        DeleteConfirmBoxComponent,
-        AlertConfirmBoxComponent,
-        BreadcrumbsComponent
+		BookTableComponent,
+		DeleteConfirmBoxComponent,
+		AlertConfirmBoxComponent,
+		BreadcrumbsComponent
 	],
-	providers: [ Title],
-	entryComponents: [AlertConfirmBoxComponent,DeleteConfirmBoxComponent],
+	providers: [Title],
+	entryComponents: [AlertConfirmBoxComponent, DeleteConfirmBoxComponent],
 })
 export class RestaurantsModule {
 }

@@ -73,7 +73,7 @@ const routes: Routes = [
 		MatButtonModule,
 		MatMenuModule,
 		MatSelectModule,
-        MatInputModule,
+		MatInputModule,
 		MatTableModule,
 		MatAutocompleteModule,
 		MatRadioModule,
@@ -109,8 +109,8 @@ const routes: Routes = [
 		LanguageComponent,
 		FooterBarComponent
 	],
-	providers: [{provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-	 ],
+	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+	],
 })
 export class RestaurantModule {
 }

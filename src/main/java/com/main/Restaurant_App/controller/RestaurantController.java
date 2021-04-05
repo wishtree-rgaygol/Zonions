@@ -32,7 +32,6 @@ import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/zonions")
-// @EnableSwagger2
 public class RestaurantController {
 
   @Autowired
@@ -59,7 +58,7 @@ public class RestaurantController {
   ImageRepository irepo;
 
   @PostMapping("/restaurants")
-  /* @PreAuthorize("hasRole('ADMIN')") */
+  @PreAuthorize("hasRole('ADMIN')")
   public Restaurant registerResto(@RequestBody Restaurant restoObj) throws Exception {
 
     logger.info("Inside Restaurant Register method");
@@ -105,7 +104,6 @@ public class RestaurantController {
   public Map<String, Boolean> deleteRestaurant(@PathVariable(value = "restid") int restid)
       throws Exception {
     logger.info("Inside Delete Restaurant method for ID -" + restid);
-    /* System.out.println("Delete Rest ID" + restid); */
     return rservice.deleteRestaurant(restid);
   }
 

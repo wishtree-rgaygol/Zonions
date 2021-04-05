@@ -2,13 +2,15 @@ import { useAnimation } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { CloseScrollStrategy,
+import {
+  CloseScrollStrategy,
   GlobalPositionStrategy,
   IgxDialogComponent,
   IgxOverlayOutletDirective,
   PositionSettings,
   slideInBottom,
-  slideOutTop } from "igniteui-angular";
+  slideOutTop
+} from "igniteui-angular";
 @Component({
   selector: 'kt-restaurant',
   templateUrl: './restaurant.component.html',
@@ -18,7 +20,7 @@ export class RestaurantComponent implements OnInit {
 
   constructor(private router: Router, private translate: TranslateService) { }
 
-  
+
   @ViewChild(IgxOverlayOutletDirective, { static: true })
   public outlet: IgxOverlayOutletDirective;
 
@@ -26,25 +28,25 @@ export class RestaurantComponent implements OnInit {
   public dialog: IgxDialogComponent;
 
   private _animaitonSettings: PositionSettings = {
-      openAnimation: useAnimation(slideInBottom, { params: { fromPosition: "translateY(100%)" } }),
-      closeAnimation: useAnimation(slideOutTop, { params: { toPosition: "translateY(-100%)" } })
-   };
-   ngOnInit(): void {
+    openAnimation: useAnimation(slideInBottom, { params: { fromPosition: "translateY(100%)" } }),
+    closeAnimation: useAnimation(slideOutTop, { params: { toPosition: "translateY(-100%)" } })
+  };
+  ngOnInit(): void {
     this._dialogOverlaySettings2 = {
       modal: true,
       outlet: this.outlet,
       scrollStrategy: new CloseScrollStrategy(),
       positionStrategy: new GlobalPositionStrategy(this._animaitonSettings)
-  };
+    };
   }
   private _dialogOverlaySettings2;
 
   public openDialog() {
-      this._dialogOverlaySettings2.outlet = this.outlet;
-      this.dialog.open(this._dialogOverlaySettings2);
+    this._dialogOverlaySettings2.outlet = this.outlet;
+    this.dialog.open(this._dialogOverlaySettings2);
   }
 
-Login() {
-  this.router.navigate(['auth', 'login']);
-} 
+  Login() {
+    this.router.navigate(['auth', 'login']);
+  }
 }

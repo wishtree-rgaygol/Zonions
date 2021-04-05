@@ -26,14 +26,14 @@ export class RestaurantDetailsComponent implements OnInit {
   imagePath: any;
   imageForm: FormGroup;
   constructor(private route: ActivatedRoute, private router: Router,
-              // tslint:disable-next-line: max-line-length
-              private restaurantService: RestaurantService, private httpClient: HttpClient, private formBuilder: FormBuilder, private title: Title) { }
+    // tslint:disable-next-line: max-line-length
+    private restaurantService: RestaurantService, private httpClient: HttpClient, private formBuilder: FormBuilder, private title: Title) { }
 
   ngOnInit() {
     this.title.setTitle('Restaurant Details');
     this.imageForm = this.formBuilder.group(
       {
-     menu: new FormControl(),
+        menu: new FormControl(),
       }
     );
     this.restaurant = new Restaurant();
@@ -64,7 +64,7 @@ export class RestaurantDetailsComponent implements OnInit {
           console.log('Dining');
           this.TakeAWay = true;
         }
-         if (this.restaurant.homedelivery === true) {
+        if (this.restaurant.homedelivery === true) {
           console.log('Dining');
           this.HomeDelivery = true;
         }
@@ -76,7 +76,7 @@ export class RestaurantDetailsComponent implements OnInit {
     this.router.navigate(['restaurants', 'restHome']);
   }
 
-  saveImage(fvalue: any): void{
+  saveImage(fvalue: any): void {
     this.data = fvalue;
     console.log(JSON.stringify(this.data.menu));
     this.imagePath = `${this.fileURL}/${this.restaurant.restid}/${this.data.menu}`;

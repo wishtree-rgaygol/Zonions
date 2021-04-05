@@ -8,21 +8,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 public @Data class SignupRequest {
-  // @NotBlank
+
   @NotEmpty(message = "{username.not.empty}")
   @Size(min = 3, max = 20)
   private String username;
 
-  // @NotBlank
+
   @NotEmpty(message = "{email.not.empty}")
   @Size(max = 50)
-  // @Email
+
   @Email(message = "{email.not.valid}")
   private String email;
   @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
   private Set<String> role;
 
-  // @NotBlank
   @NotEmpty(message = "{password.not.empty}")
   @Size(min = 6, max = 40)
   private String password;

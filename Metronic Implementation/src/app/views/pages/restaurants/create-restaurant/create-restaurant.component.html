@@ -177,24 +177,24 @@
             <b><label>Home Delivery <span style="color: red;">*</span></label></b>
             <input type="checkbox" class="form-control" formControlName="homedelivery" name="homedelivery" />
         </div>
-       
+
         <button type="submit" [disabled]="restaurantForm.invalid" class="btn btn-dark" value="Check"
             translate="">Register</button>&nbsp;&nbsp;
     </form>
     <br>
     <br>
     <form class="example-form" [formGroup]="menuForm" (ngSubmit)="updateImage(menuForm.value)">
-        <input type="file" (change)="onChange($event)" multiple="false" name="select file"
-            style="width: 210px;" accept=".png,.jpg,.jpeg,.jfif" />
+        <input type="file" (change)="onChange($event)" multiple="false" name="select file" style="width: 210px;"
+            accept=".png,.jpg,.jpeg,.jfif" />
         &nbsp;&nbsp;&nbsp;<span style="color: red;">*Choose only png , jpg , jpeg image types</span>
         <br>
         <br>
-        <input type="text" formControlName="menu"  name="Enter Menu Type" id="">
+        <input type="text" formControlName="menu" name="Enter Menu Type" id="">
 
         <button type="submit" class="btn btn-primary" translate="">Upload</button>
         &nbsp;&nbsp;&nbsp;
         <button class="btn btn-primary" (click)="close()" translate="">Save</button>
-    </form> 
+    </form>
     <br />
 
 </div>

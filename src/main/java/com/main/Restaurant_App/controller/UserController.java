@@ -16,29 +16,4 @@ public class UserController {
   @Autowired
   UserDetailsServiceImpl service;
 
-  // @GetMapping("/all")
-  // @PreAuthorize("hasRole('ADMIN')")
-  // public List<RegistrationEntity> allAccess() {
-  //
-  // return userService.getAllUsers();
-  // }
-  /*
-   * @GetMapping("/users") public List<UserEntityDto> getAll() {
-   * System.out.println(service.getAllUsers()); return service.getAllUsers(); }
-   * 
-   * @GetMapping("/users/{id}") public ResponseEntity<UserEntityDto> getUserById(@PathVariable long
-   * id) { return service.getUsertById(id); }
-   * 
-   * @PutMapping("/users/{id}") public UserEntityDto changeRole(@PathVariable long id, @RequestBody
-   * User regi) { return service.changeRole(id, regi); }
-   * 
-   * @DeleteMapping("/users/{id}") public ResponseEntity<HttpStatus> deleteByUsername(@PathVariable
-   * long id) {
-   * 
-   * return service.deleteByUsername(id);
-   * 
-   * }
-   */
-
-
 }

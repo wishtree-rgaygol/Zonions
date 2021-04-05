@@ -30,9 +30,7 @@ public class RestaurantService {
 
   // @Autowired
   // ImageRepository irepo;
-  public RestaurantService() {
-    // TODO Auto-generated constructor stub
-  }
+  public RestaurantService() {}
 
   public RestaurantService(RestaurantRepository repo) {
     super();
@@ -109,25 +107,5 @@ public class RestaurantService {
     List<ImageModel> list = irepo.findByRestid(restid);
     return list;
   }
-  /*
-   * public String uploadImage(@RequestParam("file") MultipartFile file, int restid) throws
-   * Exception { System.out.println("Original Image Byte Size - " + file.getBytes().length);
-   * Restaurant restaurant = repo.findById(restid) .orElseThrow(() -> new
-   * Exception("Restaurant not found for this id ::" + restid));
-   * restaurant.setName(file.getOriginalFilename()); restaurant.setType(file.getContentType());
-   * restaurant.setPicByte(file.getBytes()); System.out.println("Upload rest obj:" +
-   * restaurant.getName());
-   * 
-   * repo.save(restaurant); return "Image Uploaded"; }
-   */
-
-  /*
-   * public ResponseEntity<byte[]> getFile(String name, int restid) throws IOException { final
-   * Optional<Restaurant> retrievedImage = repo.findByNameAndRestid(name, restid); if
-   * (retrievedImage.isPresent()) { Restaurant img = retrievedImage.get(); return
-   * ResponseEntity.ok() .header(HttpHeaders.CONTENT_DISPOSITION, "connected;filename=\"" +
-   * img.getName() + "\"") .body(img.getPicByte()); } return ResponseEntity.status(404).body(null);
-   * }
-   */
 
 }

@@ -44,7 +44,6 @@ import com.main.Restaurant_App.security.service.UserDetailsServiceImpl;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
-// @EnableSwagger2
 public class AuthController {
   @Autowired
   AuthenticationManager authenticationManager;
@@ -68,6 +67,7 @@ public class AuthController {
 
   private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
+  // Sign-in method
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
       HttpServletRequest request) {
@@ -85,37 +85,30 @@ public class AuthController {
     UserEntityDto findByUsername = dtoRepository.findByUsername(loginRequest.getUsername());
     List<String> role = new ArrayList<>();
     UserEntityDto user = findByUsername;
-
-
     for (Role r : user.getRoles()) {
       role.add(r.getName().name());
       logger.info("Getting role......" + r.getName().name());
-      /* System.out.println("Getting role......" + r.getName().name()); */
       roles = role;
     }
-
     @SuppressWarnings("unchecked")
     List<String> usernames = (List<String>) request.getSession().getAttribute("Login_Session");
     if (usernames == null) {
       usernames = new ArrayList<>();
-
       request.getSession().setAttribute("Login_Session", loginRequest.getUsername());
       request.getSession().setMaxInactiveInterval(10 * 60);
 
     }
-
     usernames.add(loginRequest.getUsername());
     request.getSession().setAttribute("Login_Session", usernames);
 
     request.getSession().setMaxInactiveInterval(10 * 60);
 
     logger.info("Total roles" + roles);
-    /* System.out.println(roles); */
     return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
         userDetails.getEmail(), roles));
-
   }
 
+  // Signup method
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     logger.info("Inside signup method");
@@ -177,8 +170,6 @@ public class AuthController {
     return service.deleteByUsername(id);
 
   }
-
-
 
 }
 

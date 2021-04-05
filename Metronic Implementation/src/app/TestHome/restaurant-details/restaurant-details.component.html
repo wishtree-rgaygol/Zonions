@@ -1,56 +1,56 @@
-
- <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf= "timeCounter==false" style="color: green;"><b>Restaurant Open</b></div>
-      <div *ngIf= "timeCounter" style="color:red;"><b>Restaurant Closed</b></div>
-      <div *ngIf= "Dining">We provide Dining Facility</div>
-      <div *ngIf= "TakeAWay">We provide Take A Way Facility</div>
-      <div *ngIf= "HomeDelivery">We provide Home Delivery Facility</div>
-    </div>
-    <div class="panel-body">
-      <table class="table">
-        <thead>
-          <tr class="danger">
-            <th>Restaurant Name</th>
-            <th>Restaurant Address</th>
-            <th>Restaurant Contact Number</th>
-            <th>Restaurant Open Time</th>
-            <th>Restaurant Close Time</th>
-            <th>Restaurant Menu</th>
-          </tr>
-        </thead>
-        <tbody>
-          <td>{{rest.restname}}</td>
-          <td>{{rest.restaddress}}</td>
-          <td>{{rest.restphone}}</td>
-          <td>{{rest.openTime | conversionTime}}</td>
-          <td>{{rest.closeTime | conversionTime}}</td>
-          <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
-        </tbody>
-      </table>
-      <form [formGroup]="imageForm" (ngSubmit)="saveImage(imageForm.value)">
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf="timeCounter==false" style="color: green;"><b>Restaurant
+        Open</b></div>
+    <div *ngIf="timeCounter" style="color:red;"><b>Restaurant Closed</b></div>
+    <div *ngIf="Dining">We provide Dining Facility</div>
+    <div *ngIf="TakeAWay">We provide Take A Way Facility</div>
+    <div *ngIf="HomeDelivery">We provide Home Delivery Facility</div>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr class="danger">
+          <th>Restaurant Name</th>
+          <th>Restaurant Address</th>
+          <th>Restaurant Contact Number</th>
+          <th>Restaurant Open Time</th>
+          <th>Restaurant Close Time</th>
+          <th>Restaurant Menu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>{{rest.restname}}</td>
+        <td>{{rest.restaddress}}</td>
+        <td>{{rest.restphone}}</td>
+        <td>{{rest.openTime | conversionTime}}</td>
+        <td>{{rest.closeTime | conversionTime}}</td>
+        <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
+      </tbody>
+    </table>
+    <form [formGroup]="imageForm" (ngSubmit)="saveImage(imageForm.value)">
       <b><label>Choose Menu</label></b>
-          
-          <mat-select formControlName="menu" placeholder="Select which type of menu you want.." >
-  
-          <mat-option>-- Select --</mat-option>
-          <mat-option  value="italian">Italian</mat-option>
-          <mat-option  value="chinese">Chinese</mat-option>
-          <mat-option  value="continental">Continential</mat-option>
-         
+
+      <mat-select formControlName="menu" placeholder="Select which type of menu you want..">
+
+        <mat-option>-- Select --</mat-option>
+        <mat-option value="italian">Italian</mat-option>
+        <mat-option value="chinese">Chinese</mat-option>
+        <mat-option value="continental">Continential</mat-option>
+
       </mat-select>
       <br>
       <br>
       <button class="btn btn-outline-dark">Get Menu</button>
-  </form>
-    </div>
+    </form>
   </div>
-  
-  <br>
-  <br>
-  <!-- <a href="/restaurants/home"> -->
-  <button type="button" (click)="home()" class="btn btn-dark">Back</button>&nbsp;
-  <br>
-  <br>
-  
-  <button (click)="bookTable()" class="btn btn-dark btn-block">Book Table</button> 
+</div>
+
+<br>
+<br>
+
+<button type="button" (click)="home()" class="btn btn-dark">Back</button>&nbsp;
+<br>
+<br>
+
+<button (click)="bookTable()" class="btn btn-dark btn-block">Book Table</button>

@@ -32,13 +32,13 @@ export class RestaurantDetailsComponent implements OnInit {
   restaurantDetail = new Array<Restaurant>();
   restaurantList: any;
   constructor(private route: ActivatedRoute, private router: Router,
-              private restaurantService: RestaurantService,private formBuilder: FormBuilder ,private httpClient: HttpClient, private title:Title) { }
+    private restaurantService: RestaurantService, private formBuilder: FormBuilder, private httpClient: HttpClient, private title: Title) { }
 
   ngOnInit() {
     this.title.setTitle('Restaurant Details');
     this.imageForm = this.formBuilder.group(
       {
-     menu: new FormControl(),
+        menu: new FormControl(),
       }
     );
     this.restaurant = new Restaurant();
@@ -46,59 +46,49 @@ export class RestaurantDetailsComponent implements OnInit {
     this.restaurantService.getRestaurantById(this.restid)
       .subscribe(data => {
         this.rest = data;
-        console.log(data);
-        let hour:any = (this.rest.closeTime.split(':'))[0];
-        let min:any = (this.rest.closeTime.split(':'))[1];
+        let hour: any = (this.rest.closeTime.split(':'))[0];
+        let min: any = (this.rest.closeTime.split(':'))[1];
         // tslint:disable-next-line: no-unused-expression
-        if (hour >= this.currentTime.getHours())
-        {
-          if(min <= this.currentTime.getMinutes())
-          {
+        if (hour >= this.currentTime.getHours()) {
+          if (min <= this.currentTime.getMinutes()) {
             this.timeCounter = false;
           }
         }
-        console.log('current time hours' + this.currentTime.getHours());
-        console.log('current time minutes' + this.currentTime.getMinutes());
-        console.log('close time hours', hour);
-        console.log('close time minutes', min);
+        
         if (this.rest.dining === true) {
-          console.log('Dining');
           this.Dining = true;
         }
         if (this.rest.takeaway === true) {
-          console.log('Dining');
           this.TakeAWay = true;
         }
         if (this.rest.homedelivery === true) {
-          console.log('Dining');
           this.HomeDelivery = true;
         }
       }, error => console.log(error)
       );
-  } 
+  }
 
-  list() {                             /* <---Method call from details Form for come back to Homepage */
+  list() {
     this.router.navigate(['restaurants', 'restHome']);
   }
   bookTable() {
- 
+
     this.openAlertDialog();
     this.router.navigate(['auth', 'login']);
   }
   Login() {
     this.router.navigate(['auth', 'login']);
   }
-  openAlertDialog(){
+  openAlertDialog() {
     Swal.fire('Please Login First..!');
   }
   home() {
 
-		this.router.navigate(['restaurant','home']);
-	  }
-    saveImage(fvalue: any): void{
-      this.data = fvalue;
-      console.log(JSON.stringify(this.data.menu));
-      this.imagePath= `${this.fileURL}/${this.rest.restid}/${this.data.menu}`;
-      console.log(this.imagePath);
-    }
+    this.router.navigate(['restaurant', 'home']);
+  }
+  saveImage(fvalue: any): void {
+    this.data = fvalue;
+    console.log(JSON.stringify(this.data.menu));
+    this.imagePath = `${this.fileURL}/${this.rest.restid}/${this.data.menu}`;
+  }
 }

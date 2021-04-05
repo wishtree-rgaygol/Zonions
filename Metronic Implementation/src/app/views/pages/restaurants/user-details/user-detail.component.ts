@@ -45,26 +45,7 @@ export class UserDetailComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-  /* removeUser(id: number) {
-		const confirmDialog = this.dialog.open(DeleteConfirmBoxComponent, {
-		  data: {
-			title: 'Confirm Remove User',
-			message: 'Are you sure, you want to remove an User'+id
-		  }
-		});
-		confirmDialog.afterClosed().subscribe(result => {
-		  if (result === true) {
-        this.userService.deleteUser(id).subscribe(
-          (data) => {
-            console.log(data);
-            this.reloadUser();
-           this.openAlertDialog();
-          },
-          (error) => console.log(error)
-        );
-		  }
-		});
-	  } */
+  
     removeUser(id: number){
       Swal.fire({
         title: 'Are you sure, you want to remove an User?',
@@ -92,13 +73,7 @@ export class UserDetailComponent implements OnInit {
         }
       })
       }
-   /*  openAlertDialog(): void {
-      const dialog: DialogConfig = {
-        title: 'User Deleted Successfully',
-        close: 'OK'
-      };
-      this.dialog.open(AlertConfirmBoxComponent, { width: '287px', data: dialog });
-    } */
+   
     openAlertDialog(){
       Swal.fire('User Deleted Successfully..!');
     }

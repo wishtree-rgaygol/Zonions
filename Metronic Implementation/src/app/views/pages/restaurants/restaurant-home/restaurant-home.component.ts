@@ -9,14 +9,16 @@ import Swal from 'sweetalert2';
 import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_helpers/restaurant';
 // tslint:disable-next-line: max-line-length
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_services/restaurant.service';
-import { CloseScrollStrategy,
+import {
+  CloseScrollStrategy,
   GlobalPositionStrategy,
   IgxDialogComponent,
   IgxOverlayOutletDirective,
   PositionSettings,
   slideInBottom,
-  slideOutTop } from "igniteui-angular";
-  import { useAnimation } from "@angular/animations";
+  slideOutTop
+} from "igniteui-angular";
+import { useAnimation } from "@angular/animations";
 
 
 @Component({
@@ -25,30 +27,6 @@ import { CloseScrollStrategy,
   styleUrls: ['./restaurant-home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  /* restaurants: Observable<Restaurant[]>;
-  rest = new Restaurant();
-  dtOptions: DataTables.Settings = {};
-  dtTrigger = new Subject();
-  constructor(private restaurantService: RestaurantService,
-    private router: Router,private title:Title,private logger: NGXLogger) { }
-
-  ngOnInit() {
-    this.title.setTitle('Active Restaurants');
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 3
-    };
-    this.getRestaurantList();
-  }
-
-  getRestaurantList() { 
-    this.restaurants = this.restaurantService.getAllRestaurant();
-    this.dtTrigger.next();
-  }
-   restaurantDetails(restid: number) {
-    this.logger.info('In Restaurant Get By Id Method');
-    this.router.navigate(['restaurants','restDetails', restid]);
-  } */ 
 
   displayedColumns: string[] = ['restname', 'restaddress', 'restphone', 'actions'];
   dataSource: MatTableDataSource<Restaurant>;
@@ -67,20 +45,20 @@ export class HomeComponent implements OnInit {
   public dialog: IgxDialogComponent;
 
   private _animaitonSettings: PositionSettings = {
-      openAnimation: useAnimation(slideInBottom, { params: { fromPosition: "translateY(100%)" } }),
-      closeAnimation: useAnimation(slideOutTop, { params: { toPosition: "translateY(-100%)" } })
-   };
+    openAnimation: useAnimation(slideInBottom, { params: { fromPosition: "translateY(100%)" } }),
+    closeAnimation: useAnimation(slideOutTop, { params: { toPosition: "translateY(-100%)" } })
+  };
 
   private _dialogOverlaySettings2;
 
   public openDialog() {
-      this._dialogOverlaySettings2.outlet = this.outlet;
-      this.dialog.open(this._dialogOverlaySettings2);
+    this._dialogOverlaySettings2.outlet = this.outlet;
+    this.dialog.open(this._dialogOverlaySettings2);
   }
   ngOnInit(): void {
     this.title.setTitle('All Restaurants');
-     // tslint:disable-next-line: align
-     this.restService.getAllRestaurant().subscribe(
+    // tslint:disable-next-line: align
+    this.restService.getAllRestaurant().subscribe(
       (data) => {
         this.restaurants = data;
         this.dataSource = new MatTableDataSource(this.restaurants);
@@ -104,30 +82,30 @@ export class HomeComponent implements OnInit {
       outlet: this.outlet,
       scrollStrategy: new CloseScrollStrategy(),
       positionStrategy: new GlobalPositionStrategy(this._animaitonSettings)
-  };
+    };
   }
 
-	  refreshRestaurants() { 
-		this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */
-		this.restaurant = this.restService.getAllRestaurant();
-		
-	  }
-	
-    onSearchClear() {
-      this.searchKey = '';
-      this.applyFilter();
-    }
-  
-    applyFilter() {
-      this.dataSource.filter = this.searchKey.trim().toLowerCase();
-    }
-    restaurantDetails(restid: number) {
-      this.logger.info('In Restaurant Get By Id Method');
-      this.router.navigate(['restaurants','restDetails', restid]);
-    }
-    Login() {
-      this.router.navigate(['auth', 'login']);
-    }
-  
- 
+  refreshRestaurants() {
+    this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */
+    this.restaurant = this.restService.getAllRestaurant();
+
+  }
+
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  }
+  restaurantDetails(restid: number) {
+    this.logger.info('In Restaurant Get By Id Method');
+    this.router.navigate(['restaurants', 'restDetails', restid]);
+  }
+  Login() {
+    this.router.navigate(['auth', 'login']);
+  }
+
+
 }

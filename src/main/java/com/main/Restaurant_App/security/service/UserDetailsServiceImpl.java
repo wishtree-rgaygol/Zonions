@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,18 +31,8 @@ import com.main.Restaurant_App.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-  /*
-   * @Autowired UserRepository userRepository;
-   * 
-   * @Override
-   * 
-   * @Transactional public UserDetails loadUserByUsername(String username) throws
-   * UsernameNotFoundException { User user = userRepository.findByUsername(username) .orElseThrow(()
-   * -> new UsernameNotFoundException("User Not Found with username: " + username));
-   * 
-   * return UserDetailsImpl.build(user); }
-   */
 
+  private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
   @Autowired
   UserRepository registrationRepository;
@@ -86,7 +78,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   }
 
   public UserEntityDto changeRole(@PathVariable long id, @RequestBody User resm) {
-    System.out.println("resmmm===" + resm);
+    this.logger.info("User Object---" + resm);
     String st = "ROLE_ADMIN";
     String st1 = "ROLE_USER";
     resm.setPassword("*****");
@@ -94,20 +86,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     UserEntityDto entity =
         new UserEntityDto(resm.getId(), resm.getUsername(), resm.getEmail(), resm.getRoles());
-    System.out.println(restdata);
-    System.out.println(entity);
+    this.logger.info("Restaurant Data--" + restdata);
+    this.logger.info("User Entity--" + entity);
     if (restdata.isPresent()) {
+      this.logger.info("inside outer if" + resm.getRoles());
 
-      System.out.println("inside outer if");
-      System.out.println(resm.getRoles());
       if (!resm.getRoles().isEmpty()) {
-        System.out.println("inside inner if");
-        System.out.println(resm.getRoles());
+        this.logger.info("inside inner if" + resm.getRoles());
+
+
         Set<Role> role = new HashSet<Role>();
         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
         role.add(adminRole);
         entity.setRoles(role);
-        System.out.println(entity.getRoles());
+        this.logger.info("Getting roles---" + entity.getRoles());
+
 
       }
 

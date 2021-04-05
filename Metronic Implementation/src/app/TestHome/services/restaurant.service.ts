@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class RestaurantService {
 
   private uploadUrl = 'http://localhost:8080/api/zonions/upload';
-  private bookTableUrl='http://localhost:8080/zonions/bookTable';
+  private bookTableUrl = 'http://localhost:8080/zonions/bookTable';
   private basedUrl = 'http://localhost:8080/api/zonions/restaurants';
   constructor(private http: HttpClient) { }
 
@@ -52,5 +52,5 @@ export class RestaurantService {
   bookTable(bookTable: any): Observable<any> {
     return this.http.post(this.bookTableUrl, bookTable);
   }
-  
+
 }
