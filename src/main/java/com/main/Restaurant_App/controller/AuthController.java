@@ -72,6 +72,11 @@ public class AuthController {
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
       HttpServletRequest request) {
     logger.info("Inside signin method");
+    /*
+     * int incorrectLogin = service.incorrectLogin(loginRequest.getUsername(),
+     * loginRequest.getPassword());
+     */
+
     Authentication authentication =
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
             loginRequest.getUsername(), loginRequest.getPassword()));
@@ -170,6 +175,8 @@ public class AuthController {
     return service.deleteByUsername(id);
 
   }
+
+
 
 }
 

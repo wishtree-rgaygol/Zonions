@@ -39,6 +39,7 @@ public @Data class Restaurant implements Serializable {
   private boolean takeaway;
   @Column
   private boolean homedelivery;
-
+  @Column
+  private int visitCount;
 
 }

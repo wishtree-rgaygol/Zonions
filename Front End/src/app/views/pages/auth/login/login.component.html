@@ -1,0 +1,107 @@
+<!--begin::Head-->
+
+<div class="kt-login__head">
+	<span class="kt-login__signup-label">Don't have an account yet?</span>&nbsp;&nbsp;
+	<a href="javascript:;" routerLink="/auth/register" class="kt-link kt-login__signup-link">{{ 'AUTH.GENERAL.SIGNUP_BUTTON' | translate }}</a>
+</div>
+<!--end::Head-->
+
+<!--begin::Body-->
+<div class="kt-login__body">
+	<!--begin::Signin-->
+	<div class="kt-login__form">
+		<!-- <div class="kt-grid__item" style="text-align: center;">
+			<a href="javascript:;" class="kt-login__logo">
+				<img src="./assets/media/logos/spinner.png" alt="logo">
+			</a>
+		</div>  -->
+		<div class="kt-login__title">
+			<h3>Sign In</h3>
+		</div>
+
+		<!-- <kt-auth-notice></kt-auth-notice> -->
+
+		<!--begin::Form-->
+		<form class="kt-form" [formGroup]="loginForm" autocomplete="off">
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>{{ 'AUTH.INPUT.USERNAME' | translate }}</mat-label>
+					<input matInput type="username" placeholder="username" formControlName="username" autocomplete="off"/>
+					<mat-error *ngIf="isControlHasError('username','required')">
+						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+					</mat-error>
+					<!-- <mat-error *ngIf="isControlHasError('username','email')">
+						<strong>{{ 'AUTH.VALIDATION.INVALID_FIELD' | translate }}</strong>
+					</mat-error> -->
+					<mat-error *ngIf="isControlHasError('username','minlength')">
+						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('username','maxlength')">
+						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 20</strong>
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
+					<input matInput type="password" placeholder="password" formControlName="password" autocomplete="off"/>
+					<mat-error *ngIf="isControlHasError('password','required')">
+						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('password','minlength')">
+						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('password','maxlength')">
+						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<div *ngIf="loginCount >=3">
+				<ngx-recaptcha2 #captchaElem
+					[siteKey]="'6Lcg7JcaAAAAAGSO1Lf4RIpohhhhhI6qESg7iyZL'"
+					(success)="handleSuccess($event)"
+					[useGlobalDomain]="false"
+					[size]="size"
+					[hl]="lang"
+					[theme]="theme"
+					[type]="type"
+					formControlName="recaptcha">
+			    </ngx-recaptcha2>
+		    </div>
+			<!--begin::Action-->
+			<div class="kt-login__actions" *ngIf="loginCount>=3">
+				<!-- <a href="javascript:;" routerLink="/auth/forgot-password" class="kt-link kt-login__link-forgot">
+					{{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
+				</a> -->
+				<button (click)="submit()" *ngIf="captchaSuccess" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-dark btn-elevate kt-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
+			    
+
+			</div>
+			<div *ngIf="loginCount &#60;3">
+				<button (click)="submit()" *ngIf="!captchaSuccess" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-dark btn-elevate kt-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
+			</div>
+			<div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0">{{errorMessage}}</div>
+			
+			<!--end::Action-->
+		</form>
+		<!--end::Form-->
+
+		<!--begin::Divider-->
+	 	<div class="kt-login__divider">
+			<div class="kt-divider">
+				<span></span>
+				<span style="color: rgb(45, 65, 65);">OR</span>
+				<span></span>
+			</div>
+		</div>
+		<!--end::Divider-->
+
+		<!--begin::Options-->
+	     <div class="kt-login__options">
+			<button (click)="show()"  class="btn btn-dark" style="margin-left: 240px" >Show Active Restaurant List</button>
+		</div> 
+		<!--end::Options-->
+	</div>
+	<!--end::Signin-->
+</div>
+<!--end::Body-->

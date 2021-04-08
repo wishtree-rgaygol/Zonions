@@ -1,0 +1,117 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NGXLogger } from 'ngx-logger';
+import { Observable, Subject } from 'rxjs';
+import Swal from 'sweetalert2';
+import { AddFeedbackComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/add-feedback/add-feedback.component';
+import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/models/restaurant';
+import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/services/restaurant.service';
+
+@Component({
+  selector: 'kt-restaurant-home-display',
+  templateUrl: './restaurant-home-display.component.html',
+  styleUrls: ['./restaurant-home-display.component.scss']
+})
+export class RestaurantHomeDisplayComponent implements OnInit {
+  displayedColumns: string[] = ['restname', 'restaddress', 'lastModified', 'star'];
+  /* dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA); */
+  dataSource: MatTableDataSource<Restaurant>;
+ /*  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort; */
+  restaurants = new Array<Restaurant>();
+  rest: Restaurant[];
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+
+  
+  constructor(private restaurantService: RestaurantService, private router: Router,
+    // tslint:disable-next-line: align
+    private title: Title, private logger: NGXLogger,public dialog: MatDialog) {}
+
+
+  ngOnInit() {
+    /* this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort; */
+    this.title.setTitle('Home Page');
+
+    this.restaurantService.getAllRestaurant().subscribe((data) => {
+      console.log(data);
+      console.log(data.length);
+      this.restaurants = data;
+      this.rest = data;
+      console.log('array values---', this.rest);
+      this.dataSource = new MatTableDataSource(this.restaurants);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    },   error => {
+        if (error.status === 500) {
+          this.router.navigate(['error/500']);
+        }
+    });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+openDialog(): void {
+  const dialogRef = this.dialog.open(AddFeedbackComponent, {
+    width: '640px', disableClose: true
+  });
+
+}
+  /* restaurants = new Array<Restaurant>();
+  public errorMessage = '';
+
+  constructor(private restaurantService: RestaurantService, private router: Router,
+              private title: Title, private logger: NGXLogger) {}
+
+  listData: MatTableDataSource<Restaurant>;
+  displayedColumns: string[] = ['restname', 'actions'];
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  searchKey: string;
+  ngOnInit(): void {
+    this.title.setTitle('Home Page');
+
+    this.restaurantService.getAllRestaurant().subscribe((data) => {
+      console.log(data);
+      console.log(data.length);
+      this.restaurants = data;
+      this.listData = new MatTableDataSource(this.restaurants);
+      this.listData.sort = this.sort;
+      this.listData.paginator = this.paginator;
+              // tslint:disable-next-line: no-shadowed-variable
+      this.listData.filterPredicate = (data, filter) => {
+                return this.displayedColumns.some(element => {
+                  return element !== 'actions' && data[element].toLowerCase().indexOf(filter) !== -1;
+
+                });
+              };
+    },   error => {
+        if (error.status === 500) {
+          this.router.navigate(['error/500']);
+        }
+    });
+  }
+
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase();
+  }
+  restaurantDetails(restid: number) {
+    this.logger.info('In Restaurant Get By Id Method');
+    this.router.navigate(['restaurant', 'restaurantDetail', restid]);
+  } */ 
+}
+

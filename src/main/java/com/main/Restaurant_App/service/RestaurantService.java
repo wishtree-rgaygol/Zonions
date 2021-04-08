@@ -28,6 +28,8 @@ public class RestaurantService {
   @Autowired
   ImageRepository irepo;
 
+  int vCount;
+
   // @Autowired
   // ImageRepository irepo;
   public RestaurantService() {}
@@ -50,8 +52,15 @@ public class RestaurantService {
   }
 
   public ResponseEntity<Restaurant> getRestaurantById(int restid) throws Exception {
+
     Restaurant tempRestObj = repo.findById(restid)
         .orElseThrow(() -> new Exception("Restaurant is not found for this id :" + restid));
+    if (tempRestObj != null) {
+      vCount = tempRestObj.getVisitCount();
+      vCount++;
+      tempRestObj.setVisitCount(vCount);
+      repo.save(tempRestObj);
+    }
     return ResponseEntity.ok().body(tempRestObj);
   }
 

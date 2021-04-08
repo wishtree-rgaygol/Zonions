@@ -1,0 +1,61 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf="timeCounter==false" style="color: green;"><b>Open Now</b></div>
+    <div *ngIf="timeCounter" style="color:red;"><b>Closed Now</b></div> 
+    <div *ngIf="Dining"  style="margin-left:1010px">We provide Dining Facility</div>
+    <div *ngIf="TakeAWay" style="margin-left:1010px">We provide Take A Way Facility</div>
+    <div *ngIf="HomeDelivery" style="margin-left:1010px">We provide Home Delivery Facility</div>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <ngx-input-star-rating formControlName="rating"></ngx-input-star-rating>&nbsp;&nbsp;
+    <button class="btn btn-outline-dark">Submit</button>
+  </form>
+<hr>
+  <form [formGroup]="imageForm" (ngSubmit)="saveImage(imageForm.value)">
+      <b><label>Choose Menu</label></b>
+
+      <mat-select formControlName="menu" placeholder="Select which type of menu you want..">
+
+        <mat-option>-- Select --</mat-option>
+        <mat-option value="italian">Italian</mat-option>
+        <mat-option value="chinese">Chinese</mat-option>
+        <mat-option value="continental">Continential</mat-option>
+
+      </mat-select>
+      <br>
+      <br>
+      <button class="btn btn-outline-dark">Get Menu</button>
+    </form>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr class="danger">
+          <th>Restaurant Name</th>
+          <th>Restaurant Address</th>
+          <th>Restaurant Contact Number</th>
+          <th>Restaurant Open Time</th>
+          <th>Restaurant Close Time</th>
+          <th>Restaurant Menu</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td>{{rest.restname}}</td>
+        <td>{{rest.restaddress}}</td>
+        <td>{{rest.restphone}}</td>
+        <td>{{rest.openTime | conversionTime}}</td>
+        <td>{{rest.closeTime | conversionTime}}</td>
+        <td><img [src]="imagePath" style="height: 350px; width: 350px;"></td>
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+
+<br>
+<br>
+
+<button type="button" (click)="home()" class="btn btn-dark">Back</button>&nbsp;
+<br>
+<br>
+
+<button (click)="bookTable()" class="btn btn-dark btn-block">Book Table</button>

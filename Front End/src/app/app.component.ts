@@ -1,72 +1,97 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { TokenStorageService } from './services/token-storage.service';
-import { Router } from '@angular/router';
-
+import { Subscription } from 'rxjs';
+// Angular
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+// Layout
+import { LayoutConfigService, SplashScreenService, TranslationService } from './core/_base/layout';
+// language list
+import { locale as enLang } from './core/_config/i18n/en';
+import { locale as chLang } from './core/_config/i18n/ch';
+import { locale as esLang } from './core/_config/i18n/es';
+import { locale as jpLang } from './core/_config/i18n/jp';
+import { locale as deLang } from './core/_config/i18n/de';
+import { locale as frLang } from './core/_config/i18n/fr';
+import { locale as hiLang } from './core/_config/i18n/hi';
+import { Title } from '@angular/platform-browser';
+import { filter } from 'rxjs/operators';  
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	// tslint:disable-next-line:component-selector
+	selector: 'body[kt-root]',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
-  title: 'ZONIONS';
+export class AppComponent implements OnInit, OnDestroy {
+	// Public properties
+	title = 'Zonions';
+	loader: boolean;
+	private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
+ 
+	/**
+	 * Component constructor
+	 *
+	 * @param translationService: TranslationService
+	 * @param router: Router
+	 * @param layoutConfigService: LayoutCongifService
+	 * @param splashScreenService: SplashScreenService
+	 */
+	constructor(private translationService: TranslationService,
+				         private router: Router,private activatedRoute: ActivatedRoute,
+				         private layoutConfigService: LayoutConfigService,
+				         private splashScreenService: SplashScreenService,private titleService: Title) {
 
-  supportLanguages = ['en', 'fr', 'ta', 'hi'];
-  constructor(private tokenStorageService: TokenStorageService, private translateService: TranslateService ,private router: Router) {
+		// register translations
+		this.translationService.loadTranslations(enLang, chLang, esLang, jpLang, deLang, frLang, hiLang);
+	}
 
-    this.translateService.addLangs(this.supportLanguages);
-    this.translateService.setDefaultLang('en');
+	/**
+	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
+	 */
 
-    const browserlang = this.translateService.getBrowserLang();
+	/**
+	 * On init
+	 */
+	ngOnInit(): void {
+		this.router.events.pipe(  
+			filter(event => event instanceof NavigationEnd),  
+		  ).subscribe(() => {  
+			const rt = this.getChild(this.activatedRoute);  
+			rt.data.subscribe(data => {  
+			  console.log(data);  
+			  this.titleService.setTitle(data.title)});  
+		  });
+		// enable/disable loader
+		this.loader = this.layoutConfigService.getConfig('loader.enabled');
 
-    console.log('Browser Language => ', browserlang);
+		const routerSubscription = this.router.events.subscribe(event => {
+			if (event instanceof NavigationEnd) {
+				// hide splash screen
+				this.splashScreenService.hide();
 
-    if (this.supportLanguages.includes(browserlang)) {
-      this.translateService.use(browserlang);
-    }
-  }
+				// scroll to top on every route change
+				window.scrollTo(0, 0);
 
-  useLang(lang: string) {
-    console.log('selected language ==> ', lang);
-    this.translateService.use(lang);
-  }
-
-  private roles: string[] = [];
-  isLoggedIn = false;
-  showAdminBoard = false;
-  showHomeBoard = false;
-  showCreateBoard = false;
-  showListBoard = false;
-  user = false;
-  admin = false;
-  username?: string;
-
-
-  ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      if (user.roles === 'ROLE_USER') {
-        this.user = true;
-      }
-      else {
-        this.admin = true;
-      }
-      this.roles = user.roles;
-
-      this.showHomeBoard = this.roles.includes('ROLE_USER');
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showCreateBoard = this.roles.includes('ROLE_ADMIN');
-      this.showListBoard = this.roles.includes('ROLE_ADMIN');
-
-      this.username = user.username;
-    }
-  }
-
-  logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
-  }
+				// to display back the body content
+				setTimeout(() => {
+					document.body.classList.add('kt-page--loaded');
+				}, 500);
+			}
+		});
+		this.unsubscribe.push(routerSubscription);
+	}
+	getChild(activatedRoute: ActivatedRoute) {  
+		if (activatedRoute.firstChild) {  
+		  return this.getChild(activatedRoute.firstChild);  
+		} else {  
+		  return activatedRoute;  
+		}  
+	  
+	  }  
+	/**
+	 * On Destroy
+	 */
+	ngOnDestroy() {
+		this.unsubscribe.forEach(sb => sb.unsubscribe());
+	}
 }

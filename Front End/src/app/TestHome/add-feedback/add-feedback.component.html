@@ -1,0 +1,101 @@
+<!-- <div>
+    <div class="add-title">
+      <h2 class="primary">Add customer</h2>
+    </div>
+    <div>
+      <form [formGroup]="addCusForm" (change)="formChanged()">
+        <mat-grid-list cols="2" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
+          <mat-grid-tile>
+            <div class="text-inside">
+              <mat-form-field>
+                <input matInput placeholder="First Name" value={{fname}} formControlName="firstname" required>
+                <mat-error *ngIf="addCusForm.controls.firstname.hasError('required')">
+                  Please enter first name
+                </mat-error>
+                <mat-error *ngIf="addCusForm.controls.firstname.hasError('pattern')">
+                  Please enter valid first name
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Last Name" value={{lname}} formControlName="lastname" required>
+                <mat-error *ngIf="addCusForm.controls.lastname.hasError('required')">
+                  Please enter last name
+                </mat-error>
+                <mat-error *ngIf="addCusForm.controls.lastname.hasError('pattern')">
+                  Please enter valid last name
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+      
+          <mat-grid-tile>
+            <div class="text-inside">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker1" placeholder="Date of birth">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email address" formControlName="email" required>
+                <mat-error *ngIf="addCusForm.controls.email.hasError('required')">
+                  Please enter email id
+                </mat-error>
+                <mat-error *ngIf="addCusForm.controls.email.hasError('email')">
+                  Please enter valid email id
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+        
+          <mat-grid-tile>
+            <div class="text-inside">
+              <mat-form-field>
+                <textarea matInput placeholder="Address"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <div class="text-inside">
+              <mat-radio-group class="gender">
+                <div style="color:grey;">Gender</div>
+                <mat-radio-button color="primary" style="padding:4px 4px 0px 0px;" value="1">Male</mat-radio-button>
+                <mat-radio-button  color="primary" style="padding:4px 0px 0px 24px;" value="2">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+  
+        <div class="btn-sec">
+          <button mat-raised-button type="submit" color="primary" class="Update-btn" (click)="onaddCus()">Save</button>
+          <button mat-raised-button type="button" class="Discard-btn" (click)="openDialog()">Cancel</button>
+        </div>
+  
+      </form>
+    </div>
+  </div> -->
+
+  <h1>Feedback Form</h1>
+<div [formGroup]="formGroup">
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Enter your email" [formControl]="emailField" required>
+      <mat-error *ngIf="emailField.invalid">{{ getErrorMessage(emailField) }}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="half-width">
+      <textarea matInput placeholder="Enter your feedback" [formControl]="feedbackField" required></textarea>
+      <mat-error *ngIf="feedbackField.invalid">{{ getErrorMessage(feedbackField) }}</mat-error>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" (click)="back()" [disabled]="formGroup.invalid">Submit Feedback</button>
+</div>
+  
