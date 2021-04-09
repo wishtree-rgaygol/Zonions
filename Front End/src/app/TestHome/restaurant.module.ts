@@ -63,6 +63,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AddFeedbackComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/add-feedback/add-feedback.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FetchMoreComponent } from './fetch-more/fetch-more.component';
 
 
 
@@ -207,7 +208,8 @@ const routes: Routes = [
 		BreadcrumbsComponent,
 		LanguageComponent,
 		FooterBarComponent,
-		AddFeedbackComponent
+		AddFeedbackComponent,
+		FetchMoreComponent
 	],
 	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
 	],

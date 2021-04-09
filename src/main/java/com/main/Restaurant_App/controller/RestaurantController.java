@@ -141,6 +141,10 @@ public class RestaurantController {
     return list;
   }
 
+  @GetMapping(value = "/file")
+  public List<ImageModel> getAllMenus() {
+    return rservice.getAllMenus();
+  }
 }
 
 

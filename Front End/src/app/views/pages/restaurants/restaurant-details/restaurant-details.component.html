@@ -3,9 +3,9 @@
     <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf="!timeCounter" style="color: green;"><b>Restaurant Open</b>
     </div>
     <div *ngIf="timeCounter" style="color:red;"><b>Restaurant Closed</b></div>&nbsp;&nbsp;&nbsp;
-    <div *ngIf="Dining">We provide Dining Facility</div>
-    <div *ngIf="TakeAWay">We provide Take A Way Facility</div>
-    <div *ngIf="HomeDelivery">We provide Home Delivery Facility</div>
+    <div *ngIf="Dining"  ><i class="fas fa-check"></i>&nbsp;Dine-in</div>
+    <div *ngIf="TakeAWay" ><i class="fas fa-check"></i>&nbsp;Takeaway</div>
+    <div *ngIf="HomeDelivery" ><i class="fas fa-check"></i>&nbsp;Home delivery</div>
     <!----------------------------Here Display the Restaurant details on Homepage for all users ----------------------->
   </div>
   <div class="panel-body">
@@ -34,10 +34,14 @@
 
       <mat-select formControlName="menu" placeholder="Select which type of menu you want..">
 
-        <mat-option>-- Select --</mat-option>
+        <!-- <mat-option>-- Select --</mat-option>
         <mat-option value="italian">Italian</mat-option>
         <mat-option value="chinese">Chinese</mat-option>
-        <mat-option value="continental">Continential</mat-option>
+        <mat-option value="continental">Continential</mat-option> -->
+        <mat-option>-- Select --</mat-option>
+                <mat-option  *ngFor="let menu of menuArray" [value]="menu">
+                    <label for="">{{menu | uppercase}}</label>
+                </mat-option>
 
       </mat-select>
       <br>

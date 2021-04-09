@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Menu } from '../_helpers/menu';
 import { Restaurant } from '../_helpers/restaurant';
 import { RestaurantService } from '../_services/restaurant.service';
 
@@ -19,15 +20,22 @@ export class RestaurantDetailsComponent implements OnInit {
   restid: number;
   restaurants: Observable<Restaurant[]>;
   restaurant: Restaurant;
+  rest: any;
   Dining: boolean;
   TakeAWay: boolean;
   HomeDelivery: boolean;
   fileURL = 'http://localhost:8080/api/zonions/file';     /* <---URL comes from rest api to display the uploaded menu */
-  imagePath: any;
+  imagePath = './assets/media/logos/ZonionsLogo.jpg';
   imageForm: FormGroup;
+  restaurantDetail = new Array<Restaurant>();
+  restaurantList: any;
+  form: FormGroup;
+  value: Observable<number>;
+  menuType: Menu[];
+  menuArray = [''];
   constructor(private route: ActivatedRoute, private router: Router,
     // tslint:disable-next-line: max-line-length
-    private restaurantService: RestaurantService, private httpClient: HttpClient, private formBuilder: FormBuilder, private title: Title) { }
+              private restaurantService: RestaurantService, private httpClient: HttpClient, private formBuilder: FormBuilder, private title: Title) { }
 
   ngOnInit() {
     this.title.setTitle('Restaurant Details');
@@ -41,6 +49,7 @@ export class RestaurantDetailsComponent implements OnInit {
     this.restaurantService.getRestaurantById(this.restid)
       .subscribe(data => {
         this.restaurant = data;
+        this.rest = data;
         console.log(this.restaurant.dining);
         console.log(this.restaurant.takeaway);
         console.log(this.restaurant.homedelivery);
@@ -70,6 +79,21 @@ export class RestaurantDetailsComponent implements OnInit {
         }
       }, error => console.log(error)
       );
+    this.restaurantService.getAllMenus().subscribe((resp =>
+        {
+          this.menuType = resp;
+          console.log(this.menuType);
+
+          // tslint:disable-next-line: prefer-for-of
+          for (let i = 0; i < this.menuType.length; i++) {
+            if (this.menuType[i].restid ===  this.rest.restid) {
+              console.log(this.menuType[i].type);
+              this.menuArray.push(this.menuType[i].type);
+            }
+  
+          }
+          this.menuArray.splice(0, 1);
+        }));
   }
 
   list() {                             /* <---Method call from details Form for come back to Homepage */
@@ -79,6 +103,7 @@ export class RestaurantDetailsComponent implements OnInit {
   saveImage(fvalue: any): void {
     this.data = fvalue;
     console.log(JSON.stringify(this.data.menu));
+    this.fileURL = 'http://localhost:8080/api/zonions/file';
     this.imagePath = `${this.fileURL}/${this.restaurant.restid}/${this.data.menu}`;
     console.log(this.imagePath);
   }

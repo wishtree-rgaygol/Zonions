@@ -9,13 +9,13 @@
 	  </canvas>
 	</div>
   </div>
-<div class="row">
+<!-- <div class="row">
 	<div class="col-xl-6">
 		<div class="row row-full-height">
 			<div class="col-sm-12 col-md-12 col-lg-6">
 				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
 					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
-						<kt-widget26 value={{restaurantLength}} [desc]="'Total Active Restaurants'" [options]="chartOptions1"></kt-widget26>
+						<kt-widget26 value={{restaurantName}} [desc]="'Maximum hit count restaurant'" [options]="chartOptions1"></kt-widget26>
 					</kt-portlet-body>
 				</kt-portlet>
 
@@ -23,14 +23,32 @@
 
 				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
 					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
-						<kt-widget26 value={{userLength}} [desc]="'Total Users'" [options]="chartOptions2"></kt-widget26>
+						<kt-widget26 value={{vCount}} [desc]="'Total hit count'" [options]="chartOptions2"></kt-widget26>
 					</kt-portlet-body>
 				</kt-portlet>
 			</div>
 		</div>
 	</div>
 </div>
-
+ -->
+<div class="container">
+ <table class="table table-striped table-bordered row-border hover">
+  <thead>
+    <tr>
+            <th>Restaurant Name</th>
+            <th>Total Hit Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let r of rest">
+      <tr>
+      <td>{{r.restname}}</td>
+      <td>{{r.visitCount}}</td>
+    </tr>
+    </ng-container>
+  </tbody>
+</table>
+</div>
 
 
 

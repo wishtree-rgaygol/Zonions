@@ -10,6 +10,7 @@ export class RestaurantService {
   private uploadUrl = 'http://localhost:8080/api/zonions/upload';
   private bookTableUrl = 'http://localhost:8080/zonions/bookTable';
   private basedUrl = 'http://localhost:8080/api/zonions/restaurants';
+  private getAllMenuUrl= 'http://localhost:8080/api/zonions/file';
   constructor(private http: HttpClient) { }
 
   getRestaurantById(restid: number): Observable<any> {
@@ -52,5 +53,8 @@ export class RestaurantService {
   bookTable(bookTable: any): Observable<any> {
     return this.http.post(this.bookTableUrl, bookTable);
   }
-
+ 
+  getAllMenus(): Observable<any> {
+    return this.http.get(`${this.getAllMenuUrl}`);
+  }
 }

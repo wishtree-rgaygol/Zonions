@@ -117,4 +117,8 @@ public class RestaurantService {
     return list;
   }
 
+  public List<ImageModel> getAllMenus() {
+    return irepo.findAll();
+  }
+
 }

@@ -3,7 +3,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 // RxJS
 import { Observable, BehaviorSubject, of} from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
-import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Metronic Implementation/src/app/views/pages/restaurants/_services/restaurant.service';
+import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/views/pages/restaurants/_services/restaurant.service';
 // CRUD
 import { QueryParamsModel,  QueryResultsModel, HttpExtenstionsModel } from '../../../../../../core/_base/crud';
 import { DataTableService, DataTableItemModel } from '../../../../../../core/_base/layout';

@@ -7,6 +7,7 @@ import { LayoutConfigService, SparklineChartOptions } from '../../../core/_base/
 import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/views/pages/restaurants/_helpers/restaurant';
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/views/pages/restaurants/_services/restaurant.service';
 import { UserService } from '../restaurants/_services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'kt-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
 	userLength: any;
 	restaurantLength: number;
     restaurant: Restaurant[];
+    rest: Observable<Restaurant[]>;
 	vCount: number;
 	restaurantName: String;
 	/* barChartData: [{ data: number[]; label: string; }, { data: number[]; label: string; }]; */
@@ -30,6 +32,7 @@ export class DashboardComponent implements OnInit {
 	ngOnInit(): void {
 		  this.restaurantService.getAllRestaurant().subscribe(data => {
 			this.restaurant = data;
+			this.rest= data;
 			console.log(this.restaurant);
 			for ( let i = 0; i < this.restaurant.length - 1; i++) {
 				console.log("In for");
