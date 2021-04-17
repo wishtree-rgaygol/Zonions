@@ -41,8 +41,8 @@ public class MysqlStartupConfig implements ApplicationListener<ContextRefreshedE
 
     Role adminrole = createRoleIfNotFound(ERole.ROLE_ADMIN);
     Role userrole = createRoleIfNotFound(ERole.ROLE_USER);
-    createUserIfNotFound("Admin123", "admin@gmail.com", Set.of(adminrole));
-    createUserDtoIfNotFound("Admin123", "admin@gmail.com", Set.of(adminrole));
+    createUserIfNotFound("Admin", "admin@gmail.com", Set.of(adminrole));
+    createUserDtoIfNotFound("Admin", "admin@gmail.com", Set.of(adminrole));
     alreadySetup = true;
 
   }

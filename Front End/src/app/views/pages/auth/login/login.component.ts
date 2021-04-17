@@ -13,12 +13,14 @@ import { AppState } from '../../../../core/reducers';
 // Auth
 import { AuthNoticeService, AuthService, Login, User } from '../../../../core/auth';
 import { TokenStorageService } from '../../../../core/auth/_services/token-storage.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OTPDialogueComponent } from '../OTPDialogBox/OTPDialogue.component';
 
 /**
  * ! Just example => Should be removed in development
  */
 const DEMO_PARAMS = {
-	USERNAME: 'demo',
+	EMAIL: 'demo@gmail.com',
 	PASSWORD: 'demo'
 };
 
@@ -68,7 +70,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private fb: FormBuilder,
 		private cdr: ChangeDetectorRef,
 		private route: ActivatedRoute,
-		private tokenStorage: TokenStorageService
+		private tokenStorage: TokenStorageService,
+		private modalservice: NgbModal
 	) {
 		this.unsubscribe = new Subject();
 	}
@@ -116,10 +119,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 		// }
 
 		this.loginForm = this.fb.group({
-			username: [DEMO_PARAMS.USERNAME, Validators.compose([
+			email: [DEMO_PARAMS.EMAIL, Validators.compose([
 				Validators.required,
 				Validators.minLength(3),
-				Validators.maxLength(20)
+				//Validators.maxLength(20)
 			])
 			],
 			password: [DEMO_PARAMS.PASSWORD, Validators.compose([
@@ -149,11 +152,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		const authData = {
-			username: controls.username.value,
+			email: controls.email.value,
 			password: controls.password.value
 		};
 		this.auth
-			.login(authData.username, authData.password)
+			.login(authData.email, authData.password)
 			.pipe(
 				tap(user => {
 					if (user) {
@@ -175,7 +178,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 					this.tokenStorage.saveUser(data);
 					this.isLoggedIn = true;
 					this.loginCount = 0;
-					this.usernm = authData.username;
+					this.usernm = authData.email;
 					console.log(this.usernm);
 					localStorage.setItem(JSON.stringify(this.usernm), JSON.stringify(this.loginCount));
 		   this.roles = this.tokenStorage.getUser().roles;
@@ -186,7 +189,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 				},
 				 error => {
 					this.loginCount++;
-					this.usernm = authData.username;
+					this.usernm = authData.email;
 					console.log(this.usernm);
 
 				   // tslint:disable-next-line: one-variable-per-declaration
@@ -197,7 +200,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 					   this.array = localStorage.getItem(JSON.stringify(this.usernm));
 						  this.loginCount = this.array;
 						  this.loginCount++;
-						  alert(this.loginCount);
 						  localStorage.setItem(JSON.stringify(this.usernm), JSON.stringify(this.loginCount));
 				   }
 				   if(error.error.message)
@@ -237,5 +239,18 @@ export class LoginComponent implements OnInit, OnDestroy {
 	  handleSuccess(e) {
 		this.captchaSuccess = true;
 		console.log('ReCaptcha', e);
+	  }
+
+	  openForgotPassModal(): void {
+		const ref = this.modalservice.open(OTPDialogueComponent, { centered: true });
+		ref.componentInstance.title = 'Reset Password';
+		ref.componentInstance.btn = 'Send OTP';
+		ref.componentInstance.type = 'reset';
+	  }
+	  openVerifyEmailModal(): void {
+		const ref = this.modalservice.open(OTPDialogueComponent, { centered: true });
+		ref.componentInstance.title = 'Verify email';
+		ref.componentInstance.btn = 'Send Link';
+		ref.componentInstance.type = 'verify';
 	  }
 }

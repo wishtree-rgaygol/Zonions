@@ -14,7 +14,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,8 +58,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Override
   @Transactional
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = registrationRepository.findByUsername(username);
+  public UserDetails loadUserByUsername(String email) {
+    User user = registrationRepository.findByEmail(email);
 
     return UserDetailsImpl.build(user);
   }
@@ -143,5 +142,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     System.out.println("Login count-" + loginCount);
     return loginCount;
   }
+
+  /*
+   * @Transactional public boolean isAccountVerified(String email) { boolean isVerified =
+   * registrationRepository.findEmailVerifiedByEmail(email); return isVerified; }
+   */
 
 }

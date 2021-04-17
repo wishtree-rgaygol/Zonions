@@ -14,4 +14,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Boolean existsByEmail(String email);
 
   Boolean deleteByUsername(String username);
+
+  User findByEmail(String email);
+
+  /*
+   * @Query("SELECT u.emailVerified FROM User u WHERE u.email = ?1") Boolean
+   * findEmailVerifiedByEmail(String email);
+   */
 }

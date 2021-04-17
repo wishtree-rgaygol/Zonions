@@ -1,5 +1,6 @@
 package com.main.Restaurant_App.service;
 
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ public class RestaurantService {
   @Autowired
   RestaurantRepository repo;
 
+  LocalTime localTime = LocalTime.now();
+  String time = localTime.toString();
+
   @Autowired
   ImageRepository irepo;
 
@@ -40,6 +44,7 @@ public class RestaurantService {
   }
 
   public Restaurant registerResto(Restaurant resto) {
+    resto.setCreatedTime(time);
     return repo.save(resto);
   }
 

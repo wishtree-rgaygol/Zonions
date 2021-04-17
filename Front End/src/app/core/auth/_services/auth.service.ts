@@ -13,7 +13,8 @@ const API_USERS_URL = 'api/users';
 const API_PERMISSION_URL = 'api/permissions';
 const API_ROLES_URL = 'api/roles';
 const API_AUTH_URL = 'http://localhost:8080/api/auth/';
-
+const API_BASE_URL = 'http://localhost:8080/api';
+export const TOKEN = 'token';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -23,9 +24,9 @@ const httpOptions = {
 export class AuthService {
     constructor(private http: HttpClient) {}
     // Authentication/Authorization
-    login(username: string, password: string): Observable<any> {
+    login(email: string, password: string): Observable<any> {
         return this.http.post(API_AUTH_URL + 'signin', {
-          username,
+          email,
           password
         }, httpOptions);
       }
@@ -164,4 +165,49 @@ export class AuthService {
             return of(result);
         };
     }
+
+    getVerificationLink(email: string) {
+        return this.http.post<any>(API_BASE_URL + '/auth/sendEmail', email);
+      }
+    
+      // tslint:disable-next-line: typedef
+      getOtp(body: any) {
+        console.log('service' , body);
+        return this.http.post<any>(API_BASE_URL + '/otp/generateotp', body);
+      }
+    
+      // tslint:disable-next-line: typedef
+      submitOtp(body: any) {
+        return this.http.post<any>(API_BASE_URL + '/otp/validateotp', body);
+      }
+    
+      // tslint:disable-next-line: typedef
+      resetPassword(body: any) {
+      console.log("Inside reset password metho"+ body);
+        return this.http.post<any>(API_BASE_URL + '/auth/resetpassword', body);
+      }
+    
+      getAuthToken(): any {
+        if (localStorage.getItem(TOKEN)) {
+          return localStorage.getItem(TOKEN);
+        }
+      }
+      // tslint:disable-next-line: typedef
+      setAuthToken(token: string) {
+        localStorage.setItem(TOKEN, token);
+      }
+      // tslint:disable-next-line: typedef
+      isUserLoggedIn() {
+        const token = localStorage.getItem(TOKEN);
+        if ( token === null || token.includes('undefined')) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      removeToken(): void {
+        localStorage.removeItem(TOKEN);
+      }
+    
+    
 }

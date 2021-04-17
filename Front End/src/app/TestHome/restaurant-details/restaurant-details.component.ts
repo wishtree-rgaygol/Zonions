@@ -60,9 +60,11 @@ export class RestaurantDetailsComponent implements OnInit {
         this.rest = data;
         let hour: any = (this.rest.closeTime.split(':'))[0];
         let min: any = (this.rest.closeTime.split(':'))[1];
+         let hr: any = (this.rest.openTime.split(':'))[0];
+        let mn: any = (this.rest.openTime.split(':'))[1];
         // tslint:disable-next-line: no-unused-expression
-        if (hour >= this.currentTime.getHours()) {
-          if (min <= this.currentTime.getMinutes()) {
+        if (hour >= this.currentTime.getHours() && hr <= this.currentTime.getHours()) {
+          if (min <= this.currentTime.getMinutes() && mn <= this.currentTime.getMinutes()) {
             this.timeCounter = false;
           }
         }

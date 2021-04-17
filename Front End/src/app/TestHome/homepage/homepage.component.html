@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h5 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url('/assets/HomePage/restH.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover ;
+}
+</style>
+<body>
+
+<div class="bgimg w3-display-container w3-text-white">
+  <div class="w3-display-middle w3-jumbo">
+    <p class="w3-button w3-white">Zonions</p>
+  </div>
+  <div class="w3-display-topleft w3-container w3-xlarge">
+    <p><button (click)="Login()" class="w3-button w3-white">Login</button></p>
+    <p><button (click)="openDialog()" class="w3-button w3-white">Help</button></p>
+     <div igxOverlayOutlet>
+      <igx-dialog #dialog1 message="Plese mail your query on zonions@gmail.com">
+        <igx-dialog-title>
+          <div class="dialog-container">
+            <igx-icon>account_box</igx-icon>
+            <div class="dialog-title">Always Happy To Help You.</div>
+          </div>
+        </igx-dialog-title>
+        <div igxDialogActions class="dialog-container dialog-actions">
+          <button igxButton="raised" igxRipple="white" (click)="dialog.close()">OK</button>
+        </div>
+      </igx-dialog>
+    </div> 
+  </div>
+</div>
+
+</body>
+</html>

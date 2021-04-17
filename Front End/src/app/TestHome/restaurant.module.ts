@@ -51,7 +51,7 @@ import { RestaurantComponent } from './restaurant.component';
 import { RestaurantHomeDisplayComponent } from './restaurant-home-display/restaurant-home-display.component';
 import { RestaurantDetailsComponent } from './restaurant-details/restaurant-details.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from 'igniteui-angular';
+import { IgxAvatarModule, IgxButtonModule, IgxCardModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from 'igniteui-angular';
 import { TimeFormat } from './models/conversionTime.pipe';
 import { LanguageComponent } from './language/language.component';
 import { FooterBarComponent } from './footer-bar/footer-bar.component';
@@ -64,6 +64,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { AddFeedbackComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/add-feedback/add-feedback.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FetchMoreComponent } from './fetch-more/fetch-more.component';
+import { FoodMaterialComponent } from './food-material/food-material.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 
@@ -197,7 +199,13 @@ const routes: Routes = [
  */    ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+		IgxButtonModule,
+		IgxIconModule,
+		IgxCardModule,
+		IgxRippleModule,
+		IgxAvatarModule,
+
 	],
 	exports: [RouterModule],
 	declarations: [
@@ -209,7 +217,9 @@ const routes: Routes = [
 		LanguageComponent,
 		FooterBarComponent,
 		AddFeedbackComponent,
-		FetchMoreComponent
+		FetchMoreComponent,
+		FoodMaterialComponent,
+		HomepageComponent
 	],
 	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
 	],

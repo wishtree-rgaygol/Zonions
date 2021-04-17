@@ -31,7 +31,7 @@ import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/zonions")
 public class RestaurantController {
   @Autowired

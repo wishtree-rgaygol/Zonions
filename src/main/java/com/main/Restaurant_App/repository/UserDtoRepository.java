@@ -6,5 +6,7 @@ import com.main.Restaurant_App.model.UserEntityDto;
 public interface UserDtoRepository extends JpaRepository<UserEntityDto, Long> {
   UserEntityDto findByUsername(String username);
 
+  UserEntityDto findByEmail(String email);
+
   Boolean deleteByUsername(String username);
 }

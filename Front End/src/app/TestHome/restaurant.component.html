@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-light">
+<!-- <nav class="navbar navbar-expand-sm bg-dark navbar-light">
 
   <ul class="navbar-nav">
     <button style="font-weight: bolder" (click)="Login()" class="btn btn-light">Login</button>
@@ -22,32 +22,51 @@
     </div>
 
   </ul>
-</nav>
+</nav> -->
 
-<div [ngStyle]="{backgroundImage:'url(./assets/Rest3.jpg)'}" style="size: 45px;">
+<!-- <div [ngStyle]="{backgroundImage:'url(./assets/Rest3.jpg)'}">
   <br>
-  <h1
-    style="text-align: center;color: rgb(225, 237, 255);background-color: rgb(43, 48, 54);font-family:'Courier New', Courier, monospace;font: bolder;font-size: 35px;">
+  <br>
+  <h1 style="text-align: center;">
     <img src="./assets/media/logos/ZonionsLogo2.jpg" alt="">
   </h1>
 
   <hr>
-  <div class="card">
+  <br> -->
+  
+ <!--  <div class="card">
     <div class="card-body">
       <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h1 style="margin-left: 500px; font-size: 25px;color: rgb(35, 56, 75);">Active <b>Restaurants</b></h1>
-          <div class="kt-header__topbar">Choose Language :<kt-language></kt-language>
-          </div>
-        </div>
         <br>
-
-        <div class="panel-body">
-          <router-outlet></router-outlet>
+        <div ngbDropdown class="d-inline-block">
+          <label for=""><input [(ngModel)]="input" autocomplete="off" style="margin-left: 30px;" id="search" class=""
+              size="14" ngbDropdownToggle></label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button (click)="searchLocation()" style="font-size: 10px;" class="btn"><i class="fa fa-search"
+              aria-hidden="true"></i>
+          </button>
         </div>
+       
       </div>
     </div>
+  </div> -->
+  <kt-homepage></kt-homepage>
+  <router-outlet></router-outlet> 
+  <kt-food-material></kt-food-material>
+  
+  <div class="content">
+    <mat-card class="mat-elevation-z4" *ngFor="let r of restaurantData">
+      <mat-card-header style="margin-left: 60px;">
+        <mat-card-title>{{r.restname}}</mat-card-title>
+      </mat-card-header>
+      <div>
+        <img mat-card-image [src]="menuUrl">
+      </div>
+  
+      <mat-card-actions style="margin-left: 30px;">
+        <button mat-button (click)="restaurantDetails(r.restid)">Restaurant Details</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-  <kt-footer-bar></kt-footer-bar>
-</div>
+<kt-footer-bar></kt-footer-bar>
 <!-- <router-outlet></router-outlet> -->

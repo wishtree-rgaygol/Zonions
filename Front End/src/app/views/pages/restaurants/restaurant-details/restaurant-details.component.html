@@ -1,8 +1,8 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf="!timeCounter" style="color: green;"><b>Restaurant Open</b>
+    <h2>Restaurant Details</h2>&nbsp;&nbsp;&nbsp;<div *ngIf="timeCounter==false" style="color: green;"><b>Open Now</b>
     </div>
-    <div *ngIf="timeCounter" style="color:red;"><b>Restaurant Closed</b></div>&nbsp;&nbsp;&nbsp;
+    <div *ngIf="timeCounter" style="color:red;"><b>Closed Now</b></div>&nbsp;&nbsp;&nbsp;
     <div *ngIf="Dining"  ><i class="fas fa-check"></i>&nbsp;Dine-in</div>
     <div *ngIf="TakeAWay" ><i class="fas fa-check"></i>&nbsp;Takeaway</div>
     <div *ngIf="HomeDelivery" ><i class="fas fa-check"></i>&nbsp;Home delivery</div>

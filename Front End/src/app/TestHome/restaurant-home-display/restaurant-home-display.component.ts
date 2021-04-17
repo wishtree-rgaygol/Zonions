@@ -1,14 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NGXLogger } from 'ngx-logger';
 import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+// tslint:disable-next-line: max-line-length
 import { AddFeedbackComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/add-feedback/add-feedback.component';
+// tslint:disable-next-line: max-line-length
 import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/models/restaurant';
+// tslint:disable-next-line: max-line-length
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/services/restaurant.service';
-
+import TitleName from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/models/TitleName';
+import { Menu } from '../models/menu';
 @Component({
   selector: 'kt-restaurant-home-display',
   templateUrl: './restaurant-home-display.component.html',
@@ -16,31 +22,54 @@ import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git h
 })
 export class RestaurantHomeDisplayComponent implements OnInit {
   displayedColumns: string[] = ['restname', 'restaddress', 'lastModified', 'star'];
-  /* dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA); */
+  
   dataSource: MatTableDataSource<Restaurant>;
- /*  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort; */
   restaurants = new Array<Restaurant>();
   rest: Restaurant[];
+  restaurant: any;
+  api = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
+  userInfo: any;
+  resto: Restaurant[];
+  restaurantData = new Array<Restaurant>();
+  index: number;
+  input = '';
+  menuArray: any;
+  restaurantId: number;
+  searchValue: any;
+  menuForm: FormGroup;
+  restaurantTypeAll:any;
+  data: any;
+  menu: Menu[];
+  url1: string;
+	menuUrl: string;
+	urlArray = [''];
+  restaurantArray = new Array<Restaurant>();
+   titleName: any = TitleName;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   
   constructor(private restaurantService: RestaurantService, private router: Router,
+              private formBuilder: FormBuilder,
     // tslint:disable-next-line: align
-    private title: Title, private logger: NGXLogger,public dialog: MatDialog) {}
+    private title: Title, private logger: NGXLogger,public dialog: MatDialog,private http: HttpClient) {}
 
 
   ngOnInit() {
-    /* this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort; */
-    this.title.setTitle('Home Page');
-
+    
+    for (let i = 0; i < this.titleName.length; i++) {
+      console.log(this.titleName[i].name);
+      this.title.setTitle(this.titleName[i].name + '|Home');
+    }
+    this.menuForm = this.formBuilder.group({
+      menu: new FormControl(''),
+    });
     this.restaurantService.getAllRestaurant().subscribe((data) => {
       console.log(data);
       console.log(data.length);
       this.restaurants = data;
       this.rest = data;
+      this.restaurant = data;
       console.log('array values---', this.rest);
       this.dataSource = new MatTableDataSource(this.restaurants);
       this.dataSource.sort = this.sort;
@@ -51,8 +80,10 @@ export class RestaurantHomeDisplayComponent implements OnInit {
         }
     });
   }
-
-  applyFilter(filterValue: string) {
+  get menuform(): any {
+    return this.menuForm.controls;
+  }
+applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -66,52 +97,9 @@ openDialog(): void {
   });
 
 }
-  /* restaurants = new Array<Restaurant>();
-  public errorMessage = '';
-
-  constructor(private restaurantService: RestaurantService, private router: Router,
-              private title: Title, private logger: NGXLogger) {}
-
-  listData: MatTableDataSource<Restaurant>;
-  displayedColumns: string[] = ['restname', 'actions'];
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  searchKey: string;
-  ngOnInit(): void {
-    this.title.setTitle('Home Page');
-
-    this.restaurantService.getAllRestaurant().subscribe((data) => {
-      console.log(data);
-      console.log(data.length);
-      this.restaurants = data;
-      this.listData = new MatTableDataSource(this.restaurants);
-      this.listData.sort = this.sort;
-      this.listData.paginator = this.paginator;
-              // tslint:disable-next-line: no-shadowed-variable
-      this.listData.filterPredicate = (data, filter) => {
-                return this.displayedColumns.some(element => {
-                  return element !== 'actions' && data[element].toLowerCase().indexOf(filter) !== -1;
-
-                });
-              };
-    },   error => {
-        if (error.status === 500) {
-          this.router.navigate(['error/500']);
-        }
-    });
-  }
-
-  onSearchClear() {
-    this.searchKey = '';
-    this.applyFilter();
-  }
-
-  applyFilter() {
-    this.listData.filter = this.searchKey.trim().toLowerCase();
-  }
-  restaurantDetails(restid: number) {
-    this.logger.info('In Restaurant Get By Id Method');
-    this.router.navigate(['restaurant', 'restaurantDetail', restid]);
-  } */ 
+restaurantDetails(restid: number) {
+  this.logger.info('In Restaurant Get By Id Method');
+  this.router.navigate(['restaurant', 'restaurantDetail', restid]);
+}
 }
 

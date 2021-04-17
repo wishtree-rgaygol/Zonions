@@ -13,12 +13,8 @@ import lombok.ToString;
 @ToString
 public class ApiResponse {
 
-    private Object data;
-    private String message;
-    private boolean error = true;
+  private boolean success;
+  private String message;
 
-    public ApiResponse(Object data, String message){
-        this.data = data;
-        this.message = message;
-    }
 }
+

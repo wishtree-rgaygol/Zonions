@@ -1,36 +1,45 @@
-
-
-
- <mat-form-field>
+<!-- <router-outlet></router-outlet> -->
+<br>
+<mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search restaurant here">
 </mat-form-field>
 
+<br>
+<br>
+<h3>List of all restaurants</h3>
 <div class="example-container mat-elevation-z8">
   <div class="example-table-container">
     <table mat-table [dataSource]="dataSource" matSort>
 
-      
+
       <ng-container matColumnDef="restname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Restaurant Name </th>
-        <td mat-cell *matCellDef="let element" class='m-card-title' test data-label='Riskplan'> <a [routerLink]="['/restaurant/restaurantDetail',element.restid]">{{element.restname}}</a></td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">
+          Restaurant Name </th>
+        <td mat-cell *matCellDef="let element" class='m-card-title' test data-label='Riskplan'> <a
+            [routerLink]="['/restaurant/restaurantDetail',element.restid]"
+            style="font-size: 14px;color: rgb(35, 56, 75);">{{element.restname}}</a></td>
       </ng-container>
 
-      
+
       <ng-container matColumnDef="restaddress">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Restaurant Address </th>
-        <td mat-cell *matCellDef="let element" class='m-card-sub-title' data-label='Form type'> {{element.restaddress}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">
+          Restaurant Address </th>
+        <td mat-cell *matCellDef="let element" class='m-card-sub-title' data-label='Form type'
+          style="font-size: 14px;color: rgb(35, 56, 75);"> {{element.restaddress}} </td>
       </ng-container>
 
-     
+
       <ng-container matColumnDef="lastModified">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last modified </th>
-        <td mat-cell *matCellDef="let element" class='has_label_on_mobile' data-label='Last modified on'> {{element.lastModified}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);"> Last
+          modified </th>
+        <td mat-cell *matCellDef="let element" class='has_label_on_mobile' data-label='Last modified on'
+          style="font-size: 14px;color: rgb(35, 56, 75);"> {{element.lastModified}} </td>
       </ng-container>
 
-     
+
       <ng-container matColumnDef="star">
         <th mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let element"> 
+        <td mat-cell *matCellDef="let element">
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
@@ -43,40 +52,12 @@
   </div>
   <mat-paginator [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
 </div>
-
-
-
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="openDialog()">
     <mat-icon>open_in_new</mat-icon>
     <span>Give Feeback</span>
   </button>
-  <!-- <button mat-menu-item disabled>
-    <mat-icon>delete</mat-icon>
-    <span>Delete questionnairre</span>
-  </button> -->
 </mat-menu>
+<br>
+<br>
 
-
-<!-- <mat-card class="example-card">
-	<mat-card-header >
-		<mat-card-title >{{rest.restname}}</mat-card-title>
-		<mat-card-subtitle>
-			Pune
-		</mat-card-subtitle>
-	</mat-card-header>
-
-	<mat-card-content>
-		<p>
-		
-		</p>
-	</mat-card-content>
-
-	<mat-card-actions>
-		<button mat-button style=
-			"background-color:blue; color:white">
-			Restaurant Details
-		</button>
-
-	</mat-card-actions>
-</mat-card> -->

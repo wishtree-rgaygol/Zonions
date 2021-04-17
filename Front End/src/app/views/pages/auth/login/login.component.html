@@ -25,19 +25,13 @@
 		<form class="kt-form" [formGroup]="loginForm" autocomplete="off">
 			<div class="form-group">
 				<mat-form-field>
-					<mat-label>{{ 'AUTH.INPUT.USERNAME' | translate }}</mat-label>
-					<input matInput type="username" placeholder="username" formControlName="username" autocomplete="off"/>
-					<mat-error *ngIf="isControlHasError('username','required')">
+					<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>
+					<input matInput type="email" placeholder="email" formControlName="email" autocomplete="off"/>
+					<mat-error *ngIf="isControlHasError('email','required')">
 						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
 					</mat-error>
-					<!-- <mat-error *ngIf="isControlHasError('username','email')">
+					<mat-error *ngIf="isControlHasError('email','email')">
 						<strong>{{ 'AUTH.VALIDATION.INVALID_FIELD' | translate }}</strong>
-					</mat-error> -->
-					<mat-error *ngIf="isControlHasError('username','minlength')">
-						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('username','maxlength')">
-						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 20</strong>
 					</mat-error>
 				</mat-form-field>
 			</div>
@@ -58,7 +52,7 @@
 			</div>
 			<div *ngIf="loginCount >=3">
 				<ngx-recaptcha2 #captchaElem
-					[siteKey]="'6Lcg7JcaAAAAAGSO1Lf4RIpohhhhhI6qESg7iyZL'"
+					[siteKey]="'6LdzqKIaAAAAAKGTfM3kXiQpL1C72z-yYo-pgcJ5'"
 					(success)="handleSuccess($event)"
 					[useGlobalDomain]="false"
 					[size]="size"
@@ -80,7 +74,7 @@
 			<div *ngIf="loginCount &#60;3">
 				<button (click)="submit()" *ngIf="!captchaSuccess" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-dark btn-elevate kt-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
 			</div>
-			<div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0">{{errorMessage}}</div>
+			<div *ngIf="errorMessage" class="alert alert-dark mt-3 mb-0">{{errorMessage}}</div>
 			
 			<!--end::Action-->
 		</form>
@@ -100,6 +94,9 @@
 	     <div class="kt-login__options">
 			<button (click)="show()"  class="btn btn-dark" style="margin-left: 240px" >Show Active Restaurant List</button>
 		</div> 
+		<br>
+		<br>
+		<a class="ml-auto mb-0 text-sm" href="javascript:void(0)" (click)="openForgotPassModal()">Forgot Password?</a><br>
 		<!--end::Options-->
 	</div>
 	<!--end::Signin-->

@@ -40,12 +40,12 @@ export class DashboardComponent implements OnInit {
 					console.log("In if");
 					this.vCount = this.restaurant[i].visitCount;
 					this.restaurantName = this.restaurant[i].restname;
-					alert('hit count -> ' + this.vCount + 'name -> ' + this.restaurantName);
+					
 				} else {
 					console.log("In else");
 					this.vCount = this.restaurant[i + 1].visitCount;
 					this.restaurantName = this.restaurant[i + 1].restname;
-					alert('hit count -> ' + this.vCount + 'name -> ' + this.restaurantName);
+					
 				}
 		}
 		});

@@ -1,9 +1,8 @@
 package com.main.Restaurant_App.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -25,9 +24,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.main.Restaurant_App.model.ERole;
-import com.main.Restaurant_App.model.Role;
+import com.main.Restaurant_App.model.OTPTokenConfirm;
 import com.main.Restaurant_App.model.User;
 import com.main.Restaurant_App.model.UserEntityDto;
 import com.main.Restaurant_App.repository.RoleRepository;
@@ -35,18 +34,27 @@ import com.main.Restaurant_App.repository.UserDtoRepository;
 import com.main.Restaurant_App.repository.UserRepository;
 import com.main.Restaurant_App.request.LoginRequest;
 import com.main.Restaurant_App.request.SignupRequest;
+import com.main.Restaurant_App.response.ApiResponse;
 import com.main.Restaurant_App.response.JwtResponse;
 import com.main.Restaurant_App.response.MessageResponse;
 import com.main.Restaurant_App.security.jwt.JwtUtils;
+import com.main.Restaurant_App.security.service.AuthenticationService;
+import com.main.Restaurant_App.security.service.SendEmailService;
 import com.main.Restaurant_App.security.service.UserDetailsImpl;
 import com.main.Restaurant_App.security.service.UserDetailsServiceImpl;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
   @Autowired
   AuthenticationManager authenticationManager;
+
+  @Autowired
+  UserDetailsServiceImpl userDetailsService;
+
+  @Autowired
+  private SendEmailService emailSenderService;
 
   @Autowired
   UserRepository userRepository;
@@ -61,6 +69,9 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @Autowired
+  AuthenticationService authService;
+
+  @Autowired
   UserDtoRepository dtoRepository;
   @Autowired
   UserDetailsServiceImpl service;
@@ -70,16 +81,12 @@ public class AuthController {
   // Sign-in method
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
-      HttpServletRequest request) {
+      HttpServletRequest request) throws Exception {
     logger.info("Inside signin method");
-    /*
-     * int incorrectLogin = service.incorrectLogin(loginRequest.getUsername(),
-     * loginRequest.getPassword());
-     */
 
     Authentication authentication =
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-            loginRequest.getUsername(), loginRequest.getPassword()));
+            loginRequest.getEmail(), loginRequest.getPassword()));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String jwt = jwtUtils.generateJwtToken(authentication);
@@ -87,41 +94,34 @@ public class AuthController {
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
     List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
         .collect(Collectors.toList());
-    UserEntityDto findByUsername = dtoRepository.findByUsername(loginRequest.getUsername());
+    UserEntityDto findByEmail = dtoRepository.findByEmail(loginRequest.getEmail());
     List<String> role = new ArrayList<>();
-    UserEntityDto user = findByUsername;
-    for (Role r : user.getRoles()) {
-      role.add(r.getName().name());
-      logger.info("Getting role......" + r.getName().name());
-      roles = role;
-    }
+    /*
+     * UserEntityDto user = findByEmail; for (Role r : user.getRoles()) {
+     * role.add(r.getName().name()); logger.info("Getting role......" + r.getName().name()); roles =
+     * role; }
+     */
     @SuppressWarnings("unchecked")
     List<String> usernames = (List<String>) request.getSession().getAttribute("Login_Session");
     if (usernames == null) {
       usernames = new ArrayList<>();
-      request.getSession().setAttribute("Login_Session", loginRequest.getUsername());
+      request.getSession().setAttribute("Login_Session", loginRequest.getEmail());
       request.getSession().setMaxInactiveInterval(10 * 60);
 
     }
-    usernames.add(loginRequest.getUsername());
+    usernames.add(loginRequest.getEmail());
     request.getSession().setAttribute("Login_Session", usernames);
 
     request.getSession().setMaxInactiveInterval(10 * 60);
 
-    logger.info("Total roles" + roles);
-    return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
-        userDetails.getEmail(), roles));
+    return ResponseEntity
+        .ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles));
   }
 
   // Signup method
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     logger.info("Inside signup method");
-    if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-      logger.warn("Logger Error: Username is already taken!");
-      return ResponseEntity.badRequest()
-          .body(new MessageResponse("Error: Username is already taken!"));
-    }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       logger.warn("Logger Error: Email is already in use!");
@@ -129,24 +129,9 @@ public class AuthController {
           .body(new MessageResponse("Error: Email is already in use!"));
     }
 
-    // Create new user's account
-    User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-        encoder.encode(signUpRequest.getPassword()));
+    User user = authService.saveUser(signUpRequest);
+    UserEntityDto userDto = authService.saveUserEntityDto(signUpRequest);
 
-    UserEntityDto user1 = new UserEntityDto(signUpRequest.getUsername(), signUpRequest.getEmail());
-
-
-    Set<String> strRoles = signUpRequest.getRole();
-
-    Set<Role> roles = new HashSet<>();
-
-    Role userRole = roleRepository.findByName(ERole.ROLE_USER);
-    roles.add(userRole);
-
-    user.setRoles(roles);
-    user1.setRoles(roles);
-    userRepository.save(user);
-    dtoRepository.save(user1);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 
@@ -174,6 +159,56 @@ public class AuthController {
     logger.info("Inside delete role method");
     return service.deleteByUsername(id);
 
+  }
+
+  @GetMapping("/confirmaccount")
+  public ResponseEntity<?> getMethodName(@RequestParam("token") String token) throws Exception {
+
+    OTPTokenConfirm confirmationToken = authService.findByConfirmationToken(token);
+
+    if (confirmationToken == null) {
+      throw new Exception("Invalid token");
+    }
+
+    User user = confirmationToken.getUser();
+    Calendar calendar = Calendar.getInstance();
+
+    if ((confirmationToken.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0) {
+      return ResponseEntity.badRequest()
+          .body("Link expired. Generate new link from http://localhost:4200/login");
+    }
+
+    /* user.setEmailVerified(true); */
+    authService.save(user);
+    return ResponseEntity.ok("Account verified successfully!");
+  }
+
+  /*
+   * @PostMapping("/sendemail") public ResponseEntity<?> sendVerificationMail(@Valid @RequestBody
+   * EmailVerification emailRequest) throws Exception { if
+   * (authService.existsByEmail(emailRequest.getEmail())) { if
+   * (userDetailsService.isAccountVerified(emailRequest.getEmail())) { throw new
+   * Exception("Email is already verified"); } else { User user =
+   * authService.findByEmail(emailRequest.getEmail()); OTPTokenConfirm token =
+   * authService.createToken(user); emailSenderService.sendMail(user.getEmail(),
+   * token.getConfirmationToken()); return ResponseEntity .ok(new ApiResponse(true,
+   * "Verification link is sent on your mail id")); } } else { throw new
+   * Exception("Email is not associated with any account"); } }
+   */
+
+  @PostMapping("/resetpassword")
+  public ResponseEntity<?> resetPassword(@Valid @RequestBody LoginRequest loginRequest)
+      throws Exception {
+    logger.info("Inside Reset Password Method");
+    if (authService.existsByEmail(loginRequest.getEmail())) {
+      if (authService.changePassword(loginRequest.getEmail(), loginRequest.getPassword())) {
+        return ResponseEntity.ok(new ApiResponse(true, "Password changed successfully"));
+      } else {
+        throw new Exception("Unable to change password. Try again!");
+      }
+    } else {
+      throw new Exception("Username not found...");
+    }
   }
 
 

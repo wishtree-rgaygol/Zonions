@@ -23,6 +23,7 @@ import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
 import { Title } from '@angular/platform-browser';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { OTPDialogueComponent } from './OTPDialogBox/OTPDialogue.component';
 
 const routes: Routes = [
 	{
@@ -79,13 +80,15 @@ const routes: Routes = [
 			multi: true
 		},
 	],
+	entryComponents:[OTPDialogueComponent],
 	exports: [AuthComponent],
 	declarations: [
 		AuthComponent,
 		LoginComponent,
 		RegisterComponent,
 		ForgotPasswordComponent,
-		AuthNoticeComponent
+		AuthNoticeComponent,
+		OTPDialogueComponent
 	]
 })
 

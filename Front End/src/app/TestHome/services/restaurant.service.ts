@@ -57,4 +57,7 @@ export class RestaurantService {
   getAllMenus(): Observable<any> {
     return this.http.get(`${this.getAllMenuUrl}`);
   }
+  getMenuById(restid: number) {
+    return this.http.get(`${this.getAllMenuUrl}/${restid}`);
+  }
 }
