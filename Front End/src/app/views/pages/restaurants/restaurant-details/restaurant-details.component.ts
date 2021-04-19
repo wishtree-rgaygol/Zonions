@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Menu } from '../_helpers/menu';
 import { Restaurant } from '../_helpers/restaurant';
+import TitleName from '../_helpers/TitleName';
 import { RestaurantService } from '../_services/restaurant.service';
 
 @Component({
@@ -33,12 +34,16 @@ export class RestaurantDetailsComponent implements OnInit {
   value: Observable<number>;
   menuType: Menu[];
   menuArray = [''];
+  titleName: any = TitleName;
   constructor(private route: ActivatedRoute, private router: Router,
     // tslint:disable-next-line: max-line-length
               private restaurantService: RestaurantService, private httpClient: HttpClient, private formBuilder: FormBuilder, private title: Title) { }
 
   ngOnInit() {
-    this.title.setTitle('Restaurant Details');
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Details');
+		  }
     this.imageForm = this.formBuilder.group(
       {
         menu: new FormControl(),

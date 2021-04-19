@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NGXLogger } from 'ngx-logger';
+import TitleName from '../_helpers/TitleName';
 @Component({
   selector: 'kt-update-restaurant',
   templateUrl: './update-restaurant.component.html',
@@ -35,6 +36,7 @@ export class UpdateRestaurantComponent implements OnInit {
   meridian = true;
   fileURL = 'http://localhost:8080/api/zonions/file';     /* <---URL comes from rest api to display the uploaded menu */
   imagePath: any;
+  titleName: any = TitleName;
   menuArray: any;
   // tslint:disable-next-line: ban-types
   urlArray = [''];
@@ -57,8 +59,10 @@ export class UpdateRestaurantComponent implements OnInit {
     this.restaurant = new Restaurant();
   }
   ngOnInit(): void {
-
-    this.title.setTitle('Update Restaurant');
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Update Restaurant');
+		  }
     this.menuForm = this.formBuilder.group({
       menu: new FormControl('')
     });

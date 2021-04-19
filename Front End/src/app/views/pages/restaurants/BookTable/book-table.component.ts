@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import TitleName from '../_helpers/TitleName';
 import { RestaurantService } from '../_services/restaurant.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { RestaurantService } from '../_services/restaurant.service';
 export class BookTableComponent implements OnInit{
   data: any;
   bookTableData:any;
+  titleName: any = TitleName;
   constructor(private bookTableService:RestaurantService,private title:Title,private router: Router)
   {
 
@@ -23,7 +25,11 @@ export class BookTableComponent implements OnInit{
     email: new FormControl('', [Validators.required, Validators.email]),
     noOfSeats:new FormControl('', [Validators.required])
   });
-  ngOnInit(): void {this.title.setTitle('Book Table');
+  ngOnInit(): void {
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Book Table');
+		  }
   }
   get form(): any {
     return this.bookingForm.controls;

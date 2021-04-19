@@ -31,7 +31,7 @@ public class OTPController {
   @PostMapping("/generateotp")
   public ResponseEntity<?> generateOtp(@Valid @RequestBody EmailVerification emailRequest)
       throws Exception {
-    logger.info("Inside Generate OTP MEthod for Email ID--", emailRequest.getEmail());
+    logger.info("Inside Generate OTP Method for Email ID--", emailRequest.getEmail());
     if (authService.existsByEmail(emailRequest.getEmail())) {
       if (otpService.generateOtp(emailRequest.getEmail())) {
         return ResponseEntity.ok(new ApiResponse(true, "Otp sent on email account"));

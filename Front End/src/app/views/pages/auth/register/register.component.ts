@@ -13,6 +13,8 @@ import { AppState } from '../../../../core/reducers';
 import { AuthNoticeService, AuthService, Register, TokenStorageService, User } from '../../../../core/auth/';
 import { Subject } from 'rxjs';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
+import { Title } from '@angular/platform-browser';
+import TitleName from '../../restaurants/_helpers/TitleName';
 
 @Component({
 	selector: 'kt-register',
@@ -27,6 +29,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	username: any;
 	email: any;
 	password: any;
+	titleName: any = TitleName;
 	captchaSuccess = false;
 	private unsubscribe: Subject<any>; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -49,6 +52,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		private store: Store<AppState>,
 		private fb: FormBuilder,
 		private cdr: ChangeDetectorRef,
+		private title: Title,
 		private tokenStorageService: TokenStorageService
 	) {
 		this.unsubscribe = new Subject();
@@ -62,6 +66,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit() {
+		for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Register');
+		  }
 		this.initRegisterForm();
 	}
 

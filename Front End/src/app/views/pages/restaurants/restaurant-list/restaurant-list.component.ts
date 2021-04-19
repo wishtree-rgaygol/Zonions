@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/views/pages/restaurants/_services/restaurant.service';
 import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/views/pages/restaurants/_helpers/restaurant';
 import { Title } from '@angular/platform-browser';
+import TitleName from '../_helpers/TitleName';
 
 
 @Component({
@@ -23,11 +24,15 @@ export class RestaurantListComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   restaurants = new Array<Restaurant>();
   restaurant: Observable<Restaurant[]>;
+  titleName: any = TitleName;
   constructor(private restService: RestaurantService, private title: Title, private router: Router, private logger: NGXLogger) {
 
   }
   ngOnInit(): void {
-    this.title.setTitle('Restaurants List');
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Restaurants List');
+		  }
      // tslint:disable-next-line: align
      this.restService.getAllRestaurant().subscribe(
       (data) => {

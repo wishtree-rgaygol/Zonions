@@ -10,6 +10,7 @@ import { NGXLogger } from 'ngx-logger';
 import Swal from 'sweetalert2';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { Restaurant } from '../_helpers/restaurant';
+import TitleName from '../_helpers/TitleName';
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/views/pages/restaurants/_services/restaurant.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class CreateRestaurantComponent implements OnInit {
   lastModified: string;
   Imagedata: any;
   meridian = true;
+  titleName: any = TitleName;
   // tslint:disable-next-line: variable-name
   openTime = '';
   // tslint:disable-next-line: variable-name
@@ -92,7 +94,10 @@ export class CreateRestaurantComponent implements OnInit {
     private router: Router, private logger: NGXLogger, private title: Title, private formBuilder: FormBuilder) {
   }
   ngOnInit(): void {
-    this.title.setTitle('Create Restaurant');
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Create Restaurant');
+		  }
     this.menuForm = this.formBuilder.group({
       menu: new FormControl('')
     });

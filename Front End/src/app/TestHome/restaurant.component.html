@@ -50,9 +50,163 @@
       </div>
     </div>
   </div> -->
-  <kt-homepage></kt-homepage>
-  <router-outlet></router-outlet> 
-  <kt-food-material></kt-food-material>
+ <!--<kt-homepage></kt-homepage>-->
+  <!DOCTYPE html>
+<html>
+<title>Zonions App</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+body {font-family: "Open Sans"}
+</style>
+<body class="w3-light-grey">
+
+<!-- Navigation bar with social media icons -->
+<div class="w3-bar w3-black w3-hide-small">
+  <!-- <a href="#" class="w3-bar-item w3-button">LOGIN</i></a>
+  <a href="#" class="w3-bar-item w3-button">HELP</a> -->
+  <button (click)="Login()" class="w3-bar-item w3-button">LOGIN</button>
+  <button (click)="openDialog()"  class="w3-bar-item w3-button">HELP</button>
+</div>
+ <div igxOverlayOutlet>
+      <igx-dialog #dialog1 message="Plese mail your query on zonions@gmail.com">
+        <igx-dialog-title>
+          <div class="dialog-container">
+            <igx-icon>account_box</igx-icon>
+            <div class="dialog-title">Always Happy To Help You.</div>
+          </div>
+        </igx-dialog-title>
+        <div igxDialogActions class="dialog-container dialog-actions">
+          <button igxButton="raised" igxRipple="white" (click)="dialog.close()">OK</button>
+        </div>
+      </igx-dialog>
+    </div> 
+<!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1600px">
+
+  <!-- Header -->
+  <header class="w3-container w3-center w3-padding-48 w3-white">
+    <h1 class="w3-xxxlarge"><b>ZONIONS</b></h1>
+    <h6>Welcome to the Zonions <span class="w3-tag">world</span></h6>
+  </header>
+
+  <!-- Image header -->
+  <header class="w3-display-container w3-wide" id="home">
+    <img class="w3-image" src="/assets/HomePage/restH.jpg" alt="Fashion Blog" width="1600" height="1060">
+  </header>
+
+  <!-- Grid -->
+  <div class="w3-row w3-padding w3-border">
+
+    <!-- Blog entries -->
+    <div class="w3-col l8 s12">
+    
+      <!-- Blog entry -->
+      <div class="w3-container w3-white w3-margin w3-padding-large">
+        <div class="w3-center">
+          <h3>What We are providing??</h3>
+          <h5>Description, <span class="w3-opacity">Along with our services</span></h5>
+        </div>
+
+        <div class="w3-justify">
+          <img src="/assets/HomePage/food.jpg" alt="Girl Hat" style="width:100%" class="w3-padding-16">
+          <p><strong>Welcome !</strong> Zonions has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.</p>
+          <p class="w3-left"><button class="w3-button w3-white w3-border" onclick="likeFunction(this)"><b><i class="fa fa-thumbs-up"></i> Like</b></button></p>
+          
+          
+        </div>
+      </div>
+      <hr>
+
+     
+    </div>
+
+    <!-- About/Information menu -->
+    <div class="w3-col l4">
+      <!-- About Card -->
+     
+      
+      
+      <!-- Subscribe -->
+      <div class="w3-white w3-margin">
+        <div class="w3-container w3-padding w3-black">
+           <h6><button class="w3-button w3-white w3-padding-large w3-large w3-opacity w3-hover-opacity-off" onclick="document.getElementById('subscribe').style.display='block'">SUBSCRIBE</button></h6>
+        </div>
+        
+      </div>
+
+    <!-- END About/Intro Menu -->
+    </div>
+
+  <!-- END GRID -->
+  </div>
+
+<!-- END w3-content -->
+</div>
+
+<!-- Subscribe Modal -->
+<div id="subscribe" class="w3-modal w3-animate-opacity">
+  <div class="w3-modal-content" style="padding:32px">
+    <div class="w3-container w3-white">
+      <i onclick="document.getElementById('subscribe').style.display='none'" class="fa fa-remove w3-transparent w3-button w3-xlarge w3-right"></i>
+      <h2 class="w3-wide">SUBSCRIBE</h2>
+      <p>Please provide your mail to Join our mailing to receive updates on the latest blog posts and other things.</p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('subscribe').style.display='none'">Subscribe</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Toggle between hiding and showing blog replies/comments
+document.getElementById("myBtn").click();
+function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+function likeFunction(x) {
+  x.style.fontWeight = "bold";
+  x.innerHTML = "✓ Liked";
+}
+</script>
+<kt-food-material></kt-food-material>
+<router-outlet></router-outlet> 
+<footer class="w3-container w3-dark-grey" style="padding:32px">
+  <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-container w3-xlarge w3-padding">
+          <i class="fa fa-facebook-official"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fa fa-instagram"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fa fa-snapchat"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fa fa-pinterest-p"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fa fa-twitter"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fa fa-linkedin"></i>
+          </div>
+     
+  <div class="kt-footer kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop" id="kt_footer">
+	<div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+		<div class="kt-footer__copyright">
+			{{today | date:'yyyy'}}&nbsp;&nbsp;&nbsp;&nbsp;&copy;&nbsp;<a href="http://keenthemes.com/metronic" target="_blank" class="kt-link">Zonions</a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="copyright">
+				Copyright &copy;<script>document.write(new Date().getFullYear());</script>All rights reserved By Zonions | Zonions Web App Interface For Restaurant Information<i class="fa fa-heart-o" aria-hidden="true"></i>
+				</span>
+		</div>
+	</div>
+</div>
+</footer>
+
+</body>
+</html>
+  
   
   <div class="content">
     <mat-card class="mat-elevation-z4" *ngFor="let r of restaurantData">
@@ -68,5 +222,8 @@
       </mat-card-actions>
     </mat-card>
   </div>
-<kt-footer-bar></kt-footer-bar>
+
 <!-- <router-outlet></router-outlet> -->
+  
+<!-- <kt-footer-bar></kt-footer-bar> -->
+

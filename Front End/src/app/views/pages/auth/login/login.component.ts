@@ -15,6 +15,8 @@ import { AuthNoticeService, AuthService, Login, User } from '../../../../core/au
 import { TokenStorageService } from '../../../../core/auth/_services/token-storage.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OTPDialogueComponent } from '../OTPDialogBox/OTPDialogue.component';
+import { Title } from '@angular/platform-browser';
+import TitleName from '../../restaurants/_helpers/TitleName';
 
 /**
  * ! Just example => Should be removed in development
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	private unsubscribe: Subject<any>;
 	captchaSuccess = false;
 	private returnUrl: any;
+	titleName: any = TitleName;
 
 	// Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -70,6 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private fb: FormBuilder,
 		private cdr: ChangeDetectorRef,
 		private route: ActivatedRoute,
+		private title: Title,
 		private tokenStorage: TokenStorageService,
 		private modalservice: NgbModal
 	) {
@@ -83,6 +87,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit(): void {
+		// tslint:disable-next-line: prefer-for-of
+		for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|Login');
+		  }
 		this.initLoginForm();
 		if (this.tokenStorage.getToken()) {
 			this.isLoggedIn = true;

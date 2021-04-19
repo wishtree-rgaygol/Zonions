@@ -9,6 +9,7 @@ import { Menu } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone fold
 import Swal from 'sweetalert2';
 import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/models/restaurant';
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/services/restaurant.service';
+import TitleName from '../models/TitleName';
 
 @Component({
   selector: 'kt-restaurant-details',
@@ -26,6 +27,7 @@ export class RestaurantDetailsComponent implements OnInit {
   rest: any;
   Dining: boolean;
   TakeAWay: boolean;
+  titleName: any = TitleName;
   HomeDelivery: boolean;
   fileURL = 'http://localhost:8080/api/zonions/file'; 
   
@@ -43,7 +45,10 @@ export class RestaurantDetailsComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.title.setTitle('Restaurant Details');
+    for (let i = 0; i < this.titleName.length; i++) {
+      console.log(this.titleName[i].name);
+      this.title.setTitle(this.titleName[i].name + '|Details');
+    }
     this.imageForm = this.formBuilder.group(
       {
         menu: new FormControl(),

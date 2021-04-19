@@ -19,6 +19,7 @@ import {
   slideOutTop
 } from "igniteui-angular";
 import { useAnimation } from "@angular/animations";
+import TitleName from '../_helpers/TitleName';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   restaurants = new Array<Restaurant>();
   restaurant: Observable<Restaurant[]>;
+  titleName: any = TitleName;
   constructor(private restService: RestaurantService, private title: Title, private router: Router, private logger: NGXLogger) {
 
   }
@@ -56,7 +58,10 @@ export class HomeComponent implements OnInit {
     this.dialog.open(this._dialogOverlaySettings2);
   }
   ngOnInit(): void {
-    this.title.setTitle('All Restaurants');
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|All Restaurants');
+		  }
     // tslint:disable-next-line: align
     this.restService.getAllRestaurant().subscribe(
       (data) => {

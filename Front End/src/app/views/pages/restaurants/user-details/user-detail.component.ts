@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AlertConfirmBoxComponent, DialogConfig } from '../DialogBoxes/alert-confirm-box/alert-confirm-box.component';
 import { DeleteConfirmBoxComponent } from '../DialogBoxes/delete-confirm-box/delete-confirm-box.component';
+import TitleName from '../_helpers/TitleName';
 import { User } from '../_helpers/user';
 import { UserService } from '../_services/user.service';
 
@@ -18,11 +19,15 @@ export class UserDetailComponent implements OnInit {
   users: User[];
   role: any[];
   user = new User();
+  titleName: any = TitleName;
   constructor(private router: Router, private userService: UserService,
               private activatedRoute: ActivatedRoute,private dialog: MatDialog,private title:Title) { }
 
   ngOnInit(): void {
-    this.title.setTitle('User Details');
+    for (let i = 0; i < this.titleName.length; i++) {
+			console.log(this.titleName[i].name);
+			this.title.setTitle(this.titleName[i].name + '|User Datails');
+		  }
     this.reloadUser();
   }
 
