@@ -17,3 +17,7 @@ export class Restaurant {
   visitCount: number;
 
 }
+export interface RestaurantResponse {
+  content: Restaurant[];
+  totalElements: number;
+}

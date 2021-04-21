@@ -24,7 +24,7 @@ import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/
 import { Title } from '@angular/platform-browser';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { OTPDialogueComponent } from './OTPDialogBox/OTPDialogue.component';
-
+import {MatIconModule} from '@angular/material';
 const routes: Routes = [
 	{
 		path: '',
@@ -58,6 +58,7 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [
+	MatIconModule,
 		CommonModule,
 		NgxCaptchaModule,
 		FormsModule,

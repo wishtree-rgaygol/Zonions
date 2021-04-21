@@ -58,7 +58,8 @@
 			<div class="form-group">
 				<mat-form-field>
 					<mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
-					<input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" formControlName="password" autocomplete="off"/>
+					<input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" autocomplete="off"/>
+					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 					<mat-error *ngIf="isControlHasError('password','required')">
 						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
 					</mat-error>
@@ -73,7 +74,8 @@
 			<div class="form-group">
 				<mat-form-field>
 					<mat-label>{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}</mat-label>
-					<input matInput type="password" placeholder="{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}" formControlName="confirmPassword" autocomplete="off"/>
+					<input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" required placeholder="{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}" autocomplete="off"/>
+					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 					<mat-error *ngIf="isControlHasError('confirmPassword','required')">
 						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
 					</mat-error>

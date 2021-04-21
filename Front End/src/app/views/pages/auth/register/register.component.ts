@@ -126,7 +126,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			validator: ConfirmPasswordValidator.MatchPassword
 		});
 	}
-
+      hide = true;
 	/**
 	 * Form Submit
 	 */

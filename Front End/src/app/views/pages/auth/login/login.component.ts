@@ -239,6 +239,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 			recaptcha: [''],
 		});
 	}
+	hide = true;
 
 	/**
 	 * Form Submit
@@ -341,7 +342,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	}
 	show() {
 
-		this.router.navigate(['TestHomeList']);
+		this.router.navigate(['restaurant', 'home']);
 	  }
 	  handleSuccess(e) {
 		this.captchaSuccess = true;

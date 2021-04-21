@@ -67,7 +67,7 @@ public class AuthenticationService {
     final HashSet<Role> roles = new HashSet<Role>();
     roles.add(roleRepository.findByName(ERole.ROLE_USER));
     user.setRoles(roles);
-    user.setCreatedAt(null);;
+    user.setCreatedAt(time);
     return userRepository.save(user);
   }
 

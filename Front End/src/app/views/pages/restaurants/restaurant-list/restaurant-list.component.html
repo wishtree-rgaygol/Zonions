@@ -1,4 +1,4 @@
-<kt-portlet>
+<!-- <kt-portlet>
     <ng-container ktPortletTitle>
         <h3 class="kt-portlet__head-title">
             <h2>&nbsp;&nbsp;&nbsp;Restaurant List</h2>
@@ -61,4 +61,69 @@
         </mat-table>
         <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
     </div>
-</kt-portlet>
+</kt-portlet> -->
+
+<kt-portlet>
+    <ng-container ktPortletTitle>
+        <h3 class="kt-portlet__head-title" style="text-align: center;">
+            <h2>Restaurant List</h2>
+        </h3>
+    </ng-container>
+    <br><br>
+    <div class="search-div">
+    
+         <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="on" (keyup)="applyFilter()">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <br>
+    <div class="mat-elevation-z8">
+        <mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="restname">
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">
+                    Restaurant Name </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
+                    {{element.restname}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="openTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);"> Open
+                    Time </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
+                    {{element.openTime | conversionTime}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="closeTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">
+                    Close Time </mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
+                    {{element.closeTime | conversionTime}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="lastModified">
+                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">Last
+                    Updated</mat-header-cell>
+                <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
+                    {{element.lastModified}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef style="text-align: center;"
+                    style="font-size: 16px;color: rgb(35, 56, 75);">Actions</mat-header-cell>
+                <mat-cell *matCellDef="let element">
+
+                    <button mat-icon-button color="primary" (click)="updateRestaurant(element.restid)"
+                        matTooltip="Edit Restaurant">
+                        <mat-icon>create</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="removeRestaurant(element.restid)" type="button"
+                        matTooltip="Delete Restaurant">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
+    </div>
+</kt-portlet> 

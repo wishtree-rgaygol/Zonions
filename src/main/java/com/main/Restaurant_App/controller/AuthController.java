@@ -96,11 +96,6 @@ public class AuthController {
         .collect(Collectors.toList());
     UserEntityDto findByEmail = dtoRepository.findByEmail(loginRequest.getEmail());
     List<String> role = new ArrayList<>();
-    /*
-     * UserEntityDto user = findByEmail; for (Role r : user.getRoles()) {
-     * role.add(r.getName().name()); logger.info("Getting role......" + r.getName().name()); roles =
-     * role; }
-     */
     @SuppressWarnings("unchecked")
     List<String> usernames = (List<String>) request.getSession().getAttribute("Login_Session");
     if (usernames == null) {
@@ -182,19 +177,6 @@ public class AuthController {
     authService.save(user);
     return ResponseEntity.ok("Account verified successfully!");
   }
-
-  /*
-   * @PostMapping("/sendemail") public ResponseEntity<?> sendVerificationMail(@Valid @RequestBody
-   * EmailVerification emailRequest) throws Exception { if
-   * (authService.existsByEmail(emailRequest.getEmail())) { if
-   * (userDetailsService.isAccountVerified(emailRequest.getEmail())) { throw new
-   * Exception("Email is already verified"); } else { User user =
-   * authService.findByEmail(emailRequest.getEmail()); OTPTokenConfirm token =
-   * authService.createToken(user); emailSenderService.sendMail(user.getEmail(),
-   * token.getConfirmationToken()); return ResponseEntity .ok(new ApiResponse(true,
-   * "Verification link is sent on your mail id")); } } else { throw new
-   * Exception("Email is not associated with any account"); } }
-   */
 
   @PostMapping("/resetpassword")
   public ResponseEntity<?> resetPassword(@Valid @RequestBody LoginRequest loginRequest)

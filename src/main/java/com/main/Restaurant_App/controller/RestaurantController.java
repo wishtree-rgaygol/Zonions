@@ -1,11 +1,15 @@
 package com.main.Restaurant_App.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +32,6 @@ import com.main.Restaurant_App.repository.ImageRepository;
 import com.main.Restaurant_App.repository.RestaurantRepository;
 import com.main.Restaurant_App.service.RestaurantService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
-
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -86,6 +89,20 @@ public class RestaurantController {
     List<Restaurant> resList = rservice.getAllRestaurant();
     return ResponseEntity.of(Optional.of(resList));
   }
+
+  @GetMapping("/restaurants/pagination")
+  public Page<Restaurant> getRestaurant(@RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "size", defaultValue = "3") int size) {
+    PageRequest pageRequest = PageRequest.of(page, size);
+    Page<Restaurant> pageResult = restaurantRepo.findAll(pageRequest);
+    List<Restaurant> todos = new ArrayList<Restaurant>();
+    for (Restaurant rest : pageResult) {
+      todos.add(rest);
+    }
+    return new PageImpl<>(todos, pageRequest, pageResult.getTotalElements());
+  }
+
+
 
   @GetMapping("/restaurants/{restid}")
   @RateLimiter(name = RESTAURANT_SERVICE, fallbackMethod = "rateLimiterFallback")

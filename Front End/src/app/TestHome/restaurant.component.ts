@@ -192,6 +192,47 @@ export class RestaurantComponent implements OnInit {
 
 		}
       }
+      saveMenu(fvalue: any) {
+
+        this.restaurantData = [];
+        this.data = fvalue;
+        console.log(this.data.menu);
+        this.restService.getAllRestaurant().subscribe((data) => {
+          console.log(data);
+          this.menu = data;
+          // tslint:disable-next-line: prefer-for-of
+          for (let i = 0; i < this.menu.length; i++) {
+            if (this.menu[i].type === this.data.menu) {
+              // tslint:disable-next-line: deprecation
+              this.restService.getRestaurantById(this.menu[i].restid).subscribe((response) => {
+                this.restaurantData.push(response);
+                console.log(this.restaurantData);
+                // tslint:disable-next-line: deprecation
+                this.restService.getMenuById(this.menu[i].restid).subscribe((res) => {
+                  this.menuArray = res;
+                  const url = `http://localhost:8080/api/zonions/file`;
+              // tslint:disable-next-line: prefer-for-of
+                  for (let j = 0; j < this.menuArray.length; j++) {
+                if (this.menuArray.length) {
+                  this.url1 = `${url}/${this.menu[i].restid}/${this.menuArray[j].type}`;
+                  this.urlArray.push(this.url1);
+                }
+              }
+    
+                  this.urlArray.splice(0, 1);
+              // tslint:disable-next-line: prefer-for-of
+                  for (let k = 0; k < this.urlArray.length; k++) {
+                this.menuUrl = this.urlArray[k];
+              }
+                  console.log(this.menuUrl);
+                });
+              });
+            }
+          }
+        });
+      }
+    
+    
 
   onSearchClear() {
     this.input = '';

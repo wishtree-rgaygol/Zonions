@@ -10,6 +10,7 @@ export class RestaurantService {
   private uploadUrl = 'http://localhost:8080/api/zonions/upload';
   private bookTableUrl='http://localhost:8080/zonions/bookTable';
   private basedUrl = 'http://localhost:8080/api/zonions/restaurants';
+  private paginationUrl = 'http://localhost:8080/api/zonions/restaurants/pagination';
   private getMenu = 'http://localhost:8080/api/zonions/file';
   constructor(private http: HttpClient) { }
 
@@ -53,28 +54,16 @@ export class RestaurantService {
   bookTable(bookTable: any): Observable<any> {
     return this.http.post(this.bookTableUrl, bookTable);
   }
-  
-  /* uploadMenu(file: any, id: number, menuType: string): any {
-    const target: DataTransfer =  (file.target) as DataTransfer;
-    const fileList: FileList = target.files;
-    const filel: File = fileList[0];
-    const formdata: FormData = new FormData();
-    formdata.append('file', filel, filel.name);
-    console.log('formdata in service', formdata);
-   // formdata.append('file', file);
-    const req = new HttpRequest('PUT', ${this.urlimage}/${id}/${menuType}, formdata, {
-      reportProgress: true,
-      responseType: 'text'
-    }
-    );
-    console.log('request object in service', req);
-    return this.http.request(req);
-  } */
   getMenuById(restid: number) {
     return this.http.get(`${this.getMenu}/${restid}`);
   }
 
   getAllMenus(): Observable<any> {
     return this.http.get(`${this.getMenu}`);
+  }
+
+  AllPaginateRestaurant(request) {
+    const params = request;
+    return this.http.get(`${this.paginationUrl}`, { params });
   }
 }
