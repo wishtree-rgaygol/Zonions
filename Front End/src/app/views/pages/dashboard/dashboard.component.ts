@@ -28,6 +28,8 @@ export class DashboardComponent implements OnInit {
 	vCount: number;
 	titleName: any = TitleName;
 	restaurantName: String;
+	user = [];
+	resto = [];
 	/* barChartData: [{ data: number[]; label: string; }, { data: number[]; label: string; }]; */
 	// tslint:disable-next-line: max-line-length
 	constructor(private layoutConfigService: LayoutConfigService, private userService: UserService, private restaurantService: RestaurantService, private title: Title) {
@@ -73,6 +75,8 @@ export class DashboardComponent implements OnInit {
 		// tslint:disable-next-line: deprecation
 		this.userService.getAllUsers().subscribe(data => {
 			this.userLength = data.length;
+			this.user.push(this.userLength,1);
+			console.log(this.user);
 			console.log(this.userLength);
 		});
 	}
@@ -80,6 +84,7 @@ export class DashboardComponent implements OnInit {
 		// tslint:disable-next-line: deprecation
 		this.restaurantService.getAllRestaurant().subscribe(data => {
 			this.restaurantLength = data.length;
+			this.resto.push(this.restaurantLength);
 			console.log(this.restaurantLength);
 		});
 	}
@@ -93,10 +98,10 @@ export class DashboardComponent implements OnInit {
 	// tslint:disable-next-line: member-ordering
 	 public barChartType = 'bar';
  // tslint:disable-next-line: member-ordering
-     public barChartLegend = true; 
+     public barChartLegend = true;
 	// tslint:disable-next-line: member-ordering
 	barChartData = [
-		{ data: [2, 1], label: 'Total User' },
-		{ data: [5], label: 'Total Restaurants' },
+		{ data: this.user, label: 'Total Users' },
+		{ data: this.resto, label: 'Total Restaurants' },
 	];
 }

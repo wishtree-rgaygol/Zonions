@@ -92,8 +92,12 @@
 
 		<!--begin::Options-->
 	     <div class="kt-login__options">
-			<button (click)="show()"  class="btn btn-dark" style="margin-left: 240px" >Show Active Restaurant List</button>
+	                <button (click)="signInWithFB()" class="btn btn-dark kt-btn"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+			<button (click)="signInWithGoogle()" class="btn btn-dark kt-btn"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
 		</div> 
+		<br>
+		<br>
+		<button (click)="show()"  class="btn btn-dark" style="margin-left: 240px" >Show Active Restaurant List</button>
 		<br>
 		<br>
 		<a class="ml-auto mb-0 text-sm" href="javascript:void(0)" (click)="openForgotPassModal()">Forgot Password?</a><br>

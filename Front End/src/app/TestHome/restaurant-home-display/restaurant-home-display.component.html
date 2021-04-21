@@ -15,9 +15,7 @@
       <ng-container matColumnDef="restname">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">
           Restaurant Name </th>
-        <td mat-cell *matCellDef="let element" class='m-card-title' test data-label='Riskplan'> <a
-            [routerLink]="['/restaurant/restaurantDetail',element.restid]"
-            style="font-size: 14px;color: rgb(35, 56, 75);">{{element.restname}}</a></td>
+        <td mat-cell *matCellDef="let element" class='m-card-title' test data-label='Riskplan' style="font-size: 14px;color: rgb(35, 56, 75);">{{element.restname}}</td>
       </ng-container>
 
 
@@ -42,6 +40,15 @@
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="restaurantDetails(element.restid)" matTooltip="Restaurant Details">
+            <mat-icon>open_in_new</mat-icon>
           </button>
         </td>
       </ng-container>

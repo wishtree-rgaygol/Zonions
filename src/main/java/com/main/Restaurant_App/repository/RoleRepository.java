@@ -9,4 +9,6 @@ import com.main.Restaurant_App.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
   Role findByName(ERole name);
+
+  boolean existsByName(ERole name);
 }

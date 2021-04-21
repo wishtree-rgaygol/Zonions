@@ -46,6 +46,7 @@
     "angular-crumbs": "^3.0.1",
     "angular-datatables": "^11.1.1",
     "angular-in-memory-web-api": "^0.8.0",
+    "angularx-social-login": "^3.5.5",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.4",
     "chartist": "^0.11.4",

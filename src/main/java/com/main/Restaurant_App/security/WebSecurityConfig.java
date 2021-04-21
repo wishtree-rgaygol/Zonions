@@ -157,7 +157,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable().exceptionHandling()
         .authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-        .antMatchers("/auth/**", "/otp/**").permitAll().antMatchers("/user/**").permitAll()
+        .antMatchers("/auth/**", "/otp/**", "/oauth/**").permitAll().antMatchers("/user/**")
+        .permitAll()
         .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**",
             "/swagger-ui.html/**")
         .permitAll().antMatchers("/zonions/restaurants/**").permitAll().antMatchers("/zonions/**")

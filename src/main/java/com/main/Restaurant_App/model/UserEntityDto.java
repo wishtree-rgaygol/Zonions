@@ -51,6 +51,11 @@ public class UserEntityDto {
 
 
 
+  public UserEntityDto(@NotBlank @Size(max = 50) @Email String email) {
+    super();
+    this.email = email;
+  }
+
   public UserEntityDto(@NotBlank @Size(max = 20) String username,
       @NotBlank @Size(max = 50) @Email String email) {
     super();

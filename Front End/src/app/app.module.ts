@@ -69,6 +69,7 @@ import { IgxAvatarModule, IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRi
 import { FormsModule } from '@angular/forms';
 import { DialogBoxComponent } from './TestHome/dialog-box/dialog-box.component';
 import { RestaurantModule } from './TestHome/restaurant.module';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -192,7 +193,8 @@ export function hljsLanguages(): HighlightLanguage[] {
 		IgxToggleModule,
 		IgxIconModule,
 		IgxSnackbarModule,
-		LoggerModule.forRoot(environment.logging)
+		LoggerModule.forRoot(environment.logging),
+		SocialLoginModule
 	],
 	exports: [],
 	providers: [
@@ -224,6 +226,24 @@ export function hljsLanguages(): HighlightLanguage[] {
 			provide: HIGHLIGHT_OPTIONS,
 			useValue: { languages: hljsLanguages }
 		},
+		{
+			provide: 'SocialAuthServiceConfig',
+			useValue: {
+			  autoLogin: false,
+			  providers: [
+				{
+				  id: GoogleLoginProvider.PROVIDER_ID,
+				  provider: new GoogleLoginProvider(
+					'666046744499-kkcjra59rjf686hkbsaprl6o9q6015m7.apps.googleusercontent.com'
+				  ),
+				},
+				{
+				  id: FacebookLoginProvider.PROVIDER_ID,
+				  provider: new FacebookLoginProvider('197846638781793'),
+				},
+			  ],
+			} as SocialAuthServiceConfig,
+		  },
 		// template services
 		SubheaderService,
 		MenuHorizontalService,

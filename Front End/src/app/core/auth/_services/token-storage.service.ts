@@ -32,7 +32,10 @@ export class TokenStorageService {
     if (user) {
       return JSON.parse(user);
     }
-
     return {};
+  }
+  public setToken(token: string): void {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.setItem(TOKEN_KEY, token);
   }
 }

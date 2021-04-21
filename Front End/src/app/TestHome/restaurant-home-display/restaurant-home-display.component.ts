@@ -15,13 +15,14 @@ import { Restaurant } from '/home/rgaygol/Documents/Zonions Project/Git hub Clon
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/services/restaurant.service';
 import TitleName from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/models/TitleName';
 import { Menu } from '../models/menu';
+import { RestaurantDetailsComponent } from '../restaurant-details/restaurant-details.component';
 @Component({
   selector: 'kt-restaurant-home-display',
   templateUrl: './restaurant-home-display.component.html',
   styleUrls: ['./restaurant-home-display.component.scss']
 })
 export class RestaurantHomeDisplayComponent implements OnInit {
-  displayedColumns: string[] = ['restname', 'restaddress', 'lastModified', 'star'];
+  displayedColumns: string[] = ['restname', 'restaddress', 'lastModified', 'star', 'details' ];
   
   dataSource: MatTableDataSource<Restaurant>;
   restaurants = new Array<Restaurant>();
@@ -37,7 +38,7 @@ export class RestaurantHomeDisplayComponent implements OnInit {
   restaurantId: number;
   searchValue: any;
   menuForm: FormGroup;
-  restaurantTypeAll:any;
+  restaurantTypeAll: any;
   data: any;
   menu: Menu[];
   url1: string;
@@ -52,7 +53,7 @@ export class RestaurantHomeDisplayComponent implements OnInit {
   constructor(private restaurantService: RestaurantService, private router: Router,
               private formBuilder: FormBuilder,
     // tslint:disable-next-line: align
-    private title: Title, private logger: NGXLogger,public dialog: MatDialog,private http: HttpClient) {}
+    private title: Title, private logger: NGXLogger, public dialog: MatDialog, private http: HttpClient) {}
 
 
   ngOnInit() {
