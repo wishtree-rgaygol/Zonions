@@ -35,7 +35,7 @@ export class RestaurantDataSource implements DataSource<Restaurant> {
         this.countSubject.complete();
     }
 
-    loadTodos(pageNumber = 0, pageSize = 10): any {
+    loadTodos(pageNumber = 1, pageSize = 5): any {
         this.loadingSubject.next(true);
         this.restaurantService.AllPaginateRestaurant({ page: pageNumber, size: pageSize })
             .pipe(
@@ -48,7 +48,7 @@ export class RestaurantDataSource implements DataSource<Restaurant> {
                 this.countSubject.next(result.totalElements);
                 this.restoList = this.todoSubject.value;
                 // this.listData = this.restoList;
-                console.log(this.restoList[0].id);
+                //console.log(this.restoList[0].id);
 
             }
             );

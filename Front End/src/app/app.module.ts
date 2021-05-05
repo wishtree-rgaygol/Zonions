@@ -67,7 +67,7 @@ import { ThemeService } from 'ng2-charts';
 import { RestaurantHomeDisplayComponent } from './TestHome/restaurant-home-display/restaurant-home-display.component';
 import { IgxAvatarModule, IgxButtonModule, IgxDialogModule, IgxIconModule, IgxRippleModule, IgxSnackbarModule, IgxToggleModule } from 'igniteui-angular';
 import { FormsModule } from '@angular/forms';
-import { DialogBoxComponent } from './TestHome/dialog-box/dialog-box.component';
+
 import { RestaurantModule } from './TestHome/restaurant.module';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 
@@ -98,7 +98,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 }
 
 @NgModule({
-	declarations: [AppComponent, DialogBoxComponent],
+	declarations: [AppComponent],
 	imports: [
 		RestaurantModule,
 		BrowserAnimationsModule,

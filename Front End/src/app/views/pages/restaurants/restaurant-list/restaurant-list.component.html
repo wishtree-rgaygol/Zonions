@@ -1,4 +1,4 @@
-<!-- <kt-portlet>
+ <kt-portlet>
     <ng-container ktPortletTitle>
         <h3 class="kt-portlet__head-title">
             <h2>&nbsp;&nbsp;&nbsp;Restaurant List</h2>
@@ -61,9 +61,9 @@
         </mat-table>
         <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
     </div>
-</kt-portlet> -->
+</kt-portlet> 
 
-<kt-portlet>
+<!-- <kt-portlet>
     <ng-container ktPortletTitle>
         <h3 class="kt-portlet__head-title" style="text-align: center;">
             <h2>Restaurant List</h2>
@@ -89,19 +89,19 @@
                     {{element.restname}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="openTime">
-                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);"> Open
+                <mat-header-cell *matHeaderCellDef  style="font-size: 16px;color: rgb(35, 56, 75);"> Open
                     Time </mat-header-cell>
                 <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
                     {{element.openTime | conversionTime}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="closeTime">
-                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">
+                <mat-header-cell *matHeaderCellDef  style="font-size: 16px;color: rgb(35, 56, 75);">
                     Close Time </mat-header-cell>
                 <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
                     {{element.closeTime | conversionTime}} </mat-cell>
             </ng-container>
             <ng-container matColumnDef="lastModified">
-                <mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px;color: rgb(35, 56, 75);">Last
+                <mat-header-cell *matHeaderCellDef  style="font-size: 16px;color: rgb(35, 56, 75);">Last
                     Updated</mat-header-cell>
                 <mat-cell *matCellDef="let element" style="font:bolder;font-size: 14px;color: rgb(35, 56, 75);">
                     {{element.lastModified}} </mat-cell>
@@ -126,4 +126,4 @@
         </mat-table>
         <mat-paginator [pageSizeOptions]="[3,6,9]" [pageSize]="3" showFirstLastButtons></mat-paginator>
     </div>
-</kt-portlet> 
+</kt-portlet>  -->

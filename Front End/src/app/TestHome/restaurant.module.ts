@@ -66,7 +66,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FetchMoreComponent } from './fetch-more/fetch-more.component';
 import { FoodMaterialComponent } from './food-material/food-material.component';
 import { HomepageComponent } from './homepage/homepage.component';
-
+import { DialogBoxComponent } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/dialog-box/dialog-box.component';
 
 
 const routes: Routes = [
@@ -219,7 +219,8 @@ const routes: Routes = [
 		AddFeedbackComponent,
 		FetchMoreComponent,
 		FoodMaterialComponent,
-		HomepageComponent
+		HomepageComponent,
+		DialogBoxComponent
 	],
 	providers: [{ provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
 	],

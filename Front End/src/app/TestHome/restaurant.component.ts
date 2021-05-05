@@ -1,6 +1,7 @@
 import { useAnimation } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild ,EventEmitter,
+  Output} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ import { Restaurant } from './models/restaurant';
 import TitleName from './models/TitleName';
 import { RestaurantDetailsComponent } from './restaurant-details/restaurant-details.component';
 import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/services/restaurant.service';
+import { PushNotificationService } from '/home/rgaygol/Documents/Zonions Project/Git hub Clone folder/Zonions/Zonions/Front End/src/app/TestHome/services/pushNotification.service';
 @Component({
   selector: 'kt-restaurant',
   templateUrl: './restaurant.component.html',
@@ -28,6 +30,7 @@ import { RestaurantService } from '/home/rgaygol/Documents/Zonions Project/Git h
 })
 export class RestaurantComponent implements OnInit {
  /*  restaurantService: any; */
+ private titles: string = 'Browser Push Notifications!';
   url1: string;
   urlArray = [''];
   menuUrl: any;
@@ -35,7 +38,7 @@ export class RestaurantComponent implements OnInit {
   menu: Menu[];
   data: any;
   // tslint:disable-next-line: max-line-length
-  constructor(private modalService: NgbModal , private logger: NGXLogger, private title: Title, private formBuilder: FormBuilder, private restService: RestaurantService, private router: Router, private translate: TranslateService, private http: HttpClient) { }
+  constructor(private _notificationService: PushNotificationService,private modalService: NgbModal , private logger: NGXLogger, private title: Title, private formBuilder: FormBuilder, private restService: RestaurantService, private router: Router, private translate: TranslateService, private http: HttpClient) { this._notificationService.requestPermission();}
   api = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
   titleName: any = TitleName;
   userInfo: any;
@@ -197,11 +200,14 @@ export class RestaurantComponent implements OnInit {
         this.restaurantData = [];
         this.data = fvalue;
         console.log(this.data.menu);
-        this.restService.getAllRestaurant().subscribe((data) => {
+        this.restService.getAllMenus().subscribe((data) => {
           console.log(data);
           this.menu = data;
+          console.log(this.menu);
           // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < this.menu.length; i++) {
+          console.log(this.menu[i].type);
+            // tslint:disable-next-line: align
             if (this.menu[i].type === this.data.menu) {
               // tslint:disable-next-line: deprecation
               this.restService.getRestaurantById(this.menu[i].restid).subscribe((response) => {
@@ -241,5 +247,31 @@ export class RestaurantComponent implements OnInit {
   restaurantDetails(restid: number) {
     this.logger.info('In Restaurant Get By Id Method');
     this.router.navigate(['restaurant', 'restaurantDetail', restid]);
+  }
+  
+  notify() {
+      let data: Array < any >= [];
+      data.push({
+          'title': 'Successfully Subscribe',
+          'alertContent': 'we will send our updated content on your mail.'
+      });
+      data.push({
+          'title': 'Message',
+          'alertContent': 'Alert- Please verify your mail'
+      });
+      data.push({
+          'title': 'Request',
+          'alertContent': 'Share our content to your friends'
+      });
+      data.push({
+          'title': 'Thanks',
+          'alertContent': 'Thanks to visit us..Visit again..!'
+      });
+      /*data.push({
+          'title': 'To Do Task',
+          'alertContent': 'This is Fifth Alert'
+      });*/
+
+      this._notificationService.generateNotification(data);
   }
 }

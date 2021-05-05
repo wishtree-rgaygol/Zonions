@@ -19,7 +19,7 @@ import { tap } from 'rxjs/operators';
 })
 export class RestaurantListComponent implements OnInit {
 
-  /* displayedColumns: string[] = ['restname', 'openTime', 'closeTime', 'lastModified', 'actions'];
+  displayedColumns: string[] = ['restname', 'openTime', 'closeTime', 'lastModified', 'actions'];
   dataSource: MatTableDataSource<Restaurant>;
   searchKey: string;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -55,8 +55,8 @@ export class RestaurantListComponent implements OnInit {
         }
       }
     );
-  } */
-  constructor(
+  } 
+  /* constructor(
     private restService: RestaurantService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -86,11 +86,12 @@ export class RestaurantListComponent implements OnInit {
   restaurantName = '';
   page = 1;
   count = 0;
-  pageSize = 3;
+  pageSize = 5;
   pageSizes = [3, 6, 9];
    listData: MatTableDataSource<RestaurantDataSource>;
   // listData1: MatTableDataSource<Restaurant>;
 ngOnInit(): void {
+  // tslint:disable-next-line: prefer-for-of
   for (let i = 0; i < this.titleName.length; i++) {
     console.log(this.titleName[i].name);
     this.title.setTitle(this.titleName[i].name + '|Restaurants List');
@@ -123,7 +124,7 @@ ngOnInit(): void {
 
     loadTodos() {
     this.dataSource.loadTodos(this.paginator.pageIndex, this.paginator.pageSize);
-  }
+  } */
   
   removeRestaurant(restid: number){
 		Swal.fire({
@@ -158,7 +159,7 @@ ngOnInit(): void {
 	  }
 	  refreshRestaurants() { 
 		this.logger.info('In Restaurant List Method');             /* <---Method to Diplay all the Restaurants list again to admin */
-		this.rest = this.restService.getAllRestaurant();
+		this.restaurant = this.restService.getAllRestaurant();
 		
 	  }
 	  updateRestaurant(restid: number) {                     /* <---Method call from Display List Form to Update Restaurant */
@@ -170,8 +171,6 @@ ngOnInit(): void {
     }
   
     applyFilter() {
-      /* this.dataSource.filter = this.searchKey.trim().toLowerCase(); */
-      this.dataSource.filterData(this.searchKey);
-
+     this.dataSource.filter = this.searchKey.trim().toLowerCase();
     }
 }

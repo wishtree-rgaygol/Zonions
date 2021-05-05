@@ -1,4 +1,4 @@
-
+<!-- <kt-dialog-box></kt-dialog-box> -->
  <!--<kt-homepage></kt-homepage>-->
   <!DOCTYPE html>
 <html>
@@ -107,7 +107,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       <h2 class="w3-wide">SUBSCRIBE</h2>
       <p>Please provide your mail to Join our mailing to receive updates on the latest blog posts and other things.</p>
       <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
-      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('subscribe').style.display='none'">Subscribe</button>
+      <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" (click)="notify()">Subscribe</button>
     </div>
   </div>
 </div>
@@ -130,7 +130,40 @@ function likeFunction(x) {
 }
 </script>
 <kt-food-material></kt-food-material>
-<router-outlet></router-outlet> 
+<router-outlet></router-outlet>
+<!--<form [formGroup]="menuForm" (ngSubmit)="saveMenu(menuForm.value)">
+   <h3>Select Menu Type</h3>
+   <br>
+  <mat-select formControlName="menu" placeholder="Select" >
+  <mat-option>
+          <b>-- Select Restaurant Type --</b>
+        </mat-option>
+  <mat-option  value="chinese">Chinese</mat-option>
+  <mat-option  value="continental">Continential</mat-option>
+  <mat-option  value="italian">Italian</mat-option>
+</mat-select>
+<br>
+<br>
+<button class="btn btn-dark">Get Restaurant</button>
+
+</form> -->
+
+<br>
+<br>
+  <!-- <div class="content">
+    <mat-card class="mat-elevation-z4" *ngFor="let r of restaurantData">
+      <mat-card-header style="margin-left: 60px;">
+        <mat-card-title>{{r.restname}}</mat-card-title>
+      </mat-card-header>
+      <div>
+        <img mat-card-image [src]="menuUrl">
+      </div>
+  
+      <mat-card-actions style="margin-left: 30px;">
+        <button mat-button (click)="restaurantDetails(r.restid)">Restaurant Details</button>
+      </mat-card-actions>
+    </mat-card>
+  </div> --> 
 <footer class="w3-container w3-dark-grey" style="padding:32px">
   <a href="#" class="w3-button w3-black w3-padding-large w3-margin-bottom"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-container w3-xlarge w3-padding">
@@ -156,34 +189,7 @@ function likeFunction(x) {
 </body>
 </html>
   
-<form [formGroup]="menuForm" (ngSubmit)="saveMenu(menuForm.value)">
-  
-  <mat-select formControlName="menu" placeholder="Select" >
-  <mat-option>-- Select --</mat-option>
-  <mat-option  value="chinese">Chinese</mat-option>
-  <mat-option  value="continental">Continential</mat-option>
-  <mat-option  value="italian">Italian</mat-option>
-</mat-select>
-<button class="btn">Get Restaurant</button>
 
-</form>
-
-<br>
-<br>
-  <div class="content">
-    <mat-card class="mat-elevation-z4" *ngFor="let r of restaurantData">
-      <mat-card-header style="margin-left: 60px;">
-        <mat-card-title>{{r.restname}}</mat-card-title>
-      </mat-card-header>
-      <div>
-        <img mat-card-image [src]="menuUrl">
-      </div>
-  
-      <mat-card-actions style="margin-left: 30px;">
-        <button mat-button (click)="restaurantDetails(r.restid)">Restaurant Details</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
 
 <!-- <router-outlet></router-outlet> -->
   
